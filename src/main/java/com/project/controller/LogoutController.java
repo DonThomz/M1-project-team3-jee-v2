@@ -21,11 +21,13 @@ public class LogoutController extends HttpServlet {
         }
     }
 
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         removeSessionUser(request);
         response.sendRedirect(this.getServletContext().getContextPath() + PATH_LOGIN);
     }
 
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         removeSessionUser(request);
         response.sendRedirect(this.getServletContext().getContextPath() + PATH_LOGIN);

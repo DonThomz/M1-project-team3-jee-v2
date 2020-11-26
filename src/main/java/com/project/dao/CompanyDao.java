@@ -51,9 +51,7 @@ public class CompanyDao implements DaoResource<Company> {
     @Override
     public void updateAll(List<Company> objects) {
         entityManager.getTransaction().begin();
-        objects.forEach(object -> {
-            entityManager.merge(object);
-        });
+        objects.forEach(entityManager::merge);
         entityManager.getTransaction().commit();
     }
 

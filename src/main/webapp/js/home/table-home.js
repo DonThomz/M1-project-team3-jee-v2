@@ -29,9 +29,11 @@ $(() => {
 });
 
 function handleRow() {
+    let detailBtn = $('#detail-btn');
+    detailBtn.addClass('disabled');
     $(document).on('click', 'input[type=radio]', (e) => {
+        detailBtn.removeClass('disabled');
         let id = $(e.target).data('internshipId');
-        let detailBtn = $('#detail-btn');
         let url = detailBtn.attr('href').split('?id=')[0];
         detailBtn.attr('href', `${url}?id=${id}`);
         $("#detail-btn").prop('disabled', false);

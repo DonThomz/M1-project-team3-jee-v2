@@ -50,9 +50,7 @@ public class StudentDao implements DaoResource<Student> {
     @Override
     public void updateAll(List<Student> objects) {
         entityManager.getTransaction().begin();
-        objects.forEach(object -> {
-            entityManager.merge(object);
-        });
+        objects.forEach(entityManager::merge);
         entityManager.getTransaction().commit();
     }
 

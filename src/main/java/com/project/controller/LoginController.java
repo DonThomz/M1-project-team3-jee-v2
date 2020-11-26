@@ -21,7 +21,7 @@ import static com.project.util.constants.View.VIEW_LOGIN;
 @WebServlet(name = "LoginController", urlPatterns = {"/login"})
 public class LoginController extends HttpServlet {
 
-
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, java.io.IOException {
 
         // handle forms responses
@@ -56,6 +56,7 @@ public class LoginController extends HttpServlet {
 
     }
 
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, java.io.IOException {
         request.getRequestDispatcher(VIEW_LOGIN).forward(request, response);
     }

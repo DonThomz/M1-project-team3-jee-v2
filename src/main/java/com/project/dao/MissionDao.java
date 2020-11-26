@@ -50,9 +50,7 @@ public class MissionDao implements DaoResource<Mission> {
     @Override
     public void updateAll(List<Mission> objects) {
         entityManager.getTransaction().begin();
-        objects.forEach(object -> {
-            entityManager.merge(object);
-        });
+        objects.forEach(entityManager::merge);
         entityManager.getTransaction().commit();
     }
 }

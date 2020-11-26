@@ -3,6 +3,7 @@ package com.project.services;
 import com.project.dao.SkillDao;
 import com.project.models.Skill;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public class SkillService implements EntityService<Skill> {
@@ -39,7 +40,7 @@ public class SkillService implements EntityService<Skill> {
     }
 
     @Override
-    public void updateAll(List<Skill> objects) {
+    public void updateAll(List<Skill> objects) throws SQLException {
         dao.updateAll(objects);
     }
 }

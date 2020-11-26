@@ -51,9 +51,7 @@ public class SupervisorDao implements DaoResource<Supervisor> {
     @Override
     public void updateAll(List<Supervisor> objects) {
         entityManager.getTransaction().begin();
-        objects.forEach(object -> {
-            entityManager.merge(object);
-        });
+        objects.forEach(entityManager::merge);
         entityManager.getTransaction().commit();
     }
 }

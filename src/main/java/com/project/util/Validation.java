@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.regex.Pattern;
 
+import static com.project.util.constants.Attribute.*;
 import static java.lang.Integer.parseInt;
 
 /**
@@ -13,35 +14,41 @@ import static java.lang.Integer.parseInt;
 public class Validation {
 
     // Constraints
-    private static final String regexEmail = "^(.+)@(.+)$";
+    private static final String REGEX_EMAIL = "^(.+)@(.+)$";
+
+
+    private Validation() {
+        throw new IllegalStateException("Utility Class");
+    }
     private static final int MIN_CHARACTERS_FIELD = 3;
 
-    public static void validationTextField(String field, String fieldName) throws Exception {
-        if (field == null || field.trim().isEmpty()) throw new Exception(fieldName + " must not be empty");
+    public static void validationTextField(String field, String fieldName) throws IllegalArgumentException {
+        if (field == null || field.trim().isEmpty())
+            throw new IllegalArgumentException(String.format(MESSAGE_EMPTY_FIELD, fieldName));
     }
 
-    public static int validationNumberField(String field, String fieldName) throws Exception {
+    public static int validationNumberField(String field, String fieldName) throws NumberFormatException {
         if (field != null && !field.trim().isEmpty()) {
             try {
                 int parseField = parseInt(field);
-                if (parseField < 0) throw new Exception(fieldName + " must be a positive number");
+                if (parseField < 0) throw new NumberFormatException(String.format(MESSAGE_POSITIVE_NUMBER, fieldName));
                 else return parseField;
             } catch (NumberFormatException e) {
-                throw new Exception("Invalid number");
+                throw new NumberFormatException(String.format(MESSAGE_INVALID_FIELD, fieldName));
             }
-        } else throw new NumberFormatException(fieldName + " is empty");
+        } else throw new NumberFormatException(String.format(MESSAGE_EMPTY_FIELD, fieldName));
     }
 
     public static Float validationFloatField(String field, String fieldName) throws NumberFormatException, NullPointerException {
         if (field != null && !field.trim().isEmpty()) {
             try {
                 float parseField = Float.parseFloat(field);
-                if (parseField < 0) throw new NumberFormatException(fieldName + " is not a positive number");
+                if (parseField < 0) throw new NumberFormatException(String.format(MESSAGE_POSITIVE_NUMBER, fieldName));
                 else return parseField;
             } catch (NumberFormatException e) {
-                throw new NumberFormatException("invalid number");
+                throw new NumberFormatException(String.format(MESSAGE_INVALID_FIELD, fieldName));
             }
-        } else throw new NullPointerException(fieldName + " is empty");
+        } else throw new NullPointerException(String.format(MESSAGE_EMPTY_FIELD, fieldName));
     }
 
     public static Timestamp validationTimestamp(String timestamp, String fieldName) throws IllegalArgumentException, NullPointerException {
@@ -49,13 +56,14 @@ public class Validation {
             try {
                 return Timestamp.valueOf(timestamp.replace("T", " ") + ":00");
             } catch (IllegalArgumentException e) {
-                throw new IllegalArgumentException("The field " + fieldName + " is note correct");
+                throw new IllegalArgumentException(String.format(MESSAGE_INVALID_FIELD, fieldName));
             }
-        } else throw new NullPointerException("The field " + fieldName + " is empty");
+        } else throw new NullPointerException(String.format(MESSAGE_EMPTY_FIELD, fieldName));
     }
 
     public static void validationDate(String date, String dateName) throws NullPointerException {
-        if (date == null || date.trim().isEmpty()) throw new NullPointerException(dateName + " is empty");
+        if (date == null || date.trim().isEmpty())
+            throw new NullPointerException(String.format(MESSAGE_EMPTY_FIELD, dateName));
     }
 
     /**
@@ -68,11 +76,20 @@ public class Validation {
      */
     public static void validationDates(Date startDate, Date endDate) throws IllegalArgumentException, NullPointerException {
         if (startDate != null && endDate != null) {
-            if (!startDate.before(endDate)) throw new IllegalArgumentException("start date must be before end Date");
+            if (!startDate.before(endDate)) throw new IllegalArgumentException(MESSAGE_GAP_DATES_ERROR);
         }
     }
 
-    public static void validationKeywords(String keywords) throws Exception {
+    public static void validationMidInternship(Date startDate, Date endDate, Timestamp midInternship) {
+        validationDates(startDate, endDate);
+        Date midInternshipDate = new Date(midInternship.getTime());
+        if (midInternshipDate.before(startDate) || midInternshipDate.after(endDate))
+            throw new IllegalArgumentException(MESSAGE_INVALID_MID_DATE);
+    }
+
+    public static void validationKeywords(String keywords, String fieldName) throws IllegalArgumentException {
+        if (keywords == null || keywords.trim().isEmpty())
+            throw new IllegalArgumentException(String.format(MESSAGE_EMPTY_FIELD, fieldName));
     }
 
     /**
@@ -81,10 +98,10 @@ public class Validation {
      * @param email from input form
      * @throws Exception throw an exception if the email is incorrect
      */
-    public static void validationEmail(String email) throws Exception {
+    public static void validationEmail(String email) throws IllegalArgumentException {
         if (email != null && !email.trim().isEmpty()) {
-            if (!Pattern.matches(regexEmail, email)) throw new Exception("email invalid, please enter a correct email");
-        } else throw new Exception("email empty, please try again");
+            if (!Pattern.matches(REGEX_EMAIL, email)) throw new IllegalArgumentException(MESSAGE_INVALID_EMAIL);
+        } else throw new IllegalArgumentException(MESSAGE_EMPTY_EMAIL);
     }
 
     /**
@@ -93,11 +110,11 @@ public class Validation {
      * @param password from input form
      * @throws Exception throw an exception if the password is incorrect
      */
-    public static void validationPassword(String password) throws Exception {
+    public static void validationPassword(String password) throws IllegalArgumentException {
         if (password != null && !password.trim().isEmpty()) {
             if (password.trim().length() < MIN_CHARACTERS_FIELD)
-                throw new Exception("password must be granter than " + MIN_CHARACTERS_FIELD + " characters");
-        } else throw new Exception("password empty, please enter a password");
+                throw new IllegalArgumentException(String.format(MESSAGE_INVALID_PASSWORD, MIN_CHARACTERS_FIELD));
+        } else throw new IllegalArgumentException(MESSAGE_EMPTY_PASSWORD);
     }
 
 }

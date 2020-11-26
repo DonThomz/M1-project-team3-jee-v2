@@ -8,7 +8,7 @@ import java.util.List;
 
 public class TutorDao implements DaoResource<Tutor> {
 
-    private EntityManager entityManager;
+    private final EntityManager entityManager;
 
     public TutorDao(Database database) {
         this.entityManager = database.getConnection();
@@ -19,7 +19,7 @@ public class TutorDao implements DaoResource<Tutor> {
         try {
             return entityManager.createQuery("SELECT c FROM Tutor c", Tutor.class).getResultList();
         } catch (Exception e) {
-            System.err.println(String.format("[%s] Find all : %s", this.getClass().getName(), e.getMessage()));
+            System.err.printf("[%s] Find all : %s%n", this.getClass().getName(), e.getMessage());
         } finally {
             entityManager.close();
         }
@@ -31,7 +31,7 @@ public class TutorDao implements DaoResource<Tutor> {
         try {
             return entityManager.createQuery("select c from Tutor c where c.tutorId = :id", Tutor.class).setParameter("id", id).getSingleResult();
         } catch (Exception e) {
-            System.err.println(String.format("[%s] Find by Id : %s", this.getClass().getName(), e.getMessage()));
+            System.err.printf("[%s] Find by Id : %s%n", this.getClass().getName(), e.getMessage());
         } finally {
             entityManager.close();
         }
@@ -45,7 +45,7 @@ public class TutorDao implements DaoResource<Tutor> {
             entityManager.persist(object);
             entityManager.getTransaction().commit();
         } catch (Exception e) {
-            System.err.println(String.format("[%s] Save : %s", this.getClass().getName(), e.getMessage()));
+            System.err.printf("[%s] Save : %s%n", this.getClass().getName(), e.getMessage());
         } finally {
             entityManager.close();
         }
@@ -60,7 +60,7 @@ public class TutorDao implements DaoResource<Tutor> {
             }
             entityManager.getTransaction().commit();
         } catch (Exception e) {
-            System.err.println(String.format("[%s] Save all : %s", this.getClass().getName(), e.getMessage()));
+            System.err.printf("[%s] Save all : %s%n", this.getClass().getName(), e.getMessage());
         } finally {
             entityManager.close();
         }
@@ -84,12 +84,10 @@ public class TutorDao implements DaoResource<Tutor> {
     public void updateAll(List<Tutor> objects) {
         try {
             entityManager.getTransaction().begin();
-            objects.forEach(object -> {
-                entityManager.merge(object);
-            });
+            objects.forEach(entityManager::merge);
             entityManager.getTransaction().commit();
         } catch (Exception e) {
-            System.err.println("[Tutor] Update all : " + e.getMessage());
+            System.err.printf("[Tutor] Update all : %s", e.getMessage());
         } finally {
             entityManager.close();
         }
@@ -100,7 +98,7 @@ public class TutorDao implements DaoResource<Tutor> {
         try {
             return entityManager.createQuery("SELECT t FROM Tutor t WHERE t.email = :email", Tutor.class).setParameter("email", email).getSingleResult();
         } catch (Exception e) {
-            System.err.println(String.format("[%s] Find By Email : %s", this.getClass().getName(), e.getMessage()));
+            System.err.printf("[%s] Find By Email : %s%n", this.getClass().getName(), e.getMessage());
         } finally {
             entityManager.close();
         }

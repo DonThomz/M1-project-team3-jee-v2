@@ -28,7 +28,7 @@ public class AuthenticationService {
         Tutor tutor = tutorService.findByEmail(email);
         if (tutor != null) {
             hashedPassword = getHashedPassword(password, salt);
-            if (hashedPassword.equals(tutor.getPassword())) {
+            if (hashedPassword != null && hashedPassword.equals(tutor.getPassword())) {
                 return tutor;
             }
         }

@@ -2,6 +2,10 @@ package com.project.util.constants;
 
 public class Field {
 
+    private Field() {
+        throw new IllegalStateException("Utility class");
+    }
+
     // STUDENT FIELDS
     public static final String FIELD_STUDENT_FIRSTNAME = "studentFirstname";
     public static final String FIELD_STUDENT_LASTNAME = "studentLastname";

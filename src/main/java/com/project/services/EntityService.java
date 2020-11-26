@@ -37,6 +37,6 @@ public interface EntityService<X> {
 
     void update(X object);
 
-    void updateAll(List<X> objects);
+    void updateAll(List<X> objects) throws SQLException;
 
 }

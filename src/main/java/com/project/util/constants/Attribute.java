@@ -2,6 +2,8 @@ package com.project.util.constants;
 
 public class Attribute {
 
+    public static final String MESSAGE_EMPTY_FIELD = "%s is empty";
+
     // ATTRIBUTES INTERNSHIP
     public static final String ATTR_INTERNSHIP = "internship";
     public static final String ATTR_INTERNSHIPS = "internships";
@@ -40,5 +42,16 @@ public class Attribute {
 
     public static final String MESSAGE_SERVER_ERROR = "Error server, please try again !";
     public static final String MESSAGE_UPDATE_SUCCESS = "Modification updated !";
+    public static final String MESSAGE_INVALID_FIELD = "Invalid field : %s ";
+    public static final String MESSAGE_GAP_DATES_ERROR = "'Start Date' must be before 'End Date'";
+    public static final String MESSAGE_INVALID_EMAIL = "email invalid, please enter a correct email";
+    public static final String MESSAGE_EMPTY_EMAIL = "email empty, please try again";
+    public static final String MESSAGE_EMPTY_PASSWORD = "password empty, please enter a password";
+    public static final String MESSAGE_INVALID_PASSWORD = "password must be granter than %d characters";
+    public static final String MESSAGE_POSITIVE_NUMBER = "%s must be a positive number";
+    public static final String MESSAGE_INVALID_MID_DATE = "mid internship date should be between internship dates";
+    private Attribute() {
+        throw new IllegalStateException("Utility class");
+    }
 
 }

@@ -20,6 +20,7 @@ import static com.project.util.constants.View.VIEW_INTERNSHIP;
 @WebServlet(name = "InternshipController", urlPatterns = {"/internship"})
 public class InternshipController extends HttpServlet {
 
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, java.io.IOException {
 
         Tutor user = (Tutor) request.getSession().getAttribute(SESSION_USER);
@@ -56,6 +57,7 @@ public class InternshipController extends HttpServlet {
         }
     }
 
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, java.io.IOException {
         request.getRequestDispatcher(VIEW_INTERNSHIP).forward(request, response);
     }

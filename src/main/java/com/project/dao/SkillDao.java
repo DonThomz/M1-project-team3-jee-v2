@@ -4,7 +4,6 @@ import com.project.database.Database;
 import com.project.models.Skill;
 
 import javax.persistence.EntityManager;
-import java.sql.SQLException;
 import java.util.List;
 
 public class SkillDao implements DaoResource<Skill> {
@@ -51,9 +50,7 @@ public class SkillDao implements DaoResource<Skill> {
     @Override
     public void updateAll(List<Skill> objects) {
         entityManager.getTransaction().begin();
-        objects.forEach(object -> {
-            entityManager.merge(object);
-        });
+        objects.forEach(entityManager::merge);
         entityManager.getTransaction().commit();
     }
 }

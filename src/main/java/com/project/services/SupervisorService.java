@@ -3,6 +3,7 @@ package com.project.services;
 import com.project.dao.SupervisorDao;
 import com.project.models.Supervisor;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public class SupervisorService implements EntityService<Supervisor> {
@@ -40,7 +41,7 @@ public class SupervisorService implements EntityService<Supervisor> {
     }
 
     @Override
-    public void updateAll(List<Supervisor> objects) {
+    public void updateAll(List<Supervisor> objects) throws SQLException {
         dao.updateAll(objects);
     }
 

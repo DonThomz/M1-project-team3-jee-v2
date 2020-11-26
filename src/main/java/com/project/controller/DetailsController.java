@@ -26,8 +26,8 @@ public class DetailsController extends HttpServlet {
 
     private DetailService detailService;
 
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response, int id) throws ServletException, IOException {
-        if (id != -1) {
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response, Integer id) throws ServletException, IOException {
+        if (id != null) {
             try {
                 // get parameter
                 this.findInternshipData(request, id);
@@ -44,9 +44,15 @@ public class DetailsController extends HttpServlet {
         } else response.sendRedirect(this.getServletContext().getContextPath() + PATH_HOME);
     }
 
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int id = request.getParameter("id") != null ? Integer.parseInt(request.getParameter("id")) : -1;
-        if (id != -1) {
+        Integer id = null;
+        try {
+            id = request.getParameter("id") != null ? Integer.parseInt(request.getParameter("id")) : null;
+        } catch (NumberFormatException ignored) {
+            // TODO log here
+        }
+        if (id != null) {
             // update data
             // enable entities services
             DerbyDatabase database = DerbyDatabase.getInstance(request);
@@ -61,8 +67,14 @@ public class DetailsController extends HttpServlet {
         } else response.sendRedirect(this.getServletContext().getContextPath() + PATH_HOME);
     }
 
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int id = request.getParameter("id") != null ? Integer.parseInt(request.getParameter("id")) : -1;
+        Integer id = null;
+        try {
+            id = request.getParameter("id") != null ? Integer.parseInt(request.getParameter("id")) : null;
+        } catch (NumberFormatException ignored) {
+            // TODO log here
+        }
         // check if user is logged and internship is accessible by the user
         processRequest(request, response, id);
     }

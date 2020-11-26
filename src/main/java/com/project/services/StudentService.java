@@ -3,6 +3,7 @@ package com.project.services;
 import com.project.dao.StudentDao;
 import com.project.models.Student;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public class StudentService implements EntityService<Student> {
@@ -39,7 +40,7 @@ public class StudentService implements EntityService<Student> {
     }
 
     @Override
-    public void updateAll(List<Student> objects) {
+    public void updateAll(List<Student> objects) throws SQLException {
         dao.updateAll(objects);
     }
 

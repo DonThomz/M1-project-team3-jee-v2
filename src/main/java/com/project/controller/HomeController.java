@@ -31,6 +31,7 @@ public class HomeController extends HttpServlet {
     private Tutor user;
     private List<Internship> internships;
 
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         boolean ajax = "XMLHttpRequest".equals(request.getHeader("X-Requested-With"));
@@ -49,6 +50,7 @@ public class HomeController extends HttpServlet {
         } else request.getRequestDispatcher(VIEW_HOME).forward(request, response);
     }
 
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         // get user logged
@@ -103,7 +105,7 @@ public class HomeController extends HttpServlet {
         } else request.getRequestDispatcher(VIEW_HOME).forward(request, response);
     }
 
-    private void handleModification(HttpServletRequest request) throws Exception {
+    private void handleModification(HttpServletRequest request) {
 
         DerbyDatabase database = DerbyDatabase.getInstance(request);
         InternDao dao = new InternDao(database);
@@ -124,7 +126,11 @@ public class HomeController extends HttpServlet {
             intern.setTutor(user);
             updatedInterns.add(intern);
         }
-        internshipService.updateAll(updatedInterns);
+        try {
+            internshipService.updateAll(updatedInterns);
+        } catch (java.sql.SQLException e) {
+            e.printStackTrace();
+        }
     }
 
 

@@ -5,8 +5,8 @@ import com.project.models.*;
 import javax.servlet.http.HttpServletRequest;
 import java.sql.Date;
 import java.sql.Timestamp;
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.HashMap;
+import java.util.Map;
 
 import static com.project.util.Validation.*;
 import static com.project.util.constants.Field.*;
@@ -73,18 +73,6 @@ public class HandleEntityFields {
         String noteTech = request.getParameter(FIELD_NOTE_TECH) == null ? null : request.getParameter(FIELD_NOTE_TECH);
         String noteCom = request.getParameter(FIELD_NOTE_COM) == null ? null : request.getParameter(FIELD_NOTE_COM);
 
-        // String datetime to timestamp
-        Timestamp midInternshipMeetingDate = internship.getMidInternshipMeetingDate();
-        String midInternshipMeetingDateS = request.getParameter(FIELD_MID_INTERNSHIP_MEETING_DATE) == null ? null : request.getParameter(FIELD_MID_INTERNSHIP_MEETING_DATE);
-        try {
-            midInternshipMeetingDate = validationTimestamp(midInternshipMeetingDateS, FIELD_MID_INTERNSHIP_MEETING_DATE);
-            internship.setMidInternshipMeetingDate(midInternshipMeetingDate);
-        } catch (IllegalArgumentException e) {
-            errors.put(FIELD_MID_INTERNSHIP_MEETING_DATE, e.getMessage());
-        } catch (NullPointerException ignored) {
-            internship.setMidInternshipMeetingDate(null);
-        }
-
         // Start end validation
         try {
             validationDate(startDateString, FIELD_START_DATE);
@@ -107,6 +95,19 @@ public class HandleEntityFields {
         }
         internship.setStartDate(startDate);
         internship.setEndDate(endDate);
+
+        // String datetime to timestamp
+        Timestamp midInternshipMeetingDate;
+        String midInternshipMeetingDateS = request.getParameter(FIELD_MID_INTERNSHIP_MEETING_DATE) == null ? null : request.getParameter(FIELD_MID_INTERNSHIP_MEETING_DATE);
+        try {
+            midInternshipMeetingDate = validationTimestamp(midInternshipMeetingDateS, FIELD_MID_INTERNSHIP_MEETING_DATE);
+            internship.setMidInternshipMeetingDate(midInternshipMeetingDate);
+            validationMidInternship(startDate, endDate, midInternshipMeetingDate);
+        } catch (IllegalArgumentException e) {
+            errors.put(FIELD_MID_INTERNSHIP_MEETING_DATE, e.getMessage());
+        } catch (NullPointerException ignored) {
+            internship.setMidInternshipMeetingDate(null);
+        }
 
         // Note tech validation
         try {

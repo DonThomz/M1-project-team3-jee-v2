@@ -3,7 +3,7 @@ package com.project.services;
 import com.project.dao.CompanyDao;
 import com.project.models.Company;
 
-import javax.persistence.Query;
+import java.sql.SQLException;
 import java.util.List;
 
 public class CompanyService implements EntityService<Company> {
@@ -40,18 +40,8 @@ public class CompanyService implements EntityService<Company> {
     }
 
     @Override
-    public void updateAll(List<Company> objects) {
+    public void updateAll(List<Company> objects) throws SQLException {
         dao.updateAll(objects);
     }
 
-    public Company mapping(Query query) {
-        Company company = new Company();
-        company.setCompanyId((Integer) query.getParameterValue("COMPANY_ID"));
-        company.setName(String.valueOf(query.getParameterValue("NAME")));
-        company.setStreetName(String.valueOf(query.getParameterValue("STREET_NAME")));
-        company.setStreetNumber((Integer) query.getParameterValue("STREET_NUMBER"));
-        company.setCity(String.valueOf(query.getParameterValue("CITY")));
-        company.setZipcode(String.valueOf(query.getParameterValue("ZIPCODE")));
-        return company;
-    }
 }

@@ -3,9 +3,6 @@ package com.project.dao;
 
 import com.project.database.Database;
 import com.project.models.Intern;
-import com.project.models.Student;
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 import javax.persistence.EntityManager;
 import java.util.List;
@@ -58,31 +55,11 @@ public class InternDao implements DaoResource<Intern> {
     @Override
     public void updateAll(List<Intern> objects) {
         entityManager.getTransaction().begin();
-        objects.forEach(object -> {
-            entityManager.merge(object);
-        });
+        objects.forEach(entityManager::merge);
         entityManager.getTransaction().commit();
     }
 
 
-    /**
-     * Mapping a jsonObject to an intern object
-     *
-     * @param internJson the intern json object
-     * @return Intern object
-     */
-    public Intern mappingJson(JSONObject internJson) {
-        Intern intern = new Intern();
-        intern.setInternId(internJson.getInt("id"));
-        intern.setStudent(new Student());
-        intern.getStudent().setStudentId(internJson.getInt("studentId"));
-        JSONArray fields = internJson.getJSONArray("fields");
 
-        fields.forEach(f -> {
-            intern.setAttributeFromJsonKey((JSONObject) f);
-        });
-
-        return intern;
-    }
 
 }

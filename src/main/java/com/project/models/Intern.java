@@ -200,42 +200,39 @@ public class Intern {
      * @param jsonObject the json object representing a field
      */
     public void setAttributeFromJsonKey(JSONObject jsonObject) {
+        String value = "value";
         switch (jsonObject.getString("name")) {
             case "studentGroup":
-                if (this.getStudent() == null) this.setStudent(new Student());
-                this.getStudent().setStudentGroup(jsonObject.getString("value"));
-                break;
             case "firstname":
-                if (this.getStudent() == null) this.setStudent(new Student());
-                this.getStudent().setFirstname(jsonObject.getString("value"));
-                break;
             case "lastname":
                 if (this.getStudent() == null) this.setStudent(new Student());
-                this.getStudent().setLastname(jsonObject.getString("value"));
+                this.getStudent().setStudentGroup(jsonObject.getString(value));
                 break;
             case "requirement":
-                this.setRequirement(jsonObject.getString("value").equals("on"));
+                this.setRequirement(jsonObject.getString(value).equals("on"));
                 break;
             case "visitFile":
-                this.setVisitFile(jsonObject.getString("value").equals("on"));
+                this.setVisitFile(jsonObject.getString(value).equals("on"));
                 break;
             case "evalCompFile":
-                this.setEvalCompFile(jsonObject.getString("value").equals("on"));
+                this.setEvalCompFile(jsonObject.getString(value).equals("on"));
                 break;
             case "webPoll":
-                this.setWebPoll(jsonObject.getString("value").equals("on"));
+                this.setWebPoll(jsonObject.getString(value).equals("on"));
                 break;
             case "reportDelivered":
-                this.setReportDelivered(jsonObject.getString("value").equals("on"));
+                this.setReportDelivered(jsonObject.getString(value).equals("on"));
                 break;
             case "defense":
-                this.setDefense(jsonObject.getString("value").equals("on"));
+                this.setDefense(jsonObject.getString(value).equals("on"));
                 break;
             case "defensePlanned":
-                this.setDefensePlanned(jsonObject.getString("value").equals("on"));
+                this.setDefensePlanned(jsonObject.getString(value).equals("on"));
                 break;
             case "defenseDone":
-                this.setDefenseDone(jsonObject.getString("value").equals("on"));
+                this.setDefenseDone(jsonObject.getString(value).equals("on"));
+                break;
+            default:
                 break;
         }
     }

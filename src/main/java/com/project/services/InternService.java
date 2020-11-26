@@ -47,7 +47,7 @@ public class InternService implements EntityService<Intern> {
     }
 
     @Override
-    public void updateAll(List<Intern> objects) {
+    public void updateAll(List<Intern> objects) throws SQLException {
         dao.updateAll(objects);
     }
 
@@ -65,9 +65,7 @@ public class InternService implements EntityService<Intern> {
         intern.getStudent().setStudentId(internJson.getInt("studentId"));
         JSONArray fields = internJson.getJSONArray("fields");
 
-        fields.forEach(f -> {
-            intern.setAttributeFromJsonKey((JSONObject) f);
-        });
+        fields.forEach(f -> intern.setAttributeFromJsonKey((JSONObject) f));
 
         return intern;
     }

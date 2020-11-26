@@ -4,7 +4,7 @@
 <tr class="text-center" name="internship-row-${requestScope.internship.intern.internId}"
     data-student-id="${requestScope.internship.intern.student.studentId}"
     data-intern-id="${requestScope.internship.intern.internId}">
-    <td class="align-middle" scope="row">
+    <td class="align-middle">
         <div class="custom-control custom-radio">
             <input class="custom-control-input" type="radio" name="radio-id-intern"
                    id="radio-id-intern-${requestScope.internship.internshipId}"

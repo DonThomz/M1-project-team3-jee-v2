@@ -10,7 +10,7 @@ import static com.project.util.constants.Attribute.DATABASE_MANAGER;
 
 public class DerbyDatabase implements Database {
 
-    private final static String PERSISTENCE_UNIT = "ST2EEDB-JEE-JPA-Version";
+    private static final String PERSISTENCE_UNIT = "ST2EEDB-JEE-JPA-Version";
 
     private static EntityManagerFactory managerFactory;
 

@@ -53,9 +53,7 @@ public class InternshipDao implements DaoResource<Internship> {
     @Override
     public void updateAll(List<Internship> objects) {
         entityManager.getTransaction().begin();
-        objects.forEach(object -> {
-            entityManager.merge(object);
-        });
+        objects.forEach(entityManager::merge);
         entityManager.getTransaction().commit();
     }
 

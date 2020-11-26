@@ -4,6 +4,7 @@ import com.project.dao.InternshipDao;
 import com.project.models.Internship;
 import com.project.models.Tutor;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public class InternshipService implements EntityService<Internship> {
@@ -42,7 +43,7 @@ public class InternshipService implements EntityService<Internship> {
     }
 
     @Override
-    public void updateAll(List<Internship> objects) {
+    public void updateAll(List<Internship> objects) throws SQLException {
         dao.updateAll(objects);
     }
 
