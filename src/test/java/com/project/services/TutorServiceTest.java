@@ -84,7 +84,7 @@ class TutorServiceTest {
         Tutor fakeTutor = createFakeTutor("daniel", "fake");
 
         // fake behavior
-        doNothing().when(tutorDao).save(any(Tutor.class));
+        doNothing().when(tutorDao).update(any(Tutor.class));
 
         TutorService service = new TutorService(tutorDao);
         assertDoesNotThrow(() -> service.update(fakeTutor));

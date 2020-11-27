@@ -1,6 +1,8 @@
 package com.project.services;
 
 import com.project.dao.CompanyDao;
+import com.project.exceptions.DaoException;
+import com.project.exceptions.ServiceException;
 import com.project.models.Company;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -34,7 +36,7 @@ class CompanyServiceTest {
     }
 
     @Test
-    void findAll() {
+    void findAll() throws DaoException, ServiceException {
         Company fakeCompany1 = createFakeCompany("Capgemini","Paris","Kléber","75016",76);
         Company fakeCompany2 = createFakeCompany("Google","Paris","Lucie","75015",13);
         List<Company> fakeCompanies = Arrays.asList(fakeCompany1,fakeCompany2);
@@ -49,7 +51,7 @@ class CompanyServiceTest {
     }
 
     @Test
-    void find() {
+    void find() throws ServiceException, DaoException {
         Company fakeCompany = createFakeCompany("Capgemini","Paris","Kléber","75016",76);
         
 
@@ -63,7 +65,7 @@ class CompanyServiceTest {
     }
 
     @Test
-    void save() {
+    void save() throws DaoException, ServiceException {
         Company fakeCompany = createFakeCompany("Capgemini","Paris","Kléber","75016",76);
 
         // fake behavior
@@ -79,14 +81,14 @@ class CompanyServiceTest {
     }
 
     @Test
-    void update() {
+    void update() throws DaoException, ServiceException {
         Company fakeCompany = createFakeCompany("Capgemini","Paris","Kléber","75016",76);
 
         // fake behavior
-        doNothing().when(companyDao).save(any(Company.class));
+        doNothing().when(companyDao).update(any(Company.class));
 
         CompanyService service = new CompanyService(companyDao);
-        service.save(fakeCompany);
+        service.update(fakeCompany);
     }
 
     @Test

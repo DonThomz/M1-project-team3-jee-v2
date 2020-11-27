@@ -1,6 +1,8 @@
 package com.project.services;
 
 import com.project.dao.InternDao;
+import com.project.exceptions.DaoException;
+import com.project.exceptions.ServiceException;
 import com.project.models.Intern;
 import com.project.models.Student;
 import com.project.models.Tutor;
@@ -38,7 +40,7 @@ class InternServiceTest {
     }
 
     @Test
-    void findAll() throws SQLException {
+    void findAll() throws SQLException, DaoException, ServiceException {
         Student fakeStudent = new Student();
         Tutor fakeTutor = new Tutor();
         Intern fakeIntern1 = createFakeIntern(false,true,false,true,false,true,true,true,"fakeUrl",fakeTutor,fakeStudent);
@@ -55,7 +57,7 @@ class InternServiceTest {
     }
 
     @Test
-    void find() {
+    void find() throws DaoException, ServiceException {
         Student fakeStudent = new Student();
         Tutor fakeTutor = new Tutor();
         Intern fakeIntern = createFakeIntern(false,true,false,true,false,true,true,true,"fakeUrl",fakeTutor,fakeStudent);
@@ -70,7 +72,7 @@ class InternServiceTest {
     }
 
     @Test
-    void save() {
+    void save() throws DaoException, ServiceException {
         Student fakeStudent = new Student();
         Tutor fakeTutor = new Tutor();
         Intern fakeIntern = createFakeIntern(false,true,false,true,false,true,true,true,"fakeUrl",fakeTutor,fakeStudent);
@@ -87,16 +89,16 @@ class InternServiceTest {
     }
 
     @Test
-    void update() {
+    void update() throws DaoException, ServiceException {
         Student fakeStudent = new Student();
         Tutor fakeTutor = new Tutor();
         Intern fakeIntern = createFakeIntern(false,true,false,true,false,true,true,true,"fakeUrl",fakeTutor,fakeStudent);
         
         // fake behavior
-        doNothing().when(internDao).save(any(Intern.class));
+        doNothing().when(internDao).update(any(Intern.class));
 
         InternService service = new InternService(internDao);
-        service.save(fakeIntern);
+        service.update(fakeIntern);
     }
 
     @Test

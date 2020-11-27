@@ -1,6 +1,8 @@
 package com.project.services;
 
 import com.project.dao.MissionDao;
+import com.project.exceptions.DaoException;
+import com.project.exceptions.ServiceException;
 import com.project.models.Mission;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -35,7 +37,7 @@ class MissionServiceTest {
     }
 
     @Test
-    void findAll() {
+    void findAll() throws DaoException, ServiceException {
         Mission fakeMission1 = createFakeMission("fakeDesc", "fakeKey");
         Mission fakeMission2 = createFakeMission("fakeDescription", "fakeKeyword");
         List<Mission> fakeMissions = Arrays.asList(fakeMission1, fakeMission2);
@@ -50,7 +52,7 @@ class MissionServiceTest {
     }
 
     @Test
-    void find() {
+    void find() throws DaoException, ServiceException {
         Mission fakeMission = createFakeMission("fakeDesc", "fakeKey");
 
         // fake behavior
@@ -63,7 +65,7 @@ class MissionServiceTest {
     }
 
     @Test
-    void save() {
+    void save() throws DaoException, ServiceException {
         Mission fakeMission = createFakeMission("fakeDesc", "fakeKey");
 
         // fake behavior
@@ -78,14 +80,14 @@ class MissionServiceTest {
     }
 
     @Test
-    void update() {
+    void update() throws DaoException, ServiceException {
         Mission fakeMission = createFakeMission("fakeDesc", "fakeKey");
 
         // fake behavior
-        doNothing().when(missionDao).save(any(Mission.class));
+        doNothing().when(missionDao).update(any(Mission.class));
 
         MissionService service = new MissionService(missionDao);
-        service.save(fakeMission);
+        service.update(fakeMission);
 
     }
 
