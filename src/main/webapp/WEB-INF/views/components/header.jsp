@@ -16,8 +16,8 @@
             <ul class="navbar-nav ml-auto nav-flex-icons">
                 <span class="navbar-text white-text mr-2">${sessionScope.SESSION_USER.firstname} ${sessionScope.SESSION_USER.lastname}</span>
                 <li class="nav-item">
-                    <a class="navbar-text text-white p-2" href="<c:url value="/logout"/>"><i
-                            class="fas fa-power-off shadow-overlay zoom-overlay"></i></a>
+                    <a class="navbar-text text-white p-2" href="<c:url value="/logout"/>"><em
+                            class="fas fa-power-off shadow-overlay zoom-overlay"></em></a>
                 </li>
             </ul>
         </div>

@@ -16,6 +16,7 @@ public class DatabaseListener implements ServletContextListener,
 
     // Public constructor is required by servlet spec
     public DatabaseListener() {
+        // Do nothing
     }
 
     // -------------------------------------------------------
@@ -26,7 +27,6 @@ public class DatabaseListener implements ServletContextListener,
          initialized(when the Web application is deployed). 
          You can initialize servlet context related data here.
       */
-        System.out.println("thread l" + Thread.currentThread().getId());
         DerbyDatabase derbyDatabase = new DerbyDatabase();
         sce.getServletContext().setAttribute(DATABASE_MANAGER, derbyDatabase);
         System.out.println("Connection to database open !");

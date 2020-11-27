@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.logging.Logger;
 
 import static com.project.util.constants.Attribute.ATTR_INTERNSHIP;
 import static com.project.util.constants.Attribute.SESSION_USER;
@@ -22,15 +23,13 @@ import static com.project.util.constants.View.VIEW_DETAIL;
 @WebServlet(name = "DetailsController", urlPatterns = {"/detail"})
 public class DetailsController extends HttpServlet {
 
-    private Internship internship;
-
-    private DetailService detailService;
+    private static final Logger logger = Logger.getLogger(DetailsController.class.getName());
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response, Integer id) throws ServletException, IOException {
+
         if (id != null) {
             try {
-                // get parameter
-                this.findInternshipData(request, id);
+                Internship internship = this.findInternshipData(request, id);
                 // check if the user is allowed to see this detail page
                 if (internship.getIntern().getTutor().getTutorId() != ((Tutor) request.getSession().getAttribute(SESSION_USER)).getTutorId()) {
                     response.sendRedirect(this.getServletContext().getContextPath() + PATH_HOME);
@@ -39,7 +38,7 @@ public class DetailsController extends HttpServlet {
                     request.getRequestDispatcher(VIEW_DETAIL).forward(request, response);
                 }
             } catch (Exception e) {
-                System.err.println(e.getMessage());
+                logger.warning(e.getMessage());
             }
         } else response.sendRedirect(this.getServletContext().getContextPath() + PATH_HOME);
     }
@@ -49,8 +48,8 @@ public class DetailsController extends HttpServlet {
         Integer id = null;
         try {
             id = request.getParameter("id") != null ? Integer.parseInt(request.getParameter("id")) : null;
-        } catch (NumberFormatException ignored) {
-            // TODO log here
+        } catch (NumberFormatException e) {
+            logger.warning(e.getMessage());
         }
         if (id != null) {
             // update data
@@ -58,7 +57,7 @@ public class DetailsController extends HttpServlet {
             DerbyDatabase database = DerbyDatabase.getInstance(request);
             InternshipDao dao = new InternshipDao(database);
             InternshipService service = new InternshipService(dao);
-            detailService = new DetailService(service);
+            DetailService detailService = new DetailService(service);
 
             detailService.updateDetailInformation(request, id);
 
@@ -72,18 +71,18 @@ public class DetailsController extends HttpServlet {
         Integer id = null;
         try {
             id = request.getParameter("id") != null ? Integer.parseInt(request.getParameter("id")) : null;
-        } catch (NumberFormatException ignored) {
-            // TODO log here
+        } catch (NumberFormatException e) {
+            logger.warning(e.getMessage());
         }
         // check if user is logged and internship is accessible by the user
         processRequest(request, response, id);
     }
 
-    private void findInternshipData(HttpServletRequest request, int id) {
+    private Internship findInternshipData(HttpServletRequest request, int id) {
         DerbyDatabase database = DerbyDatabase.getInstance(request);
         InternshipDao dao = new InternshipDao(database);
         InternshipService service = new InternshipService(dao);
-        internship = service.find(id);
+        return service.find(id);
     }
 
 

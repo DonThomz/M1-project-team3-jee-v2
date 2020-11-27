@@ -1,6 +1,7 @@
 package com.project.dao;
 
 import com.project.database.Database;
+import com.project.exceptions.DaoException;
 import com.project.models.Tutor;
 
 import javax.persistence.EntityManager;

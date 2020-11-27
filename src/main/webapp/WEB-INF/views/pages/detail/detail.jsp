@@ -42,7 +42,7 @@
                     <c:param name="title"
                              value="Detail of ${requestScope.internship.intern.student.firstname} ${requestScope.internship.intern.student.lastname}"/>
                 </c:import>
-                <a class="btn btn-link btn-sm" href="<c:url value="/"/>"><i class="fas fa-arrow-left"></i> Home</a>
+                <a class="btn btn-link btn-sm" href="<c:url value="/"/>"><em class="fas fa-arrow-left"></em> Home</a>
                 <div class="dropdown-divider"></div>
                 <form id="detail-form" action="<c:url value="/detail?id=${requestScope.internship.internshipId}"/>"
                       method="post">

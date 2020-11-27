@@ -4,6 +4,7 @@ package com.project.controller;
 import com.project.dao.InternDao;
 import com.project.dao.InternshipDao;
 import com.project.database.DerbyDatabase;
+import com.project.exceptions.ServiceException;
 import com.project.models.Intern;
 import com.project.models.Internship;
 import com.project.models.Tutor;
@@ -21,6 +22,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import static com.project.util.constants.Attribute.*;
 import static com.project.util.constants.View.VIEW_HOME;
@@ -28,8 +30,7 @@ import static com.project.util.constants.View.VIEW_HOME;
 @WebServlet(name = "HomeController", urlPatterns = {""})
 public class HomeController extends HttpServlet {
 
-    private Tutor user;
-    private List<Internship> internships;
+    private static final Logger logger = Logger.getLogger(HomeController.class.getName());
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -43,7 +44,8 @@ public class HomeController extends HttpServlet {
             try {
                 handleModification(request);
                 response.getWriter().write(MESSAGE_UPDATE_SUCCESS);
-            } catch (Exception e) {
+            } catch (ServiceException e) {
+                logger.warning(e.getMessage());
                 response.setStatus(500);
                 response.getWriter().write(MESSAGE_SERVER_ERROR);
             }
@@ -53,31 +55,35 @@ public class HomeController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+
         // get user logged
-        user = (Tutor) request.getSession().getAttribute(SESSION_USER);
+        Tutor user = (Tutor) request.getSession().getAttribute(SESSION_USER);
+
+        String year = request.getParameter(PARAM_YEAR);
 
         // get interns
         try {
+            List<Internship> internships = new ArrayList<>();
 
-            // Dao
             DerbyDatabase database = DerbyDatabase.getInstance(request);
             InternshipDao dao = new InternshipDao(database);
             InternshipService internshipService = new InternshipService(dao);
-            String year = request.getParameter(PARAM_YEAR);
+
             if (year != null) {
+                // TODO put try catch in a validation method
                 try {
                     int yearParse = Integer.parseInt(year);
                     internships = internshipService.findByYear(user, yearParse);
                 } catch (NumberFormatException e) {
                     request.setAttribute(ERROR_PARAM_YEAR, MESSAGE_ERROR_PARAM_YEAR);
-                    // TODO add log here
+                    logger.warning(e.getMessage());
                 }
             } else {
                 internships = internshipService.findInternshipsByTutorId(user);
             }
             request.setAttribute(ATTR_INTERNSHIPS, internships);
         } catch (Exception e) {
-            System.err.println(e.getMessage());
+            logger.warning(e.getMessage());
         }
         request.getRequestDispatcher(VIEW_HOME).forward(request, response);
     }
@@ -101,11 +107,12 @@ public class HomeController extends HttpServlet {
             } catch (Exception e) {
                 response.setStatus(500);
                 response.getWriter().write(MESSAGE_SERVER_ERROR);
+                logger.warning(e.getMessage());
             }
         } else request.getRequestDispatcher(VIEW_HOME).forward(request, response);
     }
 
-    private void handleModification(HttpServletRequest request) {
+    private void handleModification(HttpServletRequest request) throws ServiceException {
 
         DerbyDatabase database = DerbyDatabase.getInstance(request);
         InternDao dao = new InternDao(database);
@@ -118,7 +125,7 @@ public class HomeController extends HttpServlet {
         List<Intern> updatedInterns = new ArrayList<>();
 
         HttpSession session = request.getSession();
-        user = (Tutor) session.getAttribute(SESSION_USER);
+        Tutor user = (Tutor) session.getAttribute(SESSION_USER);
 
         for (int i = 0; i < data.length(); i++) {
             JSONObject internJson = (JSONObject) data.get(i);
@@ -129,7 +136,7 @@ public class HomeController extends HttpServlet {
         try {
             internshipService.updateAll(updatedInterns);
         } catch (java.sql.SQLException e) {
-            e.printStackTrace();
+            throw new ServiceException(e.getMessage());
         }
     }
 
