@@ -1,12 +1,18 @@
 package com.project.util;
 
+import com.project.dao.SkillDao;
+import com.project.dao.SkillRequiredDao;
+import com.project.database.DerbyDatabase;
+import com.project.exceptions.ServiceException;
 import com.project.models.*;
+import com.project.services.SkillRequiredService;
+import com.project.services.SkillService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.sql.Date;
 import java.sql.Timestamp;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import static com.project.util.Validation.*;
 import static com.project.util.constants.Field.*;
@@ -312,15 +318,29 @@ public class HandleEntityFields {
         // request parameters
         String description = request.getParameter(FIELD_MISSION_DESCRIPTION);
         String keywords = request.getParameter(FIELD_MISSION_KEYWORDS);
-        /*Mission finalMission = mission;*/
 
-        /*List<Skill> skills = Arrays.asList(request.getParameter(FIELD_SKILLS_REQUIRED).split(",")).stream().map(sk -> {
-            Skill skill = new Skill();
-            skill.setName(sk);
-            return skill;
+
+        Mission finalMission = mission;
+        List<SkillRequired> skills = Arrays.asList(request.getParameter(FIELD_SKILLS_REQUIRED).split(",")).stream().map(sk -> {
+            List<Skill> l = new ArrayList<>();
+            try {
+                l = new SkillService(new SkillDao(DerbyDatabase.getInstance(request))).findAll();
+            } catch (ServiceException e) {
+                e.printStackTrace();
+            }
+            SkillRequired skillRequired = new SkillRequired();
+            for (Skill s : l) {
+                if (s.getName().equals(sk)) {
+                    skillRequired.setSkillId(s.getSkillId());
+                }
+            }
+            skillRequired.setMissionId(finalMission.getMissionId());
+            return skillRequired;
         }).collect(Collectors.toList());
 
-        mission.setSkills(skills);*/
+
+        mission.setSkills(skills);
+
 
 
         // Description validation
