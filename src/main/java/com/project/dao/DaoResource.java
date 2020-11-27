@@ -1,5 +1,7 @@
 package com.project.dao;
 
+import com.project.exceptions.DaoException;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -27,16 +29,14 @@ public interface DaoResource<T> {
         close(preparedStatement);
     }
 
-    List<T> findAll() throws SQLException;
+    List<T> findAll() throws DaoException;
 
-    T find(int id);
+    T find(int id) throws DaoException;
 
-    void save(T object);
+    void save(T object) throws DaoException;
 
-    void saveAll(T... objects);
+    void update(T object) throws DaoException;
 
-    void update(T object);
-
-    void updateAll(List<T> objects);
+    void updateAll(List<T> objects) throws DaoException;
 
 }

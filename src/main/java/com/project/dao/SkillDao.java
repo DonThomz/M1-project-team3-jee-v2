@@ -1,6 +1,7 @@
 package com.project.dao;
 
 import com.project.database.Database;
+import com.project.exceptions.DaoException;
 import com.project.models.Skill;
 
 import javax.persistence.EntityManager;
@@ -15,42 +16,77 @@ public class SkillDao implements DaoResource<Skill> {
     }
 
     @Override
-    public List<Skill> findAll() {
-        return entityManager.createQuery("SELECT c FROM Skill c", Skill.class).getResultList();
-    }
-
-    @Override
-    public Skill find(int id) {
-        return entityManager.find(Skill.class, id);
-    }
-
-    @Override
-    public void save(Skill object) {
-        entityManager.getTransaction().begin();
-        entityManager.persist(object);
-        entityManager.getTransaction().commit();
-    }
-
-    @Override
-    public void saveAll(Skill... objects) {
-        entityManager.getTransaction().begin();
-        for (Skill object : objects) {
-            entityManager.persist(object);
+    public List<Skill> findAll() throws DaoException {
+        try {
+            return entityManager.createQuery("SELECT c FROM Skill c", Skill.class).getResultList();
+        } catch (Exception e) {
+            throw new DaoException(e);
+        } finally {
+            entityManager.close();
         }
-        entityManager.getTransaction().commit();
     }
 
     @Override
-    public void update(Skill object) {
-        entityManager.getTransaction().begin();
-        entityManager.merge(object);
-        entityManager.getTransaction().commit();
+    public Skill find(int id) throws DaoException {
+        try {
+            return entityManager.find(Skill.class, id);
+        } catch (Exception e) {
+            throw new DaoException(e);
+        } finally {
+            entityManager.close();
+        }
     }
 
     @Override
-    public void updateAll(List<Skill> objects) {
-        entityManager.getTransaction().begin();
-        objects.forEach(entityManager::merge);
-        entityManager.getTransaction().commit();
+    public void save(Skill object) throws DaoException {
+        try {
+            entityManager.getTransaction().begin();
+            entityManager.persist(object);
+            entityManager.getTransaction().commit();
+        } catch (Exception e) {
+            throw new DaoException(e);
+        } finally {
+            entityManager.close();
+        }
+    }
+
+    public void saveAll(Skill... objects) throws DaoException {
+        try {
+            entityManager.getTransaction().begin();
+            for (Skill object : objects) {
+                entityManager.persist(object);
+            }
+            entityManager.getTransaction().commit();
+        } catch (Exception e) {
+            throw new DaoException(e);
+        } finally {
+            entityManager.close();
+        }
+    }
+
+    @Override
+    public void update(Skill object) throws DaoException {
+        try {
+            entityManager.getTransaction().begin();
+            entityManager.merge(object);
+            entityManager.getTransaction().commit();
+        } catch (Exception e) {
+            throw new DaoException(e);
+        } finally {
+            entityManager.close();
+        }
+    }
+
+    @Override
+    public void updateAll(List<Skill> objects) throws DaoException {
+        try {
+            entityManager.getTransaction().begin();
+            objects.forEach(entityManager::merge);
+            entityManager.getTransaction().commit();
+        } catch (Exception e) {
+            throw new DaoException(e);
+        } finally {
+            entityManager.close();
+        }
     }
 }

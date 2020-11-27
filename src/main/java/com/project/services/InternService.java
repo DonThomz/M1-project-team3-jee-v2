@@ -2,12 +2,12 @@ package com.project.services;
 
 
 import com.project.dao.InternDao;
+import com.project.exceptions.ServiceException;
 import com.project.models.Intern;
 import com.project.models.Student;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -22,33 +22,50 @@ public class InternService implements EntityService<Intern> {
     }
 
     @Override
-    public List<Intern> findAll() throws SQLException {
-        return dao.findAll();
+    public List<Intern> findAll() throws ServiceException {
+        try {
+            return dao.findAll();
+        } catch (com.project.exceptions.DaoException daoException) {
+            daoException.printStackTrace();
+            return null;
+        }
     }
 
     @Override
-    public Intern find(int id) {
-        return dao.find(id);
+    public Intern find(int id) throws ServiceException {
+        try {
+            return dao.find(id);
+        } catch (com.project.exceptions.DaoException daoException) {
+            daoException.printStackTrace();
+            return null;
+        }
     }
 
     @Override
-    public void save(Intern object) {
-        dao.save(object);
+    public void save(Intern object) throws ServiceException {
+        try {
+            dao.save(object);
+        } catch (com.project.exceptions.DaoException daoException) {
+            daoException.printStackTrace();
+        }
     }
 
     @Override
-    public void saveAll(Intern... objects) {
-        dao.saveAll(objects);
+    public void update(Intern object) throws ServiceException {
+        try {
+            dao.update(object);
+        } catch (com.project.exceptions.DaoException daoException) {
+            daoException.printStackTrace();
+        }
     }
 
     @Override
-    public void update(Intern object) {
-        dao.update(object);
-    }
-
-    @Override
-    public void updateAll(List<Intern> objects) throws SQLException {
-        dao.updateAll(objects);
+    public void updateAll(List<Intern> objects) throws ServiceException {
+        try {
+            dao.updateAll(objects);
+        } catch (com.project.exceptions.DaoException daoException) {
+            daoException.printStackTrace();
+        }
     }
 
 

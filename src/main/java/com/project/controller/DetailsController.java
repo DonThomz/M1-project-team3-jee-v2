@@ -2,6 +2,7 @@ package com.project.controller;
 
 import com.project.dao.InternshipDao;
 import com.project.database.DerbyDatabase;
+import com.project.exceptions.ServiceException;
 import com.project.models.Internship;
 import com.project.models.Tutor;
 import com.project.services.DetailService;
@@ -15,8 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.logging.Logger;
 
-import static com.project.util.constants.Attribute.ATTR_INTERNSHIP;
-import static com.project.util.constants.Attribute.SESSION_USER;
+import static com.project.util.constants.Attribute.*;
 import static com.project.util.constants.Path.PATH_HOME;
 import static com.project.util.constants.View.VIEW_DETAIL;
 
@@ -31,7 +31,7 @@ public class DetailsController extends HttpServlet {
             try {
                 Internship internship = this.findInternshipData(request, id);
                 // check if the user is allowed to see this detail page
-                if (internship.getIntern().getTutor().getTutorId() != ((Tutor) request.getSession().getAttribute(SESSION_USER)).getTutorId()) {
+                if (internship != null && internship.getIntern().getTutor().getTutorId() != ((Tutor) request.getSession().getAttribute(SESSION_USER)).getTutorId()) {
                     response.sendRedirect(this.getServletContext().getContextPath() + PATH_HOME);
                 } else {
                     request.setAttribute(ATTR_INTERNSHIP, internship);
@@ -82,7 +82,12 @@ public class DetailsController extends HttpServlet {
         DerbyDatabase database = DerbyDatabase.getInstance(request);
         InternshipDao dao = new InternshipDao(database);
         InternshipService service = new InternshipService(dao);
-        return service.find(id);
+        try {
+            return service.find(id);
+        } catch (ServiceException e) {
+            request.setAttribute(ERROR_SERVER, MESSAGE_ERROR_PARAM_YEAR);
+            return null;
+        }
     }
 
 

@@ -50,7 +50,7 @@
                                             class="btn btn-info btn-sm dropdown-toggle" type="button"
                                             data-toggle="dropdown"
                                             aria-haspopup="true" aria-expanded="false">
-                                        Academic year ${param.year}
+                                        Academic year ${requestScope.year}
                                     </button>
                                     <div class="dropdown-menu">
                                         <a class="dropdown-item" href="<c:url value="/"/>">All years</a>

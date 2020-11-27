@@ -2,6 +2,7 @@ package com.project.dao;
 
 
 import com.project.database.Database;
+import com.project.exceptions.DaoException;
 import com.project.models.Intern;
 
 import javax.persistence.EntityManager;
@@ -19,44 +20,79 @@ public class InternDao implements DaoResource<Intern> {
     }
 
     @Override
-    public List<Intern> findAll() {
-        return entityManager.createQuery("SELECT c FROM Intern c", Intern.class).getResultList();
-    }
-
-    @Override
-    public Intern find(int id) {
-        return entityManager.find(Intern.class, id);
-    }
-
-    @Override
-    public void save(Intern object) {
-        entityManager.getTransaction().begin();
-        entityManager.persist(object);
-        entityManager.getTransaction().commit();
-    }
-
-
-    @Override
-    public void saveAll(Intern... objects) {
-        entityManager.getTransaction().begin();
-        for (Intern object : objects) {
-            entityManager.persist(object);
+    public List<Intern> findAll() throws DaoException {
+        try {
+            return entityManager.createQuery("SELECT c FROM Intern c", Intern.class).getResultList();
+        } catch (Exception e) {
+            throw new DaoException(e);
+        } finally {
+            entityManager.close();
         }
-        entityManager.getTransaction().commit();
     }
 
     @Override
-    public void update(Intern object) {
-        entityManager.getTransaction().begin();
-        entityManager.merge(object);
-        entityManager.getTransaction().commit();
+    public Intern find(int id) throws DaoException {
+        try {
+            return entityManager.find(Intern.class, id);
+        } catch (Exception e) {
+            throw new DaoException(e);
+        } finally {
+            entityManager.close();
+        }
     }
 
     @Override
-    public void updateAll(List<Intern> objects) {
-        entityManager.getTransaction().begin();
-        objects.forEach(entityManager::merge);
-        entityManager.getTransaction().commit();
+    public void save(Intern object) throws DaoException {
+        try {
+            entityManager.getTransaction().begin();
+            entityManager.persist(object);
+            entityManager.getTransaction().commit();
+        } catch (Exception e) {
+            throw new DaoException(e);
+        } finally {
+            entityManager.close();
+        }
+    }
+
+
+    public void saveAll(Intern... objects) throws DaoException {
+        try {
+            entityManager.getTransaction().begin();
+            for (Intern object : objects) {
+                entityManager.persist(object);
+            }
+            entityManager.getTransaction().commit();
+        } catch (Exception e) {
+            throw new DaoException(e);
+        } finally {
+            entityManager.close();
+        }
+    }
+
+    @Override
+    public void update(Intern object) throws DaoException {
+        try {
+            entityManager.getTransaction().begin();
+            entityManager.merge(object);
+            entityManager.getTransaction().commit();
+        } catch (Exception e) {
+            throw new DaoException(e);
+        } finally {
+            entityManager.close();
+        }
+    }
+
+    @Override
+    public void updateAll(List<Intern> objects) throws DaoException {
+        try {
+            entityManager.getTransaction().begin();
+            objects.forEach(entityManager::merge);
+            entityManager.getTransaction().commit();
+        } catch (Exception e) {
+            throw new DaoException(e);
+        } finally {
+            entityManager.close();
+        }
     }
 
 

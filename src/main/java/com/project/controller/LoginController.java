@@ -2,6 +2,7 @@ package com.project.controller;
 
 import com.project.dao.TutorDao;
 import com.project.database.DerbyDatabase;
+import com.project.exceptions.ServiceException;
 import com.project.forms.LoginForm;
 import com.project.models.Tutor;
 import com.project.services.TutorService;
@@ -40,7 +41,12 @@ public class LoginController extends HttpServlet {
             AuthenticationService authenticationService = new AuthenticationService(service);
 
             // perform authentication
-            Tutor userLogged = authenticationService.authWithEmailAndPassword(user.getEmail(), user.getPassword());
+            Tutor userLogged = null;
+            try {
+                userLogged = authenticationService.authWithEmailAndPassword(user.getEmail(), user.getPassword());
+            } catch (ServiceException e) {
+                request.setAttribute(ERROR_SERVER, MESSAGE_SERVER_ERROR);
+            }
             if (userLogged != null) {
                 HttpSession session = request.getSession();
                 session.setAttribute(SESSION_USER, userLogged);
@@ -49,7 +55,7 @@ public class LoginController extends HttpServlet {
                 response.sendRedirect(this.getServletContext().getContextPath() + PATH_HOME);
             } else {
                 // update error message
-                loginForm.setMessage(WRONG_CREDENTIALS);
+                loginForm.setMessage(MESSAGE_WRONG_CREDENTIALS);
                 request.getRequestDispatcher(VIEW_LOGIN).forward(request, response);
             }
         } else request.getRequestDispatcher(VIEW_LOGIN).forward(request, response);

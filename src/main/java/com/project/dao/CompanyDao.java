@@ -1,6 +1,7 @@
 package com.project.dao;
 
 import com.project.database.Database;
+import com.project.exceptions.DaoException;
 import com.project.models.Company;
 
 import javax.persistence.EntityManager;
@@ -16,43 +17,79 @@ public class CompanyDao implements DaoResource<Company> {
     }
 
     @Override
-    public List<Company> findAll() {
-        return entityManager.createQuery("SELECT c FROM Company c", Company.class).getResultList();
-    }
-
-    @Override
-    public Company find(int id) {
-        return entityManager.find(Company.class, id);
-    }
-
-    @Override
-    public void save(Company object) {
-        entityManager.getTransaction().begin();
-        entityManager.persist(object);
-        entityManager.getTransaction().commit();
-    }
-
-    @Override
-    public void saveAll(Company... objects) {
-        entityManager.getTransaction().begin();
-        for (Company object : objects) {
-            entityManager.persist(object);
+    public List<Company> findAll() throws DaoException {
+        try {
+            return entityManager.createQuery("SELECT c FROM Company c", Company.class).getResultList();
+        } catch (Exception e) {
+            throw new DaoException(e);
+        } finally {
+            entityManager.close();
         }
-        entityManager.getTransaction().commit();
+
     }
 
     @Override
-    public void update(Company object) {
-        entityManager.getTransaction().begin();
-        entityManager.merge(object);
-        entityManager.getTransaction().commit();
+    public Company find(int id) throws DaoException {
+        try {
+            return entityManager.find(Company.class, id);
+        } catch (Exception e) {
+            throw new DaoException(e);
+        } finally {
+            entityManager.close();
+        }
     }
 
     @Override
-    public void updateAll(List<Company> objects) {
-        entityManager.getTransaction().begin();
-        objects.forEach(entityManager::merge);
-        entityManager.getTransaction().commit();
+    public void save(Company object) throws DaoException {
+        try {
+            entityManager.getTransaction().begin();
+            entityManager.persist(object);
+            entityManager.getTransaction().commit();
+        } catch (Exception e) {
+            throw new DaoException(e);
+        } finally {
+            entityManager.close();
+        }
+    }
+
+    public void saveAll(Company... objects) throws DaoException {
+        try {
+            entityManager.getTransaction().begin();
+            for (Company object : objects) {
+                entityManager.persist(object);
+            }
+            entityManager.getTransaction().commit();
+        } catch (Exception e) {
+            throw new DaoException(e);
+        } finally {
+            entityManager.close();
+        }
+    }
+
+    @Override
+    public void update(Company object) throws DaoException {
+        try {
+            entityManager.getTransaction().begin();
+            entityManager.merge(object);
+            entityManager.getTransaction().commit();
+        } catch (Exception e) {
+            throw new DaoException(e);
+        } finally {
+            entityManager.close();
+        }
+    }
+
+    @Override
+    public void updateAll(List<Company> objects) throws DaoException {
+        try {
+            entityManager.getTransaction().begin();
+            objects.forEach(entityManager::merge);
+            entityManager.getTransaction().commit();
+        } catch (Exception e) {
+            throw new DaoException(e);
+        } finally {
+            entityManager.close();
+        }
     }
 
     public Company mapping(Query query) {

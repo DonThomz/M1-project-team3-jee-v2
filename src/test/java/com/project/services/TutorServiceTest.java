@@ -1,6 +1,8 @@
 package com.project.services;
 
 import com.project.dao.TutorDao;
+import com.project.exceptions.DaoException;
+import com.project.exceptions.ServiceException;
 import com.project.models.Tutor;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
@@ -30,7 +33,7 @@ class TutorServiceTest {
     }
 
     @Test
-    void findAll() {
+    void findAll() throws DaoException, ServiceException {
         Tutor fakeTutor1 = createFakeTutor("daniel", "fake");
         Tutor fakeTutor2 = createFakeTutor("marie", "fake");
         List<Tutor> fakeTutors = Arrays.asList(fakeTutor1, fakeTutor2);
@@ -39,26 +42,28 @@ class TutorServiceTest {
         when(tutorDao.findAll()).thenReturn(fakeTutors);
 
         TutorService service = new TutorService(tutorDao);
-        List<Tutor> result = service.findAll();
+        List<Tutor> result = null;
+        result = service.findAll();
         // assertions
         assertEquals(fakeTutors, result);
     }
 
     @Test
-    void find() {
+    void find() throws DaoException, ServiceException {
         Tutor fakeTutor = createFakeTutor("daniel", "fake");
 
         // fake behavior
         when(tutorDao.find(anyInt())).thenReturn(fakeTutor);
 
         TutorService service = new TutorService(tutorDao);
-        Tutor result = service.find(anyInt());
+        Tutor result = null;
+        result = service.find(anyInt());
         // assertions
         assertEquals(fakeTutor, result);
     }
 
     @Test
-    void save() {
+    void save() throws DaoException {
 
         Tutor fakeTutor = createFakeTutor("daniel", "fake");
 
@@ -66,8 +71,7 @@ class TutorServiceTest {
         doNothing().when(tutorDao).save(any(Tutor.class));
 
         TutorService service = new TutorService(tutorDao);
-        service.save(fakeTutor);
-
+        assertDoesNotThrow(() -> service.save(fakeTutor));
     }
 
     @Test
@@ -75,7 +79,7 @@ class TutorServiceTest {
     }
 
     @Test
-    void update() {
+    void update() throws DaoException {
 
         Tutor fakeTutor = createFakeTutor("daniel", "fake");
 
@@ -83,8 +87,7 @@ class TutorServiceTest {
         doNothing().when(tutorDao).save(any(Tutor.class));
 
         TutorService service = new TutorService(tutorDao);
-        service.save(fakeTutor);
-
+        assertDoesNotThrow(() -> service.update(fakeTutor));
     }
 
     @Test

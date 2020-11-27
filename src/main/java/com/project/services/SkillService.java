@@ -1,9 +1,9 @@
 package com.project.services;
 
 import com.project.dao.SkillDao;
+import com.project.exceptions.ServiceException;
 import com.project.models.Skill;
 
-import java.sql.SQLException;
 import java.util.List;
 
 public class SkillService implements EntityService<Skill> {
@@ -15,32 +15,49 @@ public class SkillService implements EntityService<Skill> {
     }
 
     @Override
-    public List<Skill> findAll() {
-        return dao.findAll();
+    public List<Skill> findAll() throws ServiceException {
+        try {
+            return dao.findAll();
+        } catch (com.project.exceptions.DaoException daoException) {
+            daoException.printStackTrace();
+            return null;
+        }
     }
 
     @Override
-    public Skill find(int id) {
-        return dao.find(id);
+    public Skill find(int id) throws ServiceException {
+        try {
+            return dao.find(id);
+        } catch (com.project.exceptions.DaoException daoException) {
+            daoException.printStackTrace();
+            return null;
+        }
     }
 
     @Override
-    public void save(Skill object) {
-        dao.save(object);
+    public void save(Skill object) throws ServiceException {
+        try {
+            dao.save(object);
+        } catch (com.project.exceptions.DaoException daoException) {
+            daoException.printStackTrace();
+        }
     }
 
     @Override
-    public void saveAll(Skill... objects) {
-        dao.saveAll(objects);
+    public void update(Skill object) throws ServiceException {
+        try {
+            dao.update(object);
+        } catch (com.project.exceptions.DaoException daoException) {
+            daoException.printStackTrace();
+        }
     }
 
     @Override
-    public void update(Skill object) {
-        dao.update(object);
-    }
-
-    @Override
-    public void updateAll(List<Skill> objects) throws SQLException {
-        dao.updateAll(objects);
+    public void updateAll(List<Skill> objects) throws ServiceException {
+        try {
+            dao.updateAll(objects);
+        } catch (com.project.exceptions.DaoException daoException) {
+            daoException.printStackTrace();
+        }
     }
 }
