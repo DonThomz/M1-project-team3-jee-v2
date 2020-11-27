@@ -66,6 +66,14 @@ class CompanyServiceTest {
 
     @Test
     void save() {
+        Company fakeCompany = createFakeCompany("Capgemini","Paris","Kléber","75016",76);
+
+        // fake behavior
+        doNothing().when(companyDao).save(any(Company.class));
+
+        CompanyService service = new CompanyService(companyDao);
+        service.save(fakeCompany);
+
     }
 
     @Test
@@ -74,6 +82,13 @@ class CompanyServiceTest {
 
     @Test
     void update() {
+        Company fakeCompany = createFakeCompany("Capgemini","Paris","Kléber","75016",76);
+
+        // fake behavior
+        doNothing().when(companyDao).save(any(Company.class));
+
+        CompanyService service = new CompanyService(companyDao);
+        service.save(fakeCompany);
     }
 
     @Test
