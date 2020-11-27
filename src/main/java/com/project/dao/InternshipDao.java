@@ -5,20 +5,19 @@ import com.project.exceptions.DaoException;
 import com.project.models.Internship;
 import com.project.models.Tutor;
 
-import javax.persistence.EntityManager;
 import java.util.List;
 
-public class InternshipDao implements DaoResource<Internship> {
-
-    private final EntityManager entityManager;
+public class InternshipDao extends DaoResource<Internship> {
 
     public InternshipDao(Database database) {
-        this.entityManager = database.getConnection();
+        this.database = database;
+        this.entityManager = this.database.getConnection();
     }
 
 
     @Override
     public List<Internship> findAll() throws DaoException {
+        isOpen();
         try {
             return entityManager.createQuery("SELECT c FROM Internship c", Internship.class).getResultList();
         } catch (Exception e) {
@@ -30,6 +29,7 @@ public class InternshipDao implements DaoResource<Internship> {
 
     @Override
     public Internship find(int id) throws DaoException {
+        isOpen();
         try {
             return entityManager.find(Internship.class, id);
         } catch (Exception e) {
@@ -42,6 +42,7 @@ public class InternshipDao implements DaoResource<Internship> {
 
     @Override
     public void save(Internship object) throws DaoException {
+        isOpen();
         try {
             entityManager.getTransaction().begin();
             entityManager.persist(object);
@@ -54,6 +55,7 @@ public class InternshipDao implements DaoResource<Internship> {
     }
 
     public void saveAll(Internship... objects) throws DaoException {
+        isOpen();
         try {
             entityManager.getTransaction().begin();
             for (Internship object : objects) {
@@ -69,6 +71,7 @@ public class InternshipDao implements DaoResource<Internship> {
 
     @Override
     public void update(Internship object) throws DaoException {
+        isOpen();
         try {
             entityManager.getTransaction().begin();
             entityManager.merge(object);
@@ -82,6 +85,7 @@ public class InternshipDao implements DaoResource<Internship> {
 
     @Override
     public void updateAll(List<Internship> objects) throws DaoException {
+        isOpen();
         try {
             entityManager.getTransaction().begin();
             objects.forEach(entityManager::merge);
@@ -94,6 +98,7 @@ public class InternshipDao implements DaoResource<Internship> {
     }
 
     public void remove(int id) throws DaoException {
+        isOpen();
         try {
             entityManager.getTransaction().begin();
             Internship internship = entityManager.find(Internship.class, id);
@@ -111,6 +116,7 @@ public class InternshipDao implements DaoResource<Internship> {
     // =======================
 
     public List<Internship> findInternshipsByTutorId(Tutor tutor) throws DaoException {
+        isOpen();
         try {
             return entityManager.createQuery("select i from Internship i where i.intern.tutor = :tutor_id", Internship.class)
                     .setParameter("tutor_id", tutor).getResultList();
@@ -122,6 +128,7 @@ public class InternshipDao implements DaoResource<Internship> {
     }
 
     public List<Internship> findByYear(Tutor tutor, int year) throws DaoException {
+        isOpen();
         try {
             return entityManager.createQuery("select i from Internship i where i.intern.tutor = :tutor and function('year', i.startDate) = :year", Internship.class)
                     .setParameter("tutor", tutor).setParameter("year", year).getResultList();
@@ -133,6 +140,7 @@ public class InternshipDao implements DaoResource<Internship> {
     }
 
     public Internship findInternshipByTutorId(Tutor tutor) throws DaoException {
+        isOpen();
         try {
             return entityManager.createQuery("select i from Internship i where i.intern.tutor = :tutor_id", Internship.class)
                     .setParameter("tutor_id", tutor).getSingleResult();

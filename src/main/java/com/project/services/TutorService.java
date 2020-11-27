@@ -20,7 +20,7 @@ public class TutorService implements EntityService<Tutor> {
         try {
             return dao.findAll();
         } catch (DaoException daoException) {
-            throw new ServiceException();
+            throw new ServiceException(daoException);
         }
     }
 
@@ -29,7 +29,7 @@ public class TutorService implements EntityService<Tutor> {
         try {
             return dao.find(id);
         } catch (DaoException daoException) {
-            throw new ServiceException();
+            throw new ServiceException(daoException);
         }
     }
 
@@ -38,7 +38,7 @@ public class TutorService implements EntityService<Tutor> {
         try {
             dao.save(object);
         } catch (DaoException daoException) {
-            throw new ServiceException();
+            throw new ServiceException(daoException);
         }
     }
 
@@ -47,7 +47,7 @@ public class TutorService implements EntityService<Tutor> {
         try {
             dao.update(object);
         } catch (DaoException daoException) {
-            throw new ServiceException();
+            throw new ServiceException(daoException);
         }
     }
 
@@ -56,7 +56,7 @@ public class TutorService implements EntityService<Tutor> {
         try {
             dao.updateAll(objects);
         } catch (DaoException daoException) {
-            throw new ServiceException();
+            throw new ServiceException(daoException);
         }
     }
 
@@ -64,7 +64,7 @@ public class TutorService implements EntityService<Tutor> {
         try {
             return dao.findByEmail(email);
         } catch (DaoException daoException) {
-            throw new ServiceException();
+            throw new ServiceException(daoException);
         }
 
     }

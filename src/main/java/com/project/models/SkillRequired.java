@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "SKILL_REQUIRED", schema = "ADM", catalog = "")
+@Table(name = "SKILL_REQUIRED", schema = "ADM")
 @IdClass(com.project.models.SkillRequiredPK.class)
 public class SkillRequired {
     private int skillId;

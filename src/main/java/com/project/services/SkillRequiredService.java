@@ -1,6 +1,7 @@
 package com.project.services;
 
 import com.project.dao.SkillRequiredDao;
+import com.project.exceptions.DaoException;
 import com.project.exceptions.ServiceException;
 import com.project.models.SkillRequired;
 
@@ -18,9 +19,8 @@ public class SkillRequiredService implements EntityService<SkillRequired> {
     public List<SkillRequired> findAll() throws ServiceException {
         try {
             return dao.findAll();
-        } catch (com.project.exceptions.DaoException daoException) {
-            daoException.printStackTrace();
-            return null;
+        } catch (DaoException daoException) {
+            throw new ServiceException(daoException);
         }
     }
 
@@ -28,9 +28,8 @@ public class SkillRequiredService implements EntityService<SkillRequired> {
     public SkillRequired find(int id) throws ServiceException {
         try {
             return dao.find(id);
-        } catch (com.project.exceptions.DaoException daoException) {
-            daoException.printStackTrace();
-            return null;
+        } catch (DaoException daoException) {
+            throw new ServiceException(daoException);
         }
     }
 
@@ -38,8 +37,8 @@ public class SkillRequiredService implements EntityService<SkillRequired> {
     public void save(SkillRequired object) throws ServiceException {
         try {
             dao.save(object);
-        } catch (com.project.exceptions.DaoException daoException) {
-            daoException.printStackTrace();
+        } catch (DaoException daoException) {
+            throw new ServiceException(daoException);
         }
     }
 
@@ -47,8 +46,8 @@ public class SkillRequiredService implements EntityService<SkillRequired> {
     public void update(SkillRequired object) throws ServiceException {
         try {
             dao.update(object);
-        } catch (com.project.exceptions.DaoException daoException) {
-            daoException.printStackTrace();
+        } catch (DaoException daoException) {
+            throw new ServiceException(daoException);
         }
     }
 
@@ -56,8 +55,8 @@ public class SkillRequiredService implements EntityService<SkillRequired> {
     public void updateAll(List<SkillRequired> objects) throws ServiceException {
         try {
             dao.updateAll(objects);
-        } catch (com.project.exceptions.DaoException daoException) {
-            daoException.printStackTrace();
+        } catch (DaoException daoException) {
+            throw new ServiceException(daoException);
         }
     }
 }

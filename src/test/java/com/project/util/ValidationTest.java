@@ -8,18 +8,18 @@ import java.sql.Timestamp;
 /**
  * @author victo
  */
-public class ValidationTest {
+class ValidationTest {
 
-    public ValidationTest() {
+    ValidationTest() {
     }
 
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
     }
 
     @AfterEach
-    public void tearDown() {
+    void tearDown() {
     }
 
     /**
@@ -27,7 +27,7 @@ public class ValidationTest {
      */
     @Test
     @DisplayName("test empty text field")
-    public void testValidationEmptyTextField() {
+    void testValidationEmptyTextField() {
         String field = "";
         String fieldName = "commentaryIntern";
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
@@ -37,7 +37,7 @@ public class ValidationTest {
 
     @Test
     @DisplayName("test valid text field")
-    public void testValidationTextField() {
+    void testValidationTextField() {
         String field = "field";
         String fieldName = "commentaryIntern";
         Assertions.assertDoesNotThrow(() -> {
@@ -50,27 +50,27 @@ public class ValidationTest {
      */
     @Test
     @DisplayName("test empty number")
-    public void testEmptyValidationNumberField() {
+    void testEmptyValidationNumberField() {
         String field = "";
         String fieldName = "companyStreetNumber";
         Assertions.assertThrows(NumberFormatException.class, () -> {
             Validation.validationNumberField(field, fieldName);
         });
     }
-    
+
     @Test
     @DisplayName("test invalid number")
-    public void testInvalidValidationNumberField() {
+    void testInvalidValidationNumberField() {
         String field = "-2";
         String fieldName = "companyStreetNumber";
         Assertions.assertThrows(NumberFormatException.class, () -> {
             Validation.validationNumberField(field, fieldName);
         });
     }
-    
+
     @Test
     @DisplayName("test valid number")
-    public void testValidationNumberField() {
+    void testValidationNumberField() {
         String field = "17";
         String fieldName = "companyStreetNumber";
         Assertions.assertDoesNotThrow(() -> {
@@ -83,17 +83,17 @@ public class ValidationTest {
      */
     @Test
     @DisplayName("test empty float field")
-    public void testEmptyValidationFloatField() {
+    void testEmptyValidationFloatField() {
         String field = "";
         String fieldName = "noteTech";
         Assertions.assertThrows(NullPointerException.class, () -> {
             Validation.validationFloatField(field, fieldName);
         });
     }
-    
+
     @Test
     @DisplayName("test invalid float field")
-    public void testInvalidValidationFloatField() {
+    void testInvalidValidationFloatField() {
         System.out.println("validationFloatField");
         String field = "-17.3";
         String fieldName = "noteTech";
@@ -101,10 +101,10 @@ public class ValidationTest {
             Validation.validationFloatField(field, fieldName);
         });
     }
-    
+
     @Test
     @DisplayName("test valid float")
-    public void testValidationFloatField() {
+    void testValidationFloatField() {
         System.out.println("validationFloatField");
         String field = "17.3";
         String fieldName = "noteTech";
@@ -118,40 +118,40 @@ public class ValidationTest {
      */
     @Test
     @DisplayName("empty timestamp field")
-    public void testEmptyValidationTimestamp() {
+    void testEmptyValidationTimestamp() {
         String timestamp = "";
         String fieldName = "midInternshipMeetingDate";
         Assertions.assertThrows(NullPointerException.class, () -> {
             Validation.validationTimestamp(timestamp, fieldName);
         });
     }
-    
+
     @Test
     @DisplayName("invalid valid timestamp field")
-    public void testInvalidValidationTimestamp() {
+    void testInvalidValidationTimestamp() {
         String timestamp = "2020-11-26 13:44:00";
         String fieldName = "midInternshipMeetingDate";
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
             Validation.validationTimestamp(timestamp, fieldName);
         });
     }
-    
+
     @Test
     @DisplayName("valid timestamp field")
-    public void testValidationTimestamp() {
+    void testValidationTimestamp() {
         String timestamp = "2020-11-26 13:44";
         String fieldName = "midInternshipMeetingDate";
         Assertions.assertDoesNotThrow(() -> {
             Validation.validationTimestamp(timestamp, fieldName);
-        });  
+        });
     }
-    
+
     /**
      * Test of validationDate method, of class Validation.
      */
     @Test
     @DisplayName("test empty date field")
-    public void testEmptyValidationDate() {
+    void testEmptyValidationDate() {
         String date = "";
         String dateName = "startDate";
         Assertions.assertThrows(NullPointerException.class, () -> {
@@ -161,35 +161,35 @@ public class ValidationTest {
 
     @Test
     @DisplayName("test valid date field")
-    public void testValidationDate() {
+    void testValidationDate() {
         String date = "17-10-2020";
         String dateName = "startDate";
         Assertions.assertDoesNotThrow(() -> {
             Validation.validationDate(date, dateName);
         });
     }
-    
+
     /**
      * Test of validationDates method, of class Validation.
      */
     @Test
     @DisplayName("test invalid dates ")
-    public void testInvalidValidationDates() {
+    void testInvalidValidationDates() {
         Date startDate = Date.valueOf("2019-04-26");
         Date endDate = Date.valueOf("2018-09-24");
-        Assertions.assertThrows(IllegalArgumentException.class, () ->{
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
             Validation.validationDates(startDate, endDate);
-        });   
+        });
     }
-    
+
     @Test
     @DisplayName("test valid dates ")
-    public void testValidationDates() {
+    void testValidationDates() {
         Date startDate = Date.valueOf("2019-04-26");
         Date endDate = Date.valueOf("2019-09-24");
         Assertions.assertDoesNotThrow(() -> {
             Validation.validationDates(startDate, endDate);
-        });    
+        });
     }
 
     /**
@@ -197,88 +197,88 @@ public class ValidationTest {
      */
     @Test
     @DisplayName("empty keywords field")
-    public void testEmptyValidationKeywords() throws Exception {
+    void testEmptyValidationKeywords() throws Exception {
         String keywords = "";
         String fieldName = "missionKeywords";
-        Assertions.assertThrows(IllegalArgumentException.class, ()-> {
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
             Validation.validationKeywords(keywords, fieldName);
         });
     }
-    
+
     @Test
     @DisplayName("valid keywords field")
-    public void testValidationKeywords() throws Exception {
+    void testValidationKeywords() throws Exception {
         String keywords = "keyword1, keyword2";
         String fieldName = "missionKeywords";
-        Assertions.assertDoesNotThrow(()->{
+        Assertions.assertDoesNotThrow(() -> {
             Validation.validationKeywords(keywords, fieldName);
-        });  
+        });
     }
-    
+
     /**
      * Test of validationMidInternship method, of class Validation.
      */
     @Test
     @DisplayName("invalid internship dates (for midinternship field)")
-    public void validationInvalidDatesMidInternship() {
+    void validationInvalidDatesMidInternship() {
         Date startDate = Date.valueOf("2019-04-26");
         Date endDate = Date.valueOf("2018-09-24");
         Timestamp midInternship = new Timestamp(Date.valueOf("2019-09-10").getTime());
-        Assertions.assertThrows(IllegalArgumentException.class, ()->{
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
             Validation.validationMidInternship(startDate, endDate, midInternship);
         });
     }
-    
+
     @Test
     @DisplayName("invalid midinternship field")
-    public void validationInvalidMidInternship() {
+    void validationInvalidMidInternship() {
         Date startDate = Date.valueOf("2019-04-26");
         Date endDate = Date.valueOf("2019-09-24");
         Timestamp midInternship = new Timestamp(Date.valueOf("2019-09-30").getTime());
-        Assertions.assertThrows(IllegalArgumentException.class, ()->{
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
             Validation.validationMidInternship(startDate, endDate, midInternship);
         });
     }
-    
+
     @Test
     @DisplayName("valid midinternship field")
-    public void validationMidInternship() {
+    void validationMidInternship() {
         Date startDate = Date.valueOf("2019-04-26");
         Date endDate = Date.valueOf("2019-09-24");
         Timestamp midInternship = new Timestamp(Date.valueOf("2019-09-10").getTime());
-        Assertions.assertDoesNotThrow(()->{
+        Assertions.assertDoesNotThrow(() -> {
             Validation.validationMidInternship(startDate, endDate, midInternship);
         });
     }
-   
+
     /**
      * Test of validationEmail method, of class Validation.
      */
     @Test
     @DisplayName("valid empty email field")
-    public void testEmptyValidationEmail() throws Exception {
+    void testEmptyValidationEmail() throws Exception {
         String email = "";
-        Assertions.assertThrows(IllegalArgumentException.class, ()->{
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
             Validation.validationEmail(email);
-        }); 
+        });
     }
-    
+
     @Test
     @DisplayName("invalid email field")
-    public void testInvalidValidationEmail() throws Exception {
+    void testInvalidValidationEmail() throws Exception {
         String email = "thisIsMyEmail";
-        Assertions.assertThrows(IllegalArgumentException.class, ()->{
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
             Validation.validationEmail(email);
-        }); 
+        });
     }
-    
+
     @Test
     @DisplayName("valid email field")
-    public void testValidationEmail() throws Exception {
+    void testValidationEmail() throws Exception {
         String email = "john.smith@efrei.fr";
-        Assertions.assertDoesNotThrow(()->{
+        Assertions.assertDoesNotThrow(() -> {
             Validation.validationEmail(email);
-        }); 
+        });
     }
 
     /**
@@ -286,27 +286,27 @@ public class ValidationTest {
      */
     @Test
     @DisplayName("empty password field")
-    public void testEmptyValidationPassword() throws Exception {
+    void testEmptyValidationPassword() throws Exception {
         String password = "";
-        Assertions.assertThrows(IllegalArgumentException.class, ()->{
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
             Validation.validationPassword(password);
-        }); 
+        });
     }
 
     @Test
     @DisplayName("too short password field")
-    public void testInvalidValidationPassword() throws Exception {
+    void testInvalidValidationPassword() throws Exception {
         String password = "h";
-        Assertions.assertThrows(IllegalArgumentException.class, ()->{
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
             Validation.validationPassword(password);
         });
     }
-    
+
     @Test
     @DisplayName("valid password field")
-    public void testValidationPassword() throws Exception {
+    void testValidationPassword() throws Exception {
         String password = "Coucoucmoi";
-        Assertions.assertDoesNotThrow(()->{
+        Assertions.assertDoesNotThrow(() -> {
             Validation.validationPassword(password);
         });
     }

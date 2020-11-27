@@ -28,17 +28,13 @@ public class DetailsController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response, Integer id) throws ServletException, IOException {
 
         if (id != null) {
-            try {
-                Internship internship = this.findInternshipData(request, id);
-                // check if the user is allowed to see this detail page
-                if (internship != null && internship.getIntern().getTutor().getTutorId() != ((Tutor) request.getSession().getAttribute(SESSION_USER)).getTutorId()) {
-                    response.sendRedirect(this.getServletContext().getContextPath() + PATH_HOME);
-                } else {
-                    request.setAttribute(ATTR_INTERNSHIP, internship);
-                    request.getRequestDispatcher(VIEW_DETAIL).forward(request, response);
-                }
-            } catch (Exception e) {
-                logger.warning(e.getMessage());
+            Internship internship = this.findInternshipData(request, id);
+            // check if the user is allowed to see this detail page
+            if (internship != null && internship.getIntern().getTutor().getTutorId() != ((Tutor) request.getSession().getAttribute(SESSION_USER)).getTutorId()) {
+                response.sendRedirect(this.getServletContext().getContextPath() + PATH_HOME);
+            } else {
+                request.setAttribute(ATTR_INTERNSHIP, internship);
+                request.getRequestDispatcher(VIEW_DETAIL).forward(request, response);
             }
         } else response.sendRedirect(this.getServletContext().getContextPath() + PATH_HOME);
     }
@@ -59,7 +55,11 @@ public class DetailsController extends HttpServlet {
             InternshipService service = new InternshipService(dao);
             DetailService detailService = new DetailService(service);
 
-            detailService.updateDetailInformation(request, id);
+            try {
+                detailService.updateDetailInformation(request, id);
+            } catch (ServiceException e) {
+                request.setAttribute(ERROR_SERVER, MESSAGE_SERVER_ERROR);
+            }
 
             // return to detail page
             processRequest(request, response, id);

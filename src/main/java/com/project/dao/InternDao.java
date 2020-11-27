@@ -5,22 +5,21 @@ import com.project.database.Database;
 import com.project.exceptions.DaoException;
 import com.project.models.Intern;
 
-import javax.persistence.EntityManager;
 import java.util.List;
 
 /**
  * Service class to handle Intern table
  */
-public class InternDao implements DaoResource<Intern> {
-
-    private final EntityManager entityManager;
+public class InternDao extends DaoResource<Intern> {
 
     public InternDao(Database database) {
-        this.entityManager = database.getConnection();
+        this.database = database;
+        this.entityManager = this.database.getConnection();
     }
 
     @Override
     public List<Intern> findAll() throws DaoException {
+        isOpen();
         try {
             return entityManager.createQuery("SELECT c FROM Intern c", Intern.class).getResultList();
         } catch (Exception e) {
@@ -32,6 +31,7 @@ public class InternDao implements DaoResource<Intern> {
 
     @Override
     public Intern find(int id) throws DaoException {
+        isOpen();
         try {
             return entityManager.find(Intern.class, id);
         } catch (Exception e) {
@@ -43,6 +43,7 @@ public class InternDao implements DaoResource<Intern> {
 
     @Override
     public void save(Intern object) throws DaoException {
+        isOpen();
         try {
             entityManager.getTransaction().begin();
             entityManager.persist(object);
@@ -56,6 +57,7 @@ public class InternDao implements DaoResource<Intern> {
 
 
     public void saveAll(Intern... objects) throws DaoException {
+        isOpen();
         try {
             entityManager.getTransaction().begin();
             for (Intern object : objects) {
@@ -71,6 +73,7 @@ public class InternDao implements DaoResource<Intern> {
 
     @Override
     public void update(Intern object) throws DaoException {
+        isOpen();
         try {
             entityManager.getTransaction().begin();
             entityManager.merge(object);
@@ -84,6 +87,7 @@ public class InternDao implements DaoResource<Intern> {
 
     @Override
     public void updateAll(List<Intern> objects) throws DaoException {
+        isOpen();
         try {
             entityManager.getTransaction().begin();
             objects.forEach(entityManager::merge);

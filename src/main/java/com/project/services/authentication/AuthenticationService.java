@@ -37,7 +37,6 @@ public class AuthenticationService {
     }
 
     private static byte[] getSalt() {
-        // SecureRandom secure = SecureRandom.getInstance("SHA1PRNG", "SUN");
         return new byte[16];
     }
 

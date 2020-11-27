@@ -4,20 +4,18 @@ import com.project.database.Database;
 import com.project.exceptions.DaoException;
 import com.project.models.Tutor;
 
-import javax.persistence.EntityManager;
 import java.util.List;
-import java.util.logging.Logger;
 
-public class TutorDao implements DaoResource<Tutor> {
-
-    private final EntityManager entityManager;
+public class TutorDao extends DaoResource<Tutor> {
 
     public TutorDao(Database database) {
-        this.entityManager = database.getConnection();
+        this.database = database;
+        this.entityManager = this.database.getConnection();
     }
 
     @Override
     public List<Tutor> findAll() throws DaoException {
+        isOpen();
         try {
             return entityManager.createQuery("SELECT c FROM Tutor c", Tutor.class).getResultList();
         } catch (Exception e) {
@@ -29,6 +27,7 @@ public class TutorDao implements DaoResource<Tutor> {
 
     @Override
     public Tutor find(int id) throws DaoException {
+        isOpen();
         try {
             return entityManager.createQuery("select c from Tutor c where c.tutorId = :id", Tutor.class).setParameter("id", id).getSingleResult();
         } catch (Exception e) {
@@ -40,6 +39,7 @@ public class TutorDao implements DaoResource<Tutor> {
 
     @Override
     public void save(Tutor object) throws DaoException {
+        isOpen();
         try {
             entityManager.getTransaction().begin();
             entityManager.persist(object);
@@ -52,6 +52,7 @@ public class TutorDao implements DaoResource<Tutor> {
     }
 
     public void saveAll(Tutor... objects) throws DaoException {
+        isOpen();
         try {
             entityManager.getTransaction().begin();
             for (Tutor object : objects) {
@@ -67,6 +68,7 @@ public class TutorDao implements DaoResource<Tutor> {
 
     @Override
     public void update(Tutor object) throws DaoException {
+        isOpen();
         try {
             entityManager.getTransaction().begin();
             entityManager.merge(object);
@@ -81,6 +83,7 @@ public class TutorDao implements DaoResource<Tutor> {
 
     @Override
     public void updateAll(List<Tutor> objects) throws DaoException {
+        isOpen();
         try {
             entityManager.getTransaction().begin();
             objects.forEach(entityManager::merge);
@@ -94,6 +97,7 @@ public class TutorDao implements DaoResource<Tutor> {
     }
 
     public Tutor findByEmail(String email) throws DaoException {
+        isOpen();
         try {
             return entityManager.createQuery("SELECT t FROM Tutor t WHERE t.email = :email", Tutor.class).setParameter("email", email).getSingleResult();
         } catch (Exception e) {

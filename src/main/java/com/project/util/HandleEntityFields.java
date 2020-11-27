@@ -266,7 +266,7 @@ public class HandleEntityFields {
 
         try {
             streetNumberParse = validationNumberField(streetNumber, FIELD_COMPANY_STREET_NUMBER);
-        } catch (Exception e) {
+        } catch (NumberFormatException e) {
             errors.put(FIELD_COMPANY_STREET_NUMBER, e.getMessage());
         }
         company.setStreetNumber(streetNumberParse);
@@ -312,7 +312,7 @@ public class HandleEntityFields {
         // request parameters
         String description = request.getParameter(FIELD_MISSION_DESCRIPTION);
         String keywords = request.getParameter(FIELD_MISSION_KEYWORDS);
-        Mission finalMission = mission;
+        /*Mission finalMission = mission;*/
 
         /*List<Skill> skills = Arrays.asList(request.getParameter(FIELD_SKILLS_REQUIRED).split(",")).stream().map(sk -> {
             Skill skill = new Skill();

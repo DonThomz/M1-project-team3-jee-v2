@@ -2,6 +2,7 @@ package com.project.services;
 
 
 import com.project.dao.InternDao;
+import com.project.exceptions.DaoException;
 import com.project.exceptions.ServiceException;
 import com.project.models.Intern;
 import com.project.models.Student;
@@ -25,9 +26,8 @@ public class InternService implements EntityService<Intern> {
     public List<Intern> findAll() throws ServiceException {
         try {
             return dao.findAll();
-        } catch (com.project.exceptions.DaoException daoException) {
-            daoException.printStackTrace();
-            return null;
+        } catch (DaoException daoException) {
+            throw new ServiceException(daoException);
         }
     }
 
@@ -35,9 +35,8 @@ public class InternService implements EntityService<Intern> {
     public Intern find(int id) throws ServiceException {
         try {
             return dao.find(id);
-        } catch (com.project.exceptions.DaoException daoException) {
-            daoException.printStackTrace();
-            return null;
+        } catch (DaoException daoException) {
+            throw new ServiceException(daoException);
         }
     }
 
@@ -45,8 +44,8 @@ public class InternService implements EntityService<Intern> {
     public void save(Intern object) throws ServiceException {
         try {
             dao.save(object);
-        } catch (com.project.exceptions.DaoException daoException) {
-            daoException.printStackTrace();
+        } catch (DaoException daoException) {
+            throw new ServiceException(daoException);
         }
     }
 
@@ -54,8 +53,8 @@ public class InternService implements EntityService<Intern> {
     public void update(Intern object) throws ServiceException {
         try {
             dao.update(object);
-        } catch (com.project.exceptions.DaoException daoException) {
-            daoException.printStackTrace();
+        } catch (DaoException daoException) {
+            throw new ServiceException(daoException);
         }
     }
 
@@ -64,7 +63,7 @@ public class InternService implements EntityService<Intern> {
         try {
             dao.updateAll(objects);
         } catch (com.project.exceptions.DaoException daoException) {
-            daoException.printStackTrace();
+            throw new ServiceException(daoException);
         }
     }
 

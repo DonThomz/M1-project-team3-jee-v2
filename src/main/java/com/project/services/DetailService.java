@@ -1,5 +1,6 @@
 package com.project.services;
 
+import com.project.exceptions.ServiceException;
 import com.project.forms.DetailForm;
 import com.project.models.Internship;
 
@@ -16,14 +17,14 @@ public class DetailService {
         this.internshipService = internshipService;
     }
 
-    public void updateDetailInformation(HttpServletRequest request, int id) {
+    public void updateDetailInformation(HttpServletRequest request, int id) throws ServiceException {
 
         DetailForm detailForm = new DetailForm();
         Internship internshipFounded = null;
         try {
             internshipFounded = internshipService.find(id);
-        } catch (com.project.exceptions.ServiceException e) {
-            e.printStackTrace();
+        } catch (ServiceException e) {
+            throw new ServiceException(e);
         }
         internshipFounded = detailForm.handleForm(request, internshipFounded);
 
@@ -32,13 +33,10 @@ public class DetailService {
         if (detailForm.getErrors().isEmpty()) {
             try {
                 internshipService.update(internshipFounded);
-            } catch (com.project.exceptions.ServiceException e) {
-                e.printStackTrace();
+            } catch (ServiceException e) {
+                throw new ServiceException(e);
             }
-        } else {
-            System.err.println(detailForm.getErrors());
         }
-
     }
 
 }

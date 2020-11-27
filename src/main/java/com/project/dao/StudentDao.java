@@ -4,15 +4,13 @@ import com.project.database.Database;
 import com.project.exceptions.DaoException;
 import com.project.models.Student;
 
-import javax.persistence.EntityManager;
 import java.util.List;
 
-public class StudentDao implements DaoResource<Student> {
-
-    private final EntityManager entityManager;
+public class StudentDao extends DaoResource<Student> {
 
     public StudentDao(Database database) {
-        this.entityManager = database.getConnection();
+        this.database = database;
+        this.entityManager = this.database.getConnection();
     }
 
     @Override
@@ -22,6 +20,7 @@ public class StudentDao implements DaoResource<Student> {
 
     @Override
     public Student find(int id) throws DaoException {
+        isOpen();
         try {
             return entityManager.find(Student.class, id);
         } catch (Exception e) {
@@ -33,6 +32,7 @@ public class StudentDao implements DaoResource<Student> {
 
     @Override
     public void save(Student object) throws DaoException {
+        isOpen();
         try {
             entityManager.getTransaction().begin();
             entityManager.persist(object);
@@ -45,6 +45,7 @@ public class StudentDao implements DaoResource<Student> {
     }
 
     public void saveAll(Student... objects) throws DaoException {
+        isOpen();
         try {
             entityManager.getTransaction().begin();
             for (Student object : objects) {
@@ -60,6 +61,7 @@ public class StudentDao implements DaoResource<Student> {
 
     @Override
     public void update(Student object) throws DaoException {
+        isOpen();
         try {
             entityManager.getTransaction().begin();
             entityManager.merge(object);
@@ -73,6 +75,7 @@ public class StudentDao implements DaoResource<Student> {
 
     @Override
     public void updateAll(List<Student> objects) throws DaoException {
+        isOpen();
         try {
             entityManager.getTransaction().begin();
             objects.forEach(entityManager::merge);

@@ -1,6 +1,7 @@
 package com.project.services;
 
 import com.project.dao.SkillDao;
+import com.project.exceptions.DaoException;
 import com.project.exceptions.ServiceException;
 import com.project.models.Skill;
 
@@ -18,9 +19,8 @@ public class SkillService implements EntityService<Skill> {
     public List<Skill> findAll() throws ServiceException {
         try {
             return dao.findAll();
-        } catch (com.project.exceptions.DaoException daoException) {
-            daoException.printStackTrace();
-            return null;
+        } catch (DaoException daoException) {
+            throw new ServiceException(daoException);
         }
     }
 
@@ -28,9 +28,8 @@ public class SkillService implements EntityService<Skill> {
     public Skill find(int id) throws ServiceException {
         try {
             return dao.find(id);
-        } catch (com.project.exceptions.DaoException daoException) {
-            daoException.printStackTrace();
-            return null;
+        } catch (DaoException daoException) {
+            throw new ServiceException(daoException);
         }
     }
 
@@ -38,8 +37,8 @@ public class SkillService implements EntityService<Skill> {
     public void save(Skill object) throws ServiceException {
         try {
             dao.save(object);
-        } catch (com.project.exceptions.DaoException daoException) {
-            daoException.printStackTrace();
+        } catch (DaoException daoException) {
+            throw new ServiceException(daoException);
         }
     }
 
@@ -47,8 +46,8 @@ public class SkillService implements EntityService<Skill> {
     public void update(Skill object) throws ServiceException {
         try {
             dao.update(object);
-        } catch (com.project.exceptions.DaoException daoException) {
-            daoException.printStackTrace();
+        } catch (DaoException daoException) {
+            throw new ServiceException(daoException);
         }
     }
 
@@ -56,8 +55,8 @@ public class SkillService implements EntityService<Skill> {
     public void updateAll(List<Skill> objects) throws ServiceException {
         try {
             dao.updateAll(objects);
-        } catch (com.project.exceptions.DaoException daoException) {
-            daoException.printStackTrace();
+        } catch (DaoException daoException) {
+            throw new ServiceException(daoException);
         }
     }
 }

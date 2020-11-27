@@ -1,6 +1,7 @@
 package com.project.services;
 
 import com.project.dao.SupervisorDao;
+import com.project.exceptions.DaoException;
 import com.project.exceptions.ServiceException;
 import com.project.models.Supervisor;
 
@@ -19,9 +20,8 @@ public class SupervisorService implements EntityService<Supervisor> {
     public List<Supervisor> findAll() throws ServiceException {
         try {
             return dao.findAll();
-        } catch (com.project.exceptions.DaoException daoException) {
-            daoException.printStackTrace();
-            return null;
+        } catch (DaoException daoException) {
+            throw new ServiceException(daoException);
         }
     }
 
@@ -29,9 +29,8 @@ public class SupervisorService implements EntityService<Supervisor> {
     public Supervisor find(int id) throws ServiceException {
         try {
             return dao.find(id);
-        } catch (com.project.exceptions.DaoException daoException) {
-            daoException.printStackTrace();
-            return null;
+        } catch (DaoException daoException) {
+            throw new ServiceException(daoException);
         }
     }
 
@@ -39,8 +38,8 @@ public class SupervisorService implements EntityService<Supervisor> {
     public void save(Supervisor object) throws ServiceException {
         try {
             dao.save(object);
-        } catch (com.project.exceptions.DaoException daoException) {
-            daoException.printStackTrace();
+        } catch (DaoException daoException) {
+            throw new ServiceException(daoException);
         }
     }
 
@@ -48,8 +47,8 @@ public class SupervisorService implements EntityService<Supervisor> {
     public void update(Supervisor object) throws ServiceException {
         try {
             dao.update(object);
-        } catch (com.project.exceptions.DaoException daoException) {
-            daoException.printStackTrace();
+        } catch (DaoException daoException) {
+            throw new ServiceException(daoException);
         }
     }
 
@@ -57,8 +56,8 @@ public class SupervisorService implements EntityService<Supervisor> {
     public void updateAll(List<Supervisor> objects) throws ServiceException {
         try {
             dao.updateAll(objects);
-        } catch (com.project.exceptions.DaoException daoException) {
-            daoException.printStackTrace();
+        } catch (DaoException daoException) {
+            throw new ServiceException(daoException);
         }
     }
 

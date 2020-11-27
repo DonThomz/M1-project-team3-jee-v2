@@ -13,8 +13,6 @@ import static com.project.util.constants.Field.FIELD_PASSWORD;
 public class LoginForm extends Form<Tutor> {
 
 
-    private Tutor user;
-
     public LoginForm() {
         super();
     }
@@ -27,7 +25,7 @@ public class LoginForm extends Form<Tutor> {
     @Override
     public Tutor handleForm(HttpServletRequest request) {
 
-        user = new Tutor();
+        Tutor user = new Tutor();
         // get email and password from request
         String email = request.getParameter(FIELD_EMAIL);
         String password = request.getParameter(FIELD_PASSWORD);

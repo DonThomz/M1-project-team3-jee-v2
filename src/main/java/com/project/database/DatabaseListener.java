@@ -1,15 +1,10 @@
 package com.project.database;
 
-import com.project.controller.DetailsController;
-
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 import javax.servlet.http.HttpSessionAttributeListener;
-import javax.servlet.http.HttpSessionBindingEvent;
-import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
-
 import java.util.logging.Logger;
 
 import static com.project.util.constants.Attribute.DATABASE_MANAGER;
