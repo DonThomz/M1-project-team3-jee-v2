@@ -26,7 +26,7 @@ To build and run this app locally you will need a few things:
 - Clone the repository
 
 ```
-git clone https://github.com/victoria-cs-doe/Project-Team3-JEE-JPA-Version.git
+git clone https://github.com/DonThomz/M1-project-team3-jee-v2
 ```
 
 - Create a JavaDB database : 
