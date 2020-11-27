@@ -44,11 +44,11 @@
     <td class="align-middle">
         <button type="button" class="btn btn-info px-3" data-toggle="modal"
                 data-target="#modal-internship-${requestScope.internship.internshipId}">
-            <i class="fas fa-info" aria-hidden="true"></i>
+            <em class="fas fa-info" aria-hidden="true"></em>
         </button>
         <button type="button" class="btn btn-danger px-3 btn-delete-internship"
                 data-internship-id="${requestScope.internship.internshipId}">
-            <i class="fas fa-trash" aria-hidden="true"></i>
+            <em class="fas fa-trash" aria-hidden="true"></em>
         </button>
         <!-- Modal -->
         <div class="modal fade" id="modal-internship-${requestScope.internship.internshipId}" tabindex="-1"
@@ -76,9 +76,9 @@
                                 <div class="col">
                                     <div class="row my-2"><span class="font-weight-bold">Company</span></div>
                                     <div class="row my-2 flex-column d-flex text-left">
-                                        <p><i class="fas fa-building"></i> ${company.name}</p>
+                                        <p><em class="fas fa-building"></em> ${company.name}</p>
                                         <p>
-                                            <i class="fas fa-map-marker-alt"></i> ${company.streetNumber} ${company.streetName}, ${company.city} ${company.zipcode}
+                                            <em class="fas fa-map-marker-alt"></em> ${company.streetNumber} ${company.streetName}, ${company.city} ${company.zipcode}
                                         </p>
                                     </div>
                                 </div>

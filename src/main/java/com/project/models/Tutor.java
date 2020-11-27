@@ -7,12 +7,15 @@ import java.util.Objects;
 
 @Entity
 public class Tutor implements Serializable {
+
+    private static final long serialVersionUID = 4815156113686492L;
+
     private int tutorId;
     private String firstname;
     private String lastname;
     private String email;
-    private String password;
-    private Collection<com.project.models.Intern> internsByTutorId;
+    private transient String password;
+    private transient Collection<com.project.models.Intern> internsByTutorId;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

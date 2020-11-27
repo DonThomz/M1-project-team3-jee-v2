@@ -5,7 +5,7 @@
             <!-- Company Name -->
             <div class="row align-items-center">
                 <div class="col-1">
-                    <i class="fas fa-building"></i>
+                    <em class="fas fa-building"></em>
                 </div>
                 <div class="col-11">
                     <div class="md-form">
