@@ -59,12 +59,15 @@ The full folder structure of this app is explained below:
 | ---------------------------------- | ---------------------------------------------------------------------------------------------------------- |
 | **docs**                           | Contains documents and sql scripts                                                                         |
 | **src**                            | Contains your source code that will be compiled to the war file                                            |
-| **src/../forms**                   | Contains functions to handle forms                                                                         |
 | **src/../controllers**             | Controllers define servlets controllers                                                                    |
+| **src/../dao**            | Contains dao classes                                                                                        |
+| **src/../database**       | Contains service to load persistence-unit                                                                  |
+| **src/../exceptions**            | Contains custom Exceptions                                                                                           |
+| **src/../forms**                   | Contains functions to handle forms                                                                         |
+| **src/../filters**                   | Contains filter classes                                                                        |
 | **src/../models**                  | Models classes from entities                                                                               |
+| **src/../services/**         | Contains services of each entities to perform sql actions                                                  |
 | **src/../services/authentication** | Contains services to handle authentication login                                                           |
-| **src/../services/database**       | Contains service to load persistence-unit                                                                  |
-| **src/../services/entity**         | Contains services of each entities to perform sql actions                                                  |
 | **src/../uti/**                    | Contains sub-utils packages / Validation data methods and attach fields to entity methods                  |
 | **src/../util/constants**          | Contains classes of constants : Views, Paths, Attributes, Fields                                           |
 | **src/../util/filters**            | Contains filters                                                                                           |
@@ -82,12 +85,12 @@ Start the glassfish server with the war file
 
 ## Testing
 
-For this project, we choose Junit, Jmeter, Mokito and sonarcude as our test frameworks.
+For this project, we choose Junit, Mokito and sonarcude as our test frameworks.
 
 ### Running tests
 
 Simply run `mvn surefire:test`.
-Note this will also generate a coverage report.
+To use sonarqube, run `mvn clean install sonar:sonar`.
 
 # Dependencies
 
@@ -116,6 +119,6 @@ In that file you'll find two sections:
 | junit-jupiter-engine         | Module "junit-jupiter-engine" of JUnit 5.             |
 | mockito-core | Mockito mock objects library core API and implementation   |
 | mockito-all         | Mock objects library for java                                         |
-
+| org.jacoco.agent    | The JaCoCo Maven Plugin provides the JaCoCo runtime agent to your tests and allows basic report creation. 
 
 To install or update these dependencies you can use `yarn`.
