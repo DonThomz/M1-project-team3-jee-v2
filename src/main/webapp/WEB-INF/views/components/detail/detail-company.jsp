@@ -20,7 +20,7 @@
             <!-- Company Address -->
             <div class="row align-items-center">
                 <div class="col-1">
-                    <i class="fas fa-map-marker-alt"></i>
+                    <em class="fas fa-map-marker-alt"></em>
                 </div>
                 <div class="col-11">
                     <div class="md-form">

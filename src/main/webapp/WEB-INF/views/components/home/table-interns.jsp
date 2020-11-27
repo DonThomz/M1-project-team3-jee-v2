@@ -3,7 +3,7 @@
 --%>
 <div class="table-responsive text-nowrap pb-2">
 
-    <table class="table table-hover" id="interns-table">
+    <table class="table table-hover" id="interns-table" aria-describedby="Internship table">
         <thead>
         <tr>
             <th scope="col">#</th>
