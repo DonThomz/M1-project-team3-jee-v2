@@ -43,8 +43,9 @@ public class DaoResource<T> {
 
     public List<T> findAll() throws DaoException {
         try {
+            String query = String.format("SELECT c FROM %s c", tClass.getSimpleName());
             isOpen();
-            return entityManager.createQuery("SELECT c FROM " + tClass.getSimpleName() + " c", tClass).getResultList();
+            return entityManager.createQuery(query, tClass).getResultList();
         } catch (Exception e) {
             throw new DaoException(e);
         } finally {

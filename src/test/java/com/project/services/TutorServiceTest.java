@@ -56,8 +56,7 @@ class TutorServiceTest {
         when(tutorDao.find(1)).thenReturn(fakeTutor);
 
         TutorService service = new TutorService(tutorDao);
-        Tutor result = null;
-        result = service.find(anyInt());
+        Tutor result = service.find(1);
         // assertions
         assertEquals(fakeTutor, result);
     }
@@ -72,10 +71,6 @@ class TutorServiceTest {
 
         TutorService service = new TutorService(tutorDao);
         assertDoesNotThrow(() -> service.save(fakeTutor));
-    }
-
-    @Test
-    void saveAll() {
     }
 
     @Test
