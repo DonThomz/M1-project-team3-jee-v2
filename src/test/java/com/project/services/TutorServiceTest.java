@@ -53,7 +53,7 @@ class TutorServiceTest {
         Tutor fakeTutor = createFakeTutor("daniel", "fake");
 
         // fake behavior
-        when(tutorDao.find(anyInt())).thenReturn(fakeTutor);
+        when(tutorDao.find(1)).thenReturn(fakeTutor);
 
         TutorService service = new TutorService(tutorDao);
         Tutor result = null;
