@@ -5,7 +5,6 @@ import com.project.exceptions.DaoException;
 import com.project.exceptions.ServiceException;
 import com.project.models.Tutor;
 
-import java.sql.SQLException;
 import java.util.List;
 
 public class TutorService implements EntityService<Tutor> {
@@ -17,36 +16,56 @@ public class TutorService implements EntityService<Tutor> {
     }
 
     @Override
-    public List<Tutor> findAll() {
-        return dao.findAll();
+    public List<Tutor> findAll() throws ServiceException {
+        try {
+            return dao.findAll();
+        } catch (DaoException daoException) {
+            throw new ServiceException();
+        }
     }
 
     @Override
-    public Tutor find(int id) {
-        return dao.find(id);
+    public Tutor find(int id) throws ServiceException {
+        try {
+            return dao.find(id);
+        } catch (DaoException daoException) {
+            throw new ServiceException();
+        }
     }
 
     @Override
-    public void save(Tutor object) {
-        dao.save(object);
+    public void save(Tutor object) throws ServiceException {
+        try {
+            dao.save(object);
+        } catch (DaoException daoException) {
+            throw new ServiceException();
+        }
     }
 
     @Override
-    public void saveAll(Tutor... objects) {
-        dao.saveAll(objects);
+    public void update(Tutor object) throws ServiceException {
+        try {
+            dao.update(object);
+        } catch (DaoException daoException) {
+            throw new ServiceException();
+        }
     }
 
     @Override
-    public void update(Tutor object) {
-        dao.update(object);
+    public void updateAll(List<Tutor> objects) throws ServiceException {
+        try {
+            dao.updateAll(objects);
+        } catch (DaoException daoException) {
+            throw new ServiceException();
+        }
     }
 
-    @Override
-    public void updateAll(List<Tutor> objects) throws SQLException {
-        dao.updateAll(objects);
-    }
+    public Tutor findByEmail(String email) throws ServiceException {
+        try {
+            return dao.findByEmail(email);
+        } catch (DaoException daoException) {
+            throw new ServiceException();
+        }
 
-    public Tutor findByEmail(String email) {
-        return dao.findByEmail(email);
     }
 }

@@ -1,9 +1,9 @@
 package com.project.services;
 
 import com.project.dao.CompanyDao;
+import com.project.exceptions.ServiceException;
 import com.project.models.Company;
 
-import java.sql.SQLException;
 import java.util.List;
 
 public class CompanyService implements EntityService<Company> {
@@ -15,33 +15,50 @@ public class CompanyService implements EntityService<Company> {
     }
 
     @Override
-    public List<Company> findAll() {
-        return dao.findAll();
+    public List<Company> findAll() throws ServiceException {
+        try {
+            return dao.findAll();
+        } catch (com.project.exceptions.DaoException daoException) {
+            daoException.printStackTrace();
+            return null;
+        }
     }
 
     @Override
-    public Company find(int id) {
-        return dao.find(id);
+    public Company find(int id) throws ServiceException {
+        try {
+            return dao.find(id);
+        } catch (com.project.exceptions.DaoException daoException) {
+            daoException.printStackTrace();
+            return null;
+        }
     }
 
     @Override
-    public void save(Company object) {
-        dao.save(object);
+    public void save(Company object) throws ServiceException {
+        try {
+            dao.save(object);
+        } catch (com.project.exceptions.DaoException daoException) {
+            daoException.printStackTrace();
+        }
     }
 
     @Override
-    public void saveAll(Company... objects) {
-        dao.saveAll(objects);
+    public void update(Company object) throws ServiceException {
+        try {
+            dao.update(object);
+        } catch (com.project.exceptions.DaoException daoException) {
+            daoException.printStackTrace();
+        }
     }
 
     @Override
-    public void update(Company object) {
-        dao.update(object);
-    }
-
-    @Override
-    public void updateAll(List<Company> objects) throws SQLException {
-        dao.updateAll(objects);
+    public void updateAll(List<Company> objects) throws ServiceException {
+        try {
+            dao.updateAll(objects);
+        } catch (com.project.exceptions.DaoException daoException) {
+            daoException.printStackTrace();
+        }
     }
 
 }

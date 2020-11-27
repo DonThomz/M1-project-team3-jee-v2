@@ -1,10 +1,11 @@
 package com.project.services;
 
 import com.project.dao.InternshipDao;
+import com.project.exceptions.DaoException;
+import com.project.exceptions.ServiceException;
 import com.project.models.Internship;
 import com.project.models.Tutor;
 
-import java.sql.SQLException;
 import java.util.List;
 
 public class InternshipService implements EntityService<Internship> {
@@ -17,54 +18,87 @@ public class InternshipService implements EntityService<Internship> {
 
 
     @Override
-    public List<Internship> findAll() {
-        return dao.findAll();
+    public List<Internship> findAll() throws ServiceException {
+        try {
+            return dao.findAll();
+        } catch (DaoException daoException) {
+            throw new ServiceException(daoException);
+        }
     }
 
     @Override
-    public Internship find(int id) {
-        return dao.find(id);
+    public Internship find(int id) throws ServiceException {
+        try {
+            return dao.find(id);
+        } catch (DaoException daoException) {
+            throw new ServiceException(daoException);
+        }
     }
 
 
     @Override
-    public void save(Internship object) {
-        dao.save(object);
+    public void save(Internship object) throws ServiceException {
+        try {
+            dao.save(object);
+        } catch (DaoException daoException) {
+            throw new ServiceException(daoException);
+        }
     }
 
     @Override
-    public void saveAll(Internship... objects) {
-        dao.saveAll(objects);
+    public void update(Internship object) throws ServiceException {
+        try {
+            dao.update(object);
+        } catch (DaoException daoException) {
+            throw new ServiceException(daoException);
+        }
     }
 
     @Override
-    public void update(Internship object) {
-        dao.update(object);
+    public void updateAll(List<Internship> objects) throws ServiceException {
+        try {
+            dao.updateAll(objects);
+        } catch (DaoException daoException) {
+            throw new ServiceException(daoException);
+        }
     }
 
-    @Override
-    public void updateAll(List<Internship> objects) throws SQLException {
-        dao.updateAll(objects);
-    }
+    public void remove(int id) throws ServiceException {
+        try {
+            dao.remove(id);
+        } catch (DaoException daoException) {
+            throw new ServiceException(daoException);
+        }
 
-    public void remove(int id) {
-        dao.remove(id);
     }
 
     // =======================
     // Custom Queries Methods
     // =======================
 
-    public List<Internship> findInternshipsByTutorId(Tutor tutor) {
-        return dao.findInternshipsByTutorId(tutor);
+    public List<Internship> findInternshipsByTutorId(Tutor tutor) throws ServiceException {
+        try {
+            return dao.findInternshipsByTutorId(tutor);
+        } catch (DaoException daoException) {
+            throw new ServiceException(daoException);
+        }
+
     }
 
-    public List<Internship> findByYear(Tutor tutor, int year) {
-        return dao.findByYear(tutor, year);
+    public List<Internship> findByYear(Tutor tutor, int year) throws ServiceException {
+        try {
+            return dao.findByYear(tutor, year);
+        } catch (DaoException daoException) {
+            throw new ServiceException(daoException);
+        }
     }
 
-    public Internship findInternshipByTutorId(Tutor tutor) {
-        return dao.findInternshipByTutorId(tutor);
+    public Internship findInternshipByTutorId(Tutor tutor) throws ServiceException {
+        try {
+            return dao.findInternshipByTutorId(tutor);
+        } catch (DaoException daoException) {
+            throw new ServiceException(daoException);
+        }
     }
 
     // =======================
