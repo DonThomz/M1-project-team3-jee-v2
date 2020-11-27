@@ -10,7 +10,7 @@ import static com.project.util.constants.Attribute.ATTR_INTERNSHIP;
 
 public class DetailService {
 
-    private InternshipService internshipService;
+    private final InternshipService internshipService;
 
     public DetailService(InternshipService internshipService) {
         this.internshipService = internshipService;
