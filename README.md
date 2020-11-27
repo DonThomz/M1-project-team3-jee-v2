@@ -119,3 +119,6 @@ In that file you'll find two sections:
 
 
 To install or update these dependencies you can use `yarn`.
+
+## `JUnit tests`
+![alt text](http://docs/tests/JUnit tests.png)
