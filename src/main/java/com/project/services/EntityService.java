@@ -1,23 +1,19 @@
 package com.project.services;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import com.project.exceptions.ServiceException;
+
 import java.util.List;
 
 public interface EntityService<X> {
 
-    List<X> findAll() throws SQLException;
+    List<X> findAll() throws ServiceException;
 
-    X find(int id);
+    X find(int id) throws ServiceException;
 
-    void save(X object);
+    void save(X object) throws ServiceException;
 
-    void saveAll(X... objects);
+    void update(X object) throws ServiceException;
 
-    void update(X object);
-
-    void updateAll(List<X> objects) throws SQLException;
+    void updateAll(List<X> objects) throws ServiceException;
 
 }

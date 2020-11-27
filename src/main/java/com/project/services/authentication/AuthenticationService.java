@@ -1,5 +1,6 @@
 package com.project.services.authentication;
 
+import com.project.exceptions.ServiceException;
 import com.project.models.Tutor;
 import com.project.services.TutorService;
 
@@ -21,7 +22,7 @@ public class AuthenticationService {
      * @param password the tutor password
      * @return user logged or null if invalid credentials
      */
-    public Tutor authWithEmailAndPassword(String email, String password) {
+    public Tutor authWithEmailAndPassword(String email, String password) throws ServiceException {
 
         byte[] salt = getSalt();
         String hashedPassword;
@@ -36,7 +37,6 @@ public class AuthenticationService {
     }
 
     private static byte[] getSalt() {
-        // SecureRandom secure = SecureRandom.getInstance("SHA1PRNG", "SUN");
         return new byte[16];
     }
 

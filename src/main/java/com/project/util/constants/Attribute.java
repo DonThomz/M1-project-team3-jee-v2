@@ -2,7 +2,10 @@ package com.project.util.constants;
 
 public class Attribute {
 
-    public static final String MESSAGE_EMPTY_FIELD = "%s is empty";
+    // PARAMETERS
+    public static final String PARAM_YEAR = "year";
+
+
 
     // ATTRIBUTES INTERNSHIP
     public static final String ATTR_INTERNSHIP = "internship";
@@ -28,28 +31,28 @@ public class Attribute {
 
     // DATABASE
     public static final String DATABASE_MANAGER = "database_manager";
-    public final static String PERSISTENCE_UNIT = "ST2EEDB-JEE-JPA-Version";
+    public static final String PERSISTENCE_UNIT = "ST2EEDB-JEE-JPA-Version";
 
-    // Messages
-    public static final String SUCCEED_MESSAGE = "Connected !";
-    public static final String WRONG_CREDENTIALS = "Wrong credentials, please try again !";
-    public static final String FAILED_LOGIN = "Login failed, please try again";
-    public static final String SERVER_ERROR = "server_error";
+    // MESSAGES
     public static final String MESSAGE_ERROR_PARAM_YEAR = "Error year parameter, please try again";
-
-    public static final String PARAM_YEAR = "year";
-    public static final String ERROR_PARAM_YEAR = "error_param_year";
-
+    public static final String MESSAGE_CONNECTED = "Connected !";
     public static final String MESSAGE_SERVER_ERROR = "Error server, please try again !";
     public static final String MESSAGE_UPDATE_SUCCESS = "Modification updated !";
-    public static final String MESSAGE_INVALID_FIELD = "Invalid field : %s ";
-    public static final String MESSAGE_GAP_DATES_ERROR = "'Start Date' must be before 'End Date'";
+    public static final String MESSAGE_INVALID_FIELD = "Invalid field : <span class=\"font-weight-bold\">%s</span>";
+    public static final String MESSAGE_EMPTY_FIELD = "<span class=\"font-weight-bold\">%s</span> cannot be empty";
+    public static final String MESSAGE_GAP_DATES_ERROR = "<span class=\"font-weight-bold\">Start Date</span> must be before <span class=\"font-weight-bold\">End Date</span>";
     public static final String MESSAGE_INVALID_EMAIL = "email invalid, please enter a correct email";
     public static final String MESSAGE_EMPTY_EMAIL = "email empty, please try again";
     public static final String MESSAGE_EMPTY_PASSWORD = "password empty, please enter a password";
     public static final String MESSAGE_INVALID_PASSWORD = "password must be granter than %d characters";
-    public static final String MESSAGE_POSITIVE_NUMBER = "%s must be a positive number";
-    public static final String MESSAGE_INVALID_MID_DATE = "mid internship date should be between internship dates";
+    public static final String MESSAGE_POSITIVE_NUMBER = "<span class=\"font-weight-bold\">%s</span> must be a positive number";
+    public static final String MESSAGE_INVALID_MID_DATE = "<span class=\"font-weight-bold\">Mid Internship Date</span> should be between internship dates";
+    public static final String MESSAGE_WRONG_CREDENTIALS = "Wrong credentials, please try again !";
+    public static final String MESSAGE_FAILED_LOGIN = "Login failed, please try again";
+    // ERRORS
+    public static final String ERROR_SERVER = "server_error";
+    public static final String ERROR_PARAM_YEAR = "error_param_year";
+
     private Attribute() {
         throw new IllegalStateException("Utility class");
     }

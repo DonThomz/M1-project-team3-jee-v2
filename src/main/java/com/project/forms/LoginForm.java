@@ -6,14 +6,12 @@ import javax.servlet.http.HttpServletRequest;
 
 import static com.project.util.Validation.validationEmail;
 import static com.project.util.Validation.validationPassword;
-import static com.project.util.constants.Attribute.FAILED_LOGIN;
+import static com.project.util.constants.Attribute.MESSAGE_FAILED_LOGIN;
 import static com.project.util.constants.Field.FIELD_EMAIL;
 import static com.project.util.constants.Field.FIELD_PASSWORD;
 
 public class LoginForm extends Form<Tutor> {
 
-
-    private Tutor user;
 
     public LoginForm() {
         super();
@@ -27,7 +25,7 @@ public class LoginForm extends Form<Tutor> {
     @Override
     public Tutor handleForm(HttpServletRequest request) {
 
-        user = new Tutor();
+        Tutor user = new Tutor();
         // get email and password from request
         String email = request.getParameter(FIELD_EMAIL);
         String password = request.getParameter(FIELD_PASSWORD);
@@ -47,7 +45,7 @@ public class LoginForm extends Form<Tutor> {
         }
         user.setPassword(password);
 
-        if(!this.getErrors().isEmpty()) this.setMessage(FAILED_LOGIN);
+        if (!this.getErrors().isEmpty()) this.setMessage(MESSAGE_FAILED_LOGIN);
 
         return user;
     }

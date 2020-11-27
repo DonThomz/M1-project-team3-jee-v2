@@ -1,57 +1,96 @@
 package com.project.dao;
 
 import com.project.database.Database;
+import com.project.exceptions.DaoException;
 import com.project.models.Supervisor;
 
-import javax.persistence.EntityManager;
 import java.util.List;
 
-public class SupervisorDao implements DaoResource<Supervisor> {
-
-
-    private final EntityManager entityManager;
+public class SupervisorDao extends DaoResource<Supervisor> {
 
     public SupervisorDao(Database database) {
-        this.entityManager = database.getConnection();
+        this.database = database;
+        this.entityManager = this.database.getConnection();
     }
 
     @Override
-    public List<Supervisor> findAll() {
-        return entityManager.createQuery("SELECT c FROM Supervisor c", Supervisor.class).getResultList();
-    }
-
-    @Override
-    public Supervisor find(int id) {
-        return entityManager.find(Supervisor.class, id);
-    }
-
-    @Override
-    public void save(Supervisor object) {
-        entityManager.getTransaction().begin();
-        entityManager.persist(object);
-        entityManager.getTransaction().commit();
-    }
-
-    @Override
-    public void saveAll(Supervisor... objects) {
-        entityManager.getTransaction().begin();
-        for (Supervisor object : objects) {
-            entityManager.persist(object);
+    public List<Supervisor> findAll() throws DaoException {
+        isOpen();
+        try {
+            return entityManager.createQuery("SELECT c FROM Supervisor c", Supervisor.class).getResultList();
+        } catch (Exception e) {
+            throw new DaoException(e);
+        } finally {
+            entityManager.close();
         }
-        entityManager.getTransaction().commit();
     }
 
     @Override
-    public void update(Supervisor object) {
-        entityManager.getTransaction().begin();
-        entityManager.merge(object);
-        entityManager.getTransaction().commit();
+    public Supervisor find(int id) throws DaoException {
+        isOpen();
+        try {
+            return entityManager.find(Supervisor.class, id);
+        } catch (Exception e) {
+            throw new DaoException(e);
+        } finally {
+            entityManager.close();
+        }
     }
 
     @Override
-    public void updateAll(List<Supervisor> objects) {
-        entityManager.getTransaction().begin();
-        objects.forEach(entityManager::merge);
-        entityManager.getTransaction().commit();
+    public void save(Supervisor object) throws DaoException {
+        isOpen();
+        try {
+            entityManager.getTransaction().begin();
+            entityManager.persist(object);
+            entityManager.getTransaction().commit();
+        } catch (Exception e) {
+            throw new DaoException(e);
+        } finally {
+            entityManager.close();
+        }
+    }
+
+    public void saveAll(Supervisor... objects) throws DaoException {
+        isOpen();
+        try {
+            entityManager.getTransaction().begin();
+            for (Supervisor object : objects) {
+                entityManager.persist(object);
+            }
+            entityManager.getTransaction().commit();
+        } catch (Exception e) {
+            throw new DaoException(e);
+        } finally {
+            entityManager.close();
+        }
+    }
+
+    @Override
+    public void update(Supervisor object) throws DaoException {
+        isOpen();
+        try {
+            entityManager.getTransaction().begin();
+            entityManager.merge(object);
+            entityManager.getTransaction().commit();
+        } catch (Exception e) {
+            throw new DaoException(e);
+        } finally {
+            entityManager.close();
+        }
+    }
+
+    @Override
+    public void updateAll(List<Supervisor> objects) throws DaoException {
+        isOpen();
+        try {
+            entityManager.getTransaction().begin();
+            objects.forEach(entityManager::merge);
+            entityManager.getTransaction().commit();
+        } catch (Exception e) {
+            throw new DaoException(e);
+        } finally {
+            entityManager.close();
+        }
     }
 }

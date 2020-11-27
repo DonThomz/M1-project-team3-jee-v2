@@ -44,7 +44,7 @@ public class HomeController extends HttpServlet {
             try {
                 handleModification(request);
                 response.getWriter().write(MESSAGE_UPDATE_SUCCESS);
-            } catch (ServiceException e) {
+            } catch (ServiceException | IOException e ) {
                 logger.warning(e.getMessage());
                 response.setStatus(500);
                 response.getWriter().write(MESSAGE_SERVER_ERROR);
@@ -63,27 +63,23 @@ public class HomeController extends HttpServlet {
 
         // get interns
         try {
-            List<Internship> internships = new ArrayList<>();
+            List<Internship> internships;
 
             DerbyDatabase database = DerbyDatabase.getInstance(request);
             InternshipDao dao = new InternshipDao(database);
             InternshipService internshipService = new InternshipService(dao);
 
-            if (year != null) {
-                // TODO put try catch in a validation method
-                try {
-                    int yearParse = Integer.parseInt(year);
-                    internships = internshipService.findByYear(user, yearParse);
-                } catch (NumberFormatException e) {
-                    request.setAttribute(ERROR_PARAM_YEAR, MESSAGE_ERROR_PARAM_YEAR);
-                    logger.warning(e.getMessage());
-                }
+            Integer yearParse = parseYear(request, year);
+            if (yearParse != null) {
+                request.setAttribute(PARAM_YEAR, year);
+                internships = internshipService.findByYear(user, yearParse);
             } else {
                 internships = internshipService.findInternshipsByTutorId(user);
             }
             request.setAttribute(ATTR_INTERNSHIPS, internships);
-        } catch (Exception e) {
+        } catch (ServiceException e) {
             logger.warning(e.getMessage());
+            request.setAttribute(ERROR_SERVER, MESSAGE_SERVER_ERROR);
         }
         request.getRequestDispatcher(VIEW_HOME).forward(request, response);
     }
@@ -133,10 +129,15 @@ public class HomeController extends HttpServlet {
             intern.setTutor(user);
             updatedInterns.add(intern);
         }
+        internshipService.updateAll(updatedInterns);
+    }
+
+    private Integer parseYear(HttpServletRequest request, String year) {
         try {
-            internshipService.updateAll(updatedInterns);
-        } catch (java.sql.SQLException e) {
-            throw new ServiceException(e.getMessage());
+            return Integer.parseInt(year);
+        } catch (NumberFormatException e) {
+            request.setAttribute(ERROR_PARAM_YEAR, MESSAGE_ERROR_PARAM_YEAR);
+            return null;
         }
     }
 

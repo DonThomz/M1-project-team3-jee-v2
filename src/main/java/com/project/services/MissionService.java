@@ -1,9 +1,10 @@
 package com.project.services;
 
 import com.project.dao.MissionDao;
+import com.project.exceptions.DaoException;
+import com.project.exceptions.ServiceException;
 import com.project.models.Mission;
 
-import java.sql.SQLException;
 import java.util.List;
 
 public class MissionService implements EntityService<Mission> {
@@ -15,32 +16,47 @@ public class MissionService implements EntityService<Mission> {
     }
 
     @Override
-    public List<Mission> findAll() {
-        return dao.findAll();
+    public List<Mission> findAll() throws ServiceException {
+        try {
+            return dao.findAll();
+        } catch (DaoException daoException) {
+            throw new ServiceException(daoException);
+        }
     }
 
     @Override
-    public Mission find(int id) {
-        return dao.find(id);
+    public Mission find(int id) throws ServiceException {
+        try {
+            return dao.find(id);
+        } catch (DaoException daoException) {
+            throw new ServiceException(daoException);
+        }
     }
 
     @Override
-    public void save(Mission object) {
-        dao.save(object);
+    public void save(Mission object) throws ServiceException {
+        try {
+            dao.save(object);
+        } catch (DaoException daoException) {
+            throw new ServiceException(daoException);
+        }
     }
 
     @Override
-    public void saveAll(Mission... objects) {
-        dao.saveAll(objects);
+    public void update(Mission object) throws ServiceException {
+        try {
+            dao.update(object);
+        } catch (DaoException daoException) {
+            throw new ServiceException(daoException);
+        }
     }
 
     @Override
-    public void update(Mission object) {
-        dao.update(object);
-    }
-
-    @Override
-    public void updateAll(List<Mission> objects) throws SQLException {
-        dao.updateAll(objects);
+    public void updateAll(List<Mission> objects) throws ServiceException {
+        try {
+            dao.updateAll(objects);
+        } catch (DaoException daoException) {
+            throw new ServiceException(daoException);
+        }
     }
 }

@@ -2,12 +2,13 @@ package com.project.services;
 
 
 import com.project.dao.InternDao;
+import com.project.exceptions.DaoException;
+import com.project.exceptions.ServiceException;
 import com.project.models.Intern;
 import com.project.models.Student;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -22,33 +23,48 @@ public class InternService implements EntityService<Intern> {
     }
 
     @Override
-    public List<Intern> findAll() throws SQLException {
-        return dao.findAll();
+    public List<Intern> findAll() throws ServiceException {
+        try {
+            return dao.findAll();
+        } catch (DaoException daoException) {
+            throw new ServiceException(daoException);
+        }
     }
 
     @Override
-    public Intern find(int id) {
-        return dao.find(id);
+    public Intern find(int id) throws ServiceException {
+        try {
+            return dao.find(id);
+        } catch (DaoException daoException) {
+            throw new ServiceException(daoException);
+        }
     }
 
     @Override
-    public void save(Intern object) {
-        dao.save(object);
+    public void save(Intern object) throws ServiceException {
+        try {
+            dao.save(object);
+        } catch (DaoException daoException) {
+            throw new ServiceException(daoException);
+        }
     }
 
     @Override
-    public void saveAll(Intern... objects) {
-        dao.saveAll(objects);
+    public void update(Intern object) throws ServiceException {
+        try {
+            dao.update(object);
+        } catch (DaoException daoException) {
+            throw new ServiceException(daoException);
+        }
     }
 
     @Override
-    public void update(Intern object) {
-        dao.update(object);
-    }
-
-    @Override
-    public void updateAll(List<Intern> objects) throws SQLException {
-        dao.updateAll(objects);
+    public void updateAll(List<Intern> objects) throws ServiceException {
+        try {
+            dao.updateAll(objects);
+        } catch (com.project.exceptions.DaoException daoException) {
+            throw new ServiceException(daoException);
+        }
     }
 
 

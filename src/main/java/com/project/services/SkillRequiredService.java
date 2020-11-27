@@ -1,9 +1,10 @@
 package com.project.services;
 
 import com.project.dao.SkillRequiredDao;
+import com.project.exceptions.DaoException;
+import com.project.exceptions.ServiceException;
 import com.project.models.SkillRequired;
 
-import java.sql.SQLException;
 import java.util.List;
 
 public class SkillRequiredService implements EntityService<SkillRequired> {
@@ -15,32 +16,47 @@ public class SkillRequiredService implements EntityService<SkillRequired> {
     }
 
     @Override
-    public List<SkillRequired> findAll() {
-        return dao.findAll();
+    public List<SkillRequired> findAll() throws ServiceException {
+        try {
+            return dao.findAll();
+        } catch (DaoException daoException) {
+            throw new ServiceException(daoException);
+        }
     }
 
     @Override
-    public SkillRequired find(int id) {
-        return dao.find(id);
+    public SkillRequired find(int id) throws ServiceException {
+        try {
+            return dao.find(id);
+        } catch (DaoException daoException) {
+            throw new ServiceException(daoException);
+        }
     }
 
     @Override
-    public void save(SkillRequired object) {
-        dao.save(object);
+    public void save(SkillRequired object) throws ServiceException {
+        try {
+            dao.save(object);
+        } catch (DaoException daoException) {
+            throw new ServiceException(daoException);
+        }
     }
 
     @Override
-    public void saveAll(SkillRequired... objects) {
-        dao.saveAll(objects);
+    public void update(SkillRequired object) throws ServiceException {
+        try {
+            dao.update(object);
+        } catch (DaoException daoException) {
+            throw new ServiceException(daoException);
+        }
     }
 
     @Override
-    public void update(SkillRequired object) {
-        dao.update(object);
-    }
-
-    @Override
-    public void updateAll(List<SkillRequired> objects) throws SQLException {
-        dao.updateAll(objects);
+    public void updateAll(List<SkillRequired> objects) throws ServiceException {
+        try {
+            dao.updateAll(objects);
+        } catch (DaoException daoException) {
+            throw new ServiceException(daoException);
+        }
     }
 }

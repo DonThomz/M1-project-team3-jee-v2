@@ -1,13 +1,20 @@
 package com.project.dao;
 
+import com.project.database.Database;
+import com.project.exceptions.DaoException;
+
+import javax.persistence.EntityManager;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-public interface DaoResource<T> {
+public abstract class DaoResource<T> {
 
+
+    protected Database database;
+    protected EntityManager entityManager;
 
     static void close(Connection connection) throws SQLException {
         if (connection != null) connection.close();
@@ -27,16 +34,18 @@ public interface DaoResource<T> {
         close(preparedStatement);
     }
 
-    List<T> findAll() throws SQLException;
+    abstract List<T> findAll() throws DaoException;
 
-    T find(int id);
+    abstract T find(int id) throws DaoException;
 
-    void save(T object);
+    abstract void save(T object) throws DaoException;
 
-    void saveAll(T... objects);
+    abstract void update(T object) throws DaoException;
 
-    void update(T object);
+    abstract void updateAll(List<T> objects) throws DaoException;
 
-    void updateAll(List<T> objects);
+    void isOpen() {
+        this.entityManager = this.entityManager.isOpen() ? this.entityManager : database.getConnection();
+    }
 
 }
