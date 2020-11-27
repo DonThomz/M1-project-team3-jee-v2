@@ -86,7 +86,7 @@ class CompanyServiceTest {
         doNothing().when(companyDao).save(any(Company.class));
 
         CompanyService service = new CompanyService(companyDao);
-        service.save(fakeCompany);
+        service.update(fakeCompany);
     }
 
     @Test

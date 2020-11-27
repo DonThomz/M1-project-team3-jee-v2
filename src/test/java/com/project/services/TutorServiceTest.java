@@ -83,7 +83,7 @@ class TutorServiceTest {
         doNothing().when(tutorDao).save(any(Tutor.class));
 
         TutorService service = new TutorService(tutorDao);
-        service.save(fakeTutor);
+        service.update(fakeTutor);
 
     }
 

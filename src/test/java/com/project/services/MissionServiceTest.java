@@ -85,7 +85,7 @@ class MissionServiceTest {
         doNothing().when(missionDao).save(any(Mission.class));
 
         MissionService service = new MissionService(missionDao);
-        service.save(fakeMission);
+        service.update(fakeMission);
 
     }
 

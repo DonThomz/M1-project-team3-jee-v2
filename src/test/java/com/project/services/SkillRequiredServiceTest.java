@@ -102,7 +102,7 @@ class SkillRequiredServiceTest {
         doNothing().when(skillReqDao).save(any(SkillRequired.class));
 
         SkillRequiredService service = new SkillRequiredService(skillReqDao);
-        service.save(fakeSkillReq);
+        service.update(fakeSkillReq);
     }
 
     @Test

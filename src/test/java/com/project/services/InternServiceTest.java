@@ -96,7 +96,7 @@ class InternServiceTest {
         doNothing().when(internDao).save(any(Intern.class));
 
         InternService service = new InternService(internDao);
-        service.save(fakeIntern);
+        service.update(fakeIntern);
     }
 
     @Test
