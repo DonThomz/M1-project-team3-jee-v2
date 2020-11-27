@@ -4,7 +4,6 @@ import com.project.dao.SkillRequiredDao;
 import com.project.exceptions.DaoException;
 import com.project.exceptions.ServiceException;
 import com.project.models.SkillRequired;
-import com.project.models.SkillRequiredPK;
 
 import java.util.List;
 

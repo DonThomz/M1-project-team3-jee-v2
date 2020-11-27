@@ -1,12 +1,9 @@
 package com.project.util;
 
 import com.project.dao.SkillDao;
-import com.project.dao.SkillRequiredDao;
 import com.project.database.DerbyDatabase;
-import com.project.exceptions.DaoException;
 import com.project.exceptions.ServiceException;
 import com.project.models.*;
-import com.project.services.SkillRequiredService;
 import com.project.services.SkillService;
 
 import javax.servlet.http.HttpServletRequest;

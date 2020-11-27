@@ -9,7 +9,6 @@ import com.project.exceptions.ServiceException;
 import com.project.models.*;
 import com.project.services.DetailService;
 import com.project.services.InternshipService;
-import com.project.services.SkillRequiredService;
 import com.project.services.SkillService;
 
 import javax.servlet.ServletException;
