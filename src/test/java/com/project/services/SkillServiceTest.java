@@ -1,6 +1,8 @@
 package com.project.services;
 
 import com.project.dao.SkillDao;
+import com.project.exceptions.DaoException;
+import com.project.exceptions.ServiceException;
 import com.project.models.Skill;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -35,7 +37,7 @@ class SkillServiceTest {
     }
 
     @Test
-    void findAll() {
+    void findAll() throws DaoException, ServiceException {
         Skill fakeSkill1 = createFakeSkill("fake");
         Skill fakeSkill2 = createFakeSkill("fake");
         List<Skill> fakeSkills = Arrays.asList(fakeSkill1, fakeSkill2);
@@ -50,7 +52,7 @@ class SkillServiceTest {
     }
 
     @Test
-    void find() {
+    void find() throws ServiceException, DaoException {
         Skill fakeSkill = createFakeSkill("fake");
         
         // fake behavior
@@ -63,7 +65,7 @@ class SkillServiceTest {
     }
 
     @Test
-    void save() {
+    void save() throws DaoException, ServiceException {
         Skill fakeSkill = createFakeSkill("fake");
 
         // fake behavior
@@ -78,7 +80,7 @@ class SkillServiceTest {
     }
 
     @Test
-    void update() {
+    void update() throws DaoException, ServiceException {
         Skill fakeSkill = createFakeSkill("fake");
 
         // fake behavior

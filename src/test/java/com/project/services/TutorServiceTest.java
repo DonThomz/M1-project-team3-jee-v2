@@ -75,10 +75,6 @@ class TutorServiceTest {
     }
 
     @Test
-    void saveAll() {
-    }
-
-    @Test
     void update() throws DaoException {
 
         Tutor fakeTutor = createFakeTutor("daniel", "fake");

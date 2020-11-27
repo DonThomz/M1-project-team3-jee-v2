@@ -77,10 +77,6 @@ class CompanyServiceTest {
     }
 
     @Test
-    void saveAll() {
-    }
-
-    @Test
     void update() throws DaoException, ServiceException {
         Company fakeCompany = createFakeCompany("Capgemini","Paris","Kléber","75016",76);
 

@@ -1,6 +1,8 @@
 package com.project.services;
 
 import com.project.dao.StudentDao;
+import com.project.exceptions.DaoException;
+import com.project.exceptions.ServiceException;
 import com.project.models.Student;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -35,7 +37,7 @@ class StudentServiceTest {
     }
 
     @Test
-    void findAll() {
+    void findAll() throws DaoException, ServiceException {
         Student fakeStudent1 = createFakeStudent("fake1", "fake1","fake1");
         Student fakeStudent2 = createFakeStudent("fake2", "fake2","fake2");
         List<Student> fakeStudents = Arrays.asList(fakeStudent1, fakeStudent2);
@@ -50,7 +52,7 @@ class StudentServiceTest {
     }
 
     @Test
-    void find() {
+    void find() throws ServiceException, DaoException {
         Student fakeStudent = createFakeStudent("fake", "fake","fake");
 
         // fake behavior
@@ -63,7 +65,7 @@ class StudentServiceTest {
     }
 
     @Test
-    void save() {
+    void save() throws DaoException, ServiceException {
         Student fakeStudent = createFakeStudent("fake", "fake","fake");
 
         
@@ -75,15 +77,11 @@ class StudentServiceTest {
     }
 
     @Test
-    void saveAll() {
-    }
-
-    @Test
-    void update() {
+    void update() throws ServiceException, DaoException {
         Student fakeStudent = createFakeStudent("fake", "fake","fake");
 
         // fake behavior
-        doNothing().when(studentDao).save(any(Student.class));
+        doNothing().when(studentDao).update(any(Student.class));
 
         StudentService service = new StudentService(studentDao);
         service.update(fakeStudent);

@@ -85,10 +85,6 @@ class InternServiceTest {
     }
 
     @Test
-    void saveAll() {
-    }
-
-    @Test
     void update() throws DaoException, ServiceException {
         Student fakeStudent = new Student();
         Tutor fakeTutor = new Tutor();
