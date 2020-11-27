@@ -4,13 +4,14 @@
 
 - [Pre-reqs](#pre-reqs)
 - [Getting started](#getting-started)
-- [JEE + JPA](#JEE-/-JPA")
+- [JEE + JPA](#jee--jpa)
   - [Project Structure](#project-structure)
   - [Building the project](#building-the-project)
   - [Testing](#testing)
 - [Dependencies](#dependencies)
   - [`dependencies`](#dependencies-1)
   - [`text dependencies`](#devdependencies)
+ - [Images](#images)
 
 # Pre-reqs
 
@@ -122,3 +123,21 @@ In that file you'll find two sections:
 | org.jacoco.agent    | The JaCoCo Maven Plugin provides the JaCoCo runtime agent to your tests and allows basic report creation. 
 
 To install or update these dependencies you can use `yarn`.
+
+# Images
+
+## Login page
+
+![Alt text](docs/assets/login.png?raw=true "Login Page")
+
+## Home page
+
+![Alt text](docs/assets/home.png?raw=true "Home Page")
+
+## Detail page
+
+![Alt text](docs/assets/detail.png?raw=true "Detail Page")
+
+## Add internship page
+
+![Alt text](docs/assets/add.png?raw=true "Internship Page")
