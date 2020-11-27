@@ -46,13 +46,13 @@ class TutorServiceTest {
 
     @Test
     void find() {
-        Tutor fakeTutor = createFakeTutor("daniel", "fake");
+        Tutor fakeTutor = createFakeTutor(1, "daniel", "fake");
 
         // fake behavior
-        when(tutorDao.find(anyInt())).thenReturn(fakeTutor);
+        when(tutorDao.find(1)).thenReturn(fakeTutor);
 
         TutorService service = new TutorService(tutorDao);
-        Tutor result = service.find(anyInt());
+        Tutor result = service.find(1);
         // assertions
         assertEquals(fakeTutor, result);
     }
