@@ -52,6 +52,16 @@ class CompanyServiceTest {
 
     @Test
     void find() {
+        Company fakeCompany = createFakeCompany("Capgemini","Paris","Kléber","75016",76);
+        
+
+        // fake behavior
+        when(companyDao.find(1)).thenReturn(fakeCompany);
+
+        CompanyService service = new CompanyService(companyDao);
+        Company result = service.find(1);
+        // assertions
+        assertEquals(fakeCompany, result);
     }
 
     @Test
