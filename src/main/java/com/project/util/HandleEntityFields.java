@@ -13,6 +13,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import static com.project.util.Validation.*;
+import static com.project.util.constants.Attribute.*;
 import static com.project.util.constants.Field.*;
 
 /**
@@ -326,7 +327,7 @@ public class HandleEntityFields {
                 try {
                     l = new SkillService(new SkillDao(DerbyDatabase.getInstance(request))).findAll();
                 } catch (ServiceException e) {
-                    e.printStackTrace();
+                    request.setAttribute(ERROR_SERVER, MESSAGE_ERROR_PARAM_YEAR);
                 }
                 SkillRequired skillRequired = new SkillRequired();
                 for (Skill s : l) {
@@ -341,7 +342,7 @@ public class HandleEntityFields {
                     try {
                         new SkillService(new SkillDao(DerbyDatabase.getInstance((request)))).save(newSkill);
                     } catch (ServiceException e) {
-                        e.printStackTrace();
+                        request.setAttribute(ERROR_SERVER, MESSAGE_SERVER_ERROR);
                     }
                     skillRequired.setSkillId(newSkill.getSkillId());
                 }

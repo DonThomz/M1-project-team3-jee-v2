@@ -76,7 +76,7 @@ public class DetailsController extends HttpServlet {
             try {
                 processRequest(request, response, id);
             } catch (ServiceException e) {
-                e.printStackTrace();
+                request.setAttribute(ERROR_SERVER, MESSAGE_SERVER_ERROR);
             }
         } else response.sendRedirect(this.getServletContext().getContextPath() + PATH_HOME);
     }
@@ -93,7 +93,7 @@ public class DetailsController extends HttpServlet {
         try {
             processRequest(request, response, id);
         } catch (ServiceException e) {
-            e.printStackTrace();
+            request.setAttribute(ERROR_SERVER, MESSAGE_SERVER_ERROR);
         }
     }
 
