@@ -10,8 +10,6 @@ import java.util.logging.Logger;
 
 public class TutorDao implements DaoResource<Tutor> {
 
-    private static final Logger logger = Logger.getLogger(TutorDao.class.getName());
-
     private final EntityManager entityManager;
 
     public TutorDao(Database database) {
