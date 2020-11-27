@@ -8,25 +8,6 @@ import java.util.List;
 
 public interface EntityService<X> {
 
-
-    static void close(Connection connection) throws SQLException {
-        if (connection != null) connection.close();
-    }
-
-    static void close(ResultSet resultSet) throws SQLException {
-        if (resultSet != null) resultSet.close();
-    }
-
-    static void close(PreparedStatement preparedStatement) throws SQLException {
-        if (preparedStatement != null) preparedStatement.close();
-    }
-
-    static void closeAll(Connection connection, ResultSet resultSet, PreparedStatement preparedStatement) throws SQLException {
-        close(connection);
-        close(resultSet);
-        close(preparedStatement);
-    }
-
     List<X> findAll() throws SQLException;
 
     X find(int id);

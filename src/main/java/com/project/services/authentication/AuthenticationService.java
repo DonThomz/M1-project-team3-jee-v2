@@ -40,7 +40,7 @@ public class AuthenticationService {
         return new byte[16];
     }
 
-    private static String getHashedPassword(String password, byte[] salt) {
+    private String getHashedPassword(String password, byte[] salt) {
         String hash = null;
         try {
             MessageDigest md5 = MessageDigest.getInstance("MD5");
@@ -51,9 +51,7 @@ public class AuthenticationService {
                 stringbuilder.append(Integer.toString((aByte & 0xff) + 0x100, 16).substring(1));
             }
             hash = stringbuilder.toString();
-        } catch (NoSuchAlgorithmException ex) {
-            ex.printStackTrace();
-        }
+        } catch (NoSuchAlgorithmException ignored) {}
         return hash;
     }
 }

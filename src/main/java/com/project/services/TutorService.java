@@ -1,6 +1,8 @@
 package com.project.services;
 
 import com.project.dao.TutorDao;
+import com.project.exceptions.DaoException;
+import com.project.exceptions.ServiceException;
 import com.project.models.Tutor;
 
 import java.sql.SQLException;
