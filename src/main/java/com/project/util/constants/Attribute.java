@@ -14,6 +14,9 @@ public class Attribute {
     // ATTRIBUTES INTERNS
     public static final String ATTR_INTERNS = "interns";
 
+    // ATTRIBUTES SKILLS
+    public static final String ATTR_SKILLS = "skills";
+
     // ATTRIBUTES LOGIN
     public static final String ATTR_FORM_LOGIN = "login_form";
     public static final String ATTR_USER_LOGIN = "user";

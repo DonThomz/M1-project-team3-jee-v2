@@ -65,4 +65,12 @@ public class SkillRequired {
     public void setMission(Mission mission) {
         this.mission = mission;
     }
+
+    @Override
+    public String toString() {
+        return "SkillRequired{" +
+                "skillId=" + skillId +
+                ", missionId=" + missionId +
+                '}';
+    }
 }

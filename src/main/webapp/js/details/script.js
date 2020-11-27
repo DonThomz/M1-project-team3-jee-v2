@@ -1,31 +1,31 @@
 (function ($) {
     $.tagator = function (source_element, options) {
-        var defaults = {
-            prefix: 'tagator_',
-            height: 'auto',
+        let defaults = {
+            prefix:                'tagator_',
+            height:                'auto',
             showAllOptionsOnFocus: false,
             allowAutocompleteOnly: false,
-            autocomplete: []
+            autocomplete:          []
         };
 
-        var self = this;
-        var selected_index = -1;
-        var $source_element = $(source_element);
-        var $tagator_element = null;
-        var $tags_element = null;
-        var $placeholder_element = null;
-        var $input_element = null;
-        var $textlength_element = null;
-        var $options_element = null;
-        var key = {
+        let self = this;
+        let selected_index = -1;
+        let $source_element = $(source_element);
+        let $tagator_element = null;
+        let $tags_element = null;
+        let $placeholder_element = null;
+        let $input_element = null;
+        let $textlength_element = null;
+        let $options_element = null;
+        let key = {
             backspace: 8,
-            enter: 13,
-            escape: 27,
-            left: 37,
-            up: 38,
-            right: 39,
-            down: 40,
-            comma: 188
+            enter:     13,
+            escape:    27,
+            left:      37,
+            up:        38,
+            right:     39,
+            down:      40,
+            comma:     188
         };
         self.settings = {};
 
@@ -42,9 +42,9 @@
             }
             $tagator_element.addClass(self.settings.prefix + 'element options-hidden');
             $tagator_element.css({
-                padding: $source_element.css('padding'),
+                padding:     $source_element.css('padding'),
                 'flex-grow': $source_element.css('flex-grow'),
-                position: 'relative'
+                position:    'relative'
             });
             if (parseInt($source_element.css('width')) !== 0) {
                 $tagator_element.css({
@@ -62,7 +62,7 @@
             $textlength_element = $(document.createElement('span'));
             $textlength_element.addClass(self.settings.prefix + 'textlength');
             $textlength_element.css({
-                position: 'absolute',
+                position:   'absolute',
                 visibility: 'hidden'
             });
             $tagator_element.append($textlength_element);
@@ -106,7 +106,7 @@
                     $input_element.focus();
                     $input_element[0].setSelectionRange($input_element.val().length, $input_element.val().length);
                 } else if ($input_element[0].createTextRange) {
-                    var range = $input_element[0].createTextRange();
+                    let range = $input_element[0].createTextRange();
                     range.collapse(true);
                     range.moveEnd('character', $input_element.val().length);
                     range.moveStart('character', $input_element.val().length);
@@ -142,7 +142,7 @@
             });
             $input_element.bind('keydown', function (e) {
                 e.stopPropagation();
-                var keyCode = e.keyCode || e.which;
+                let keyCode = e.keyCode || e.which;
                 switch (keyCode) {
                     case key.up:
                         e.preventDefault();
@@ -204,7 +204,7 @@
             $input_element.bind('keyup', function (e) {
                 e.preventDefault();
                 e.stopPropagation();
-                var keyCode = e.keyCode || e.which;
+                let keyCode = e.keyCode || e.which;
                 if (keyCode === key.escape || keyCode === key.enter) {
                     hideOptions();
                 } else if (keyCode < 37 || keyCode > 40) {
@@ -234,9 +234,9 @@
 
 
         // RESIZE INPUT
-        var resizeInput = function () {
+        let resizeInput = function () {
             $textlength_element.html($input_element.val());
-            $input_element.css({width: ($textlength_element.width() + 40) + 'px'});
+            $input_element.css({width: ($textlength_element.width() + 20) + 'px'});
         };
 
 
@@ -250,16 +250,16 @@
         self.refresh = function () {
             refreshTags();
         };
-        var refreshTags = function () {
+        let refreshTags = function () {
             $tags_element.empty();
-            var tags = $source_element.val().split(',');
+            let tags = $source_element.val().split(',');
             $.each(tags, function (key, value) {
                 if (value !== '' && checkAllowedTag(value)) {
-                    var $tag_element = $(document.createElement('div'));
+                    let $tag_element = $(document.createElement('div'));
                     $tag_element.addClass(self.settings.prefix + 'tag');
                     $tag_element.html(value);
                     // remove button
-                    var $button_remove_element = $(document.createElement('div'));
+                    let $button_remove_element = $(document.createElement('div'));
                     $button_remove_element.data('text', value);
                     $button_remove_element.addClass(self.settings.prefix + 'tag_remove');
                     $button_remove_element.bind('mousedown', function (e) {
@@ -275,7 +275,7 @@
                     $button_remove_element.html('X');
                     $tag_element.append($button_remove_element);
                     // clear
-                    var $clear_element = $(document.createElement('div'));
+                    let $clear_element = $(document.createElement('div'));
                     $clear_element.css('clear', 'both');
                     $tag_element.append($clear_element);
 
@@ -287,7 +287,7 @@
         };
 
         // REFRESH PLACEHOLDER
-        var refreshPlaceholder = function () {
+        let refreshPlaceholder = function () {
             if ($tags_element.is(':empty') && !$input_element.val() && $source_element.attr('placeholder')) {
                 $placeholder_element.html($source_element.attr('placeholder'));
                 $placeholder_element.show();
@@ -297,9 +297,9 @@
         };
 
         // REMOVE TAG FROM ORIGINAL ELEMENT
-        var removeTag = function (text) {
-            var tagsBefore = $source_element.val().split(',');
-            var tagsAfter = [];
+        let removeTag = function (text) {
+            let tagsBefore = $source_element.val().split(',');
+            let tagsAfter = [];
             $.each(tagsBefore, function (key, value) {
                 if (value !== text && value !== '') {
                     tagsAfter.push(value);
@@ -309,9 +309,9 @@
         };
 
         // CHECK IF TAG IS PRESENT
-        var hasTag = function (text) {
-            var tags = $source_element.val().split(',');
-            var hasTag = false;
+        let hasTag = function (text) {
+            let tags = $source_element.val().split(',');
+            let hasTag = false;
             $.each(tags, function (key, value) {
                 if ($.trim(value) === $.trim(text)) {
                     hasTag = true;
@@ -321,12 +321,12 @@
         };
 
         // CHECK IF TAG IS ALLOWED
-        var checkAllowedTag = function (text) {
+        let checkAllowedTag = function (text) {
             if (!self.settings.allowAutocompleteOnly) {
                 return true;
             }
 
-            var checkAllowedTag = false;
+            let checkAllowedTag = false;
             $.each(self.settings.autocomplete, function (key, value) {
                 if ($.trim(value) === $.trim(text)) {
                     checkAllowedTag = true;
@@ -336,7 +336,7 @@
         };
 
         // ADD TAG TO ORIGINAL ELEMENT
-        var addTag = function (text) {
+        let addTag = function (text) {
             if (!hasTag(text) && checkAllowedTag(text)) {
                 $source_element.val($source_element.val() + ($source_element.val() !== '' ? ',' : '') + text);
                 $source_element.trigger('change');
@@ -347,10 +347,10 @@
         };
 
         // OPTIONS SEARCH METHOD
-        var searchOptions = function () {
+        let searchOptions = function () {
             $options_element.empty();
             if ($input_element.val().replace(/\s/g, '') !== '' || self.settings.showAllOptionsOnFocus) {
-                var optionsArray = [];
+                let optionsArray = [];
                 $.each(self.settings.autocomplete, function (key, value) {
                     if (value.toLowerCase().indexOf($input_element.val().toLowerCase()) !== -1) {
                         if (!hasTag(value)) {
@@ -373,20 +373,20 @@
         };
 
         // GENERATE OPTIONS
-        var generateOptions = function (optionsArray) {
-            var index = -1;
+        let generateOptions = function (optionsArray) {
+            let index = -1;
             $(optionsArray).each(function (key, value) {
                 index++;
-                var option = createOption(value, index);
+                let option = createOption(value, index);
                 $options_element.append(option);
             });
             refreshActiveOption();
         };
 
         // CREATE RESULT OPTION
-        var createOption = function (text, index) {
+        let createOption = function (text, index) {
             // holder li
-            var option = document.createElement('li');
+            let option = document.createElement('li');
             $(option).data('index', index);
             $(option).data('text', text);
             $(option).html(text);
@@ -414,7 +414,7 @@
         };
 
         // SHOW OPTIONS
-        var showOptions = function () {
+        let showOptions = function () {
             $tagator_element.removeClass('options-hidden').addClass('options-visible');
             $options_element.css('top', ($tagator_element.outerHeight - 2) + 'px');
             if ($tagator_element.hasClass('single')) {
@@ -424,12 +424,12 @@
         };
 
         // HIDE OPTIONS
-        var hideOptions = function () {
+        let hideOptions = function () {
             $tagator_element.removeClass('options-visible').addClass('options-hidden');
         };
 
         // REFRESH ACTIVE IN OPTIONS METHOD
-        var refreshActiveOption = function () {
+        let refreshActiveOption = function () {
             $options_element.find('.active').removeClass('active');
             if (selected_index !== -1) {
                 $options_element.find('.' + self.settings.prefix + 'option').eq(selected_index).addClass('active');
@@ -437,8 +437,8 @@
         };
 
         // SCROLL TO ACTIVE OPTION IN OPTIONS LIST
-        var scrollToActiveOption = function () {
-            var $active_element = $options_element.find('.' + self.settings.prefix + 'option.active');
+        let scrollToActiveOption = function () {
+            let $active_element = $options_element.find('.' + self.settings.prefix + 'option.active');
             if ($active_element.length > 0) {
                 $options_element.scrollTop($options_element.scrollTop() + $active_element.position().top - $options_element.height() / 2 + $active_element.height() / 2);
             }
@@ -446,7 +446,7 @@
         };
 
         // SELECT ACTIVE OPTION
-        var selectOption = function () {
+        let selectOption = function () {
             addTag($options_element.find('.' + self.settings.prefix + 'option').eq(selected_index).data('text'));
         };
 
@@ -463,9 +463,9 @@
     };
 
     $.fn.tagator = function () {
-        var parameters = arguments[0] !== undefined ? arguments : [{}];
+        let parameters = arguments[0] !== undefined ? arguments : [{}];
         return this.each(function () {
-            if (typeof (parameters[0]) === 'object') {
+            if (typeof(parameters[0]) === 'object') {
                 if (undefined === $(this).data('tagator')) {
                     var plugin = new $.tagator(this, parameters[0]);
                     $(this).data('tagator', plugin);
@@ -482,11 +482,11 @@
 
 $(function () {
     $('.tagator').each(function () {
-        var $this = $(this);
-        var options = {};
+        let $this = $(this);
+        let options = {};
         $.each($this.data(), function (key, value) {
             if (key.substring(0, 7) === 'tagator') {
-                var value_temp = value.toString().replace(/'/g, '"');
+                let value_temp = value.toString().replace(/'/g, '"');
                 value_temp = $.parseJSON(value_temp);
                 if (typeof value_temp == 'object') {
                     value = value_temp;
