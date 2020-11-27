@@ -121,4 +121,4 @@ In that file you'll find two sections:
 To install or update these dependencies you can use `yarn`.
 
 ## `JUnit tests`
-![alt text](http://docs/tests/JUnit_tests.png)
+![alt text](https://github.com/DonThomz/M1-project-team3-jee-v2/tree/main/docs/tests/JUnit_tests.png.raw=true)
