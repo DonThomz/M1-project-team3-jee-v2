@@ -1,11 +1,12 @@
 package com.project.models;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.Objects;
 
 @Entity
-public class Tutor {
+public class Tutor implements Serializable {
     private int tutorId;
     private String firstname;
     private String lastname;
