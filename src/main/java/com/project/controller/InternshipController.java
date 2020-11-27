@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.logging.Logger;
 
 import static com.project.util.constants.Attribute.*;
 import static com.project.util.constants.Path.PATH_HOME;
@@ -19,6 +20,8 @@ import static com.project.util.constants.View.VIEW_INTERNSHIP;
 
 @WebServlet(name = "InternshipController", urlPatterns = {"/internship"})
 public class InternshipController extends HttpServlet {
+
+    private static final Logger logger = Logger.getLogger(InternshipController.class.getName());
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, java.io.IOException {
@@ -32,7 +35,6 @@ public class InternshipController extends HttpServlet {
 
         // check errors and redirect to home if not
         if (internshipForm.getErrors().isEmpty()) {
-
             try {
 
                 DerbyDatabase database = DerbyDatabase.getInstance(request);
@@ -44,13 +46,13 @@ public class InternshipController extends HttpServlet {
                 response.sendRedirect(this.getServletContext().getContextPath() + PATH_HOME);
 
             } catch (Exception e) {
-
+                logger.severe(e.getMessage());
                 request.setAttribute(ATTR_INTERNSHIP, internship);
                 response.sendRedirect(this.getServletContext().getContextPath() + PATH_HOME);
 
             }
         } else {
-            // TODO log error
+            // TODO feedback error attribute
             // display the form with errors
             request.setAttribute(ATTR_INTERNSHIP, internship);
             request.getRequestDispatcher(VIEW_INTERNSHIP).forward(request, response);
