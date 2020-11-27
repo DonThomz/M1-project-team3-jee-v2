@@ -21,11 +21,8 @@
                 <h5 class="card-title">
                     <label for="skills">Mission skills</label>
                 </h5>
-                <input id="skills" name="skillsRequired" type="text" class="tagator"
-                       data-tagator-show-all-options-on-focus="true"
-                       data-tagator-autocomplete="['Angular', 'Kanban', 'Kubernetes', 'C++', 'Docker',
-            'JEE', 'PHP', 'MongoDB', 'NodeJS', 'TypeScript', 'Unix', 'UX Design',
-            'Shell Script', 'Jenkins', 'Scrum', 'Python', 'Hadoop', '.NET', 'Bash']">
+                <textarea class="form-control rounded-0" id="skills" name="skills"
+                          rows="3"><c:out value="${requestScope.internship.mission.skills}"/></textarea>
             </div>
         </div>
     </div>
