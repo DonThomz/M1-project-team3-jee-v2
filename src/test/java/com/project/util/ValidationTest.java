@@ -1,8 +1,6 @@
 package com.project.util;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import java.sql.Date;
 import java.sql.Timestamp;
@@ -28,12 +26,25 @@ public class ValidationTest {
      * Test of validationTextField method, of class Validation.
      */
     @Test
-    public void testValidationTextField() {
-        System.out.println("validationTextField");
-        String field = "commentary of intern";
+    @DisplayName("test empty text field")
+    public void testValidationEmptyTextField() {
+        String field = "";
         String fieldName = "commentaryIntern";
         //String field = ""; --> To fail test
-        Validation.validationTextField(field, fieldName);
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            Validation.validationTextField(field, fieldName);
+        });
+    }
+
+    @Test
+    @DisplayName("test text field")
+    public void testValidationTextField() {
+        String field = "field";
+        String fieldName = "commentaryIntern";
+        //String field = ""; --> To fail test
+        Assertions.assertDoesNotThrow(() -> {
+            Validation.validationTextField(field, fieldName);
+        });
     }
 
     /**
