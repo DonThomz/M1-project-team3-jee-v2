@@ -10,11 +10,18 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-public abstract class DaoResource<T> {
+public class DaoResource<T> {
 
+    final Class<T> tClass;
 
     protected Database database;
     protected EntityManager entityManager;
+
+    public DaoResource(Database database, Class<T> tClass) {
+        this.database = database;
+        this.entityManager = this.database.getConnection();
+        this.tClass = tClass;
+    }
 
     static void close(Connection connection) throws SQLException {
         if (connection != null) connection.close();
@@ -34,18 +41,70 @@ public abstract class DaoResource<T> {
         close(preparedStatement);
     }
 
-    abstract List<T> findAll() throws DaoException;
+    public List<T> findAll() throws DaoException {
+        try {
+            isOpen();
+            return entityManager.createQuery("SELECT c FROM " + tClass.getSimpleName() + " c", tClass).getResultList();
+        } catch (Exception e) {
+            throw new DaoException(e);
+        } finally {
+            entityManager.close();
+        }
+    }
 
-    abstract T find(int id) throws DaoException;
+    public T find(int id) throws DaoException {
+        isOpen();
+        try {
+            return entityManager.find(tClass, id);
+        } catch (Exception e) {
+            throw new DaoException(e);
+        } finally {
+            entityManager.close();
+        }
+    }
 
-    abstract void save(T object) throws DaoException;
+    public void save(T object) throws DaoException {
+        isOpen();
+        try {
+            entityManager.getTransaction().begin();
+            entityManager.persist(object);
+            entityManager.getTransaction().commit();
+        } catch (Exception e) {
+            throw new DaoException(e);
+        } finally {
+            entityManager.close();
+        }
+    }
 
-    abstract void update(T object) throws DaoException;
+    public void update(T object) throws DaoException {
+        isOpen();
+        try {
+            entityManager.getTransaction().begin();
+            entityManager.merge(object);
+            entityManager.getTransaction().commit();
+        } catch (Exception e) {
+            throw new DaoException(e);
+        } finally {
+            entityManager.close();
+        }
+    }
 
-    abstract void updateAll(List<T> objects) throws DaoException;
+    public void updateAll(List<T> objects) throws DaoException {
+        isOpen();
+        try {
+            entityManager.getTransaction().begin();
+            objects.forEach(entityManager::merge);
+            entityManager.getTransaction().commit();
+        } catch (Exception e) {
+            throw new DaoException(e);
+        } finally {
+            entityManager.close();
+        }
+    }
 
-    void isOpen() {
+    public void isOpen() {
         this.entityManager = this.entityManager.isOpen() ? this.entityManager : database.getConnection();
     }
+
 
 }

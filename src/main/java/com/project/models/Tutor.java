@@ -1,7 +1,5 @@
 package com.project.models;
 
-import org.json.JSONPropertyIgnore;
-
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Objects;
