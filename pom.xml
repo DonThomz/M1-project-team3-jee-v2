@@ -113,8 +113,9 @@
         <!-- https://mvnrepository.com/artifact/org.jacoco/jacoco-maven-plugin -->
         <dependency>
             <groupId>org.jacoco</groupId>
-            <artifactId>jacoco-maven-plugin</artifactId>
-            <version>0.8.6</version>
+            <artifactId>org.jacoco.agent</artifactId>
+            <version>0.7.9</version>
+            <scope>test</scope>
         </dependency>
         <!-- Test -->
     </dependencies>
