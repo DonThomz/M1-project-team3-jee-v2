@@ -2,28 +2,20 @@ package com.project.util.constants;
 
 public class Field {
 
-    private Field() {
-        throw new IllegalStateException("Utility class");
-    }
-
     // STUDENT FIELDS
     public static final String FIELD_STUDENT_FIRSTNAME = "studentFirstname";
     public static final String FIELD_STUDENT_LASTNAME = "studentLastname";
     public static final String FIELD_STUDENT_GROUP = "studentGroup";
     public static final String FIELD_LINKEDIN_URL = "linkedinUrl";
-
     // SUPERVISOR FIELDS
     public static final String FIELD_SUPERVISOR_FIRSTNAME = "supervisorFirstname";
     public static final String FIELD_SUPERVISOR_LASTNAME = "supervisorLastname";
-
     // COMPANY FIELDS
     public static final String FIELD_COMPANY_NAME = "companyName";
     public static final String FIELD_COMPANY_STREET_NUMBER = "companyStreetNumber";
     public static final String FIELD_COMPANY_STREET_NAME = "companyStreetName";
     public static final String FIELD_COMPANY_CITY = "companyCity";
     public static final String FIELD_COMPANY_ZIPCODE = "companyZipCode";
-
-
     // INTERNSHIP FIELDS
     public static final String FIELD_START_DATE = "startDate";
     public static final String FIELD_END_DATE = "endDate";
@@ -42,16 +34,16 @@ public class Field {
     public static final String FIELD_DEFENSE = "defense";
     public static final String FIELD_DEFENSE_PLANNED = "defensePlanned";
     public static final String FIELD_DEFENSE_DONE = "defenseDone";
-
     // MISSION FIELDS
     public static final String FIELD_MISSION_DESCRIPTION = "missionDescription";
     public static final String FIELD_MISSION_KEYWORDS = "missionKeywords";
-
     // SKILLS
     public static final String FIELD_SKILLS_REQUIRED = "skillsRequired";
-
     // LOGIN FIELDS
     public static final String FIELD_EMAIL = "email";
     public static final String FIELD_PASSWORD = "password";
+    private Field() {
+        throw new IllegalStateException("Utility class");
+    }
 
 }
