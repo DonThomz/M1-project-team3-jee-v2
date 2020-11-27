@@ -15,6 +15,10 @@ public class AuthenticationService {
         this.tutorService = tutorService;
     }
 
+    private static byte[] getSalt() {
+        return new byte[16];
+    }
+
     /**
      * Check credentials and return the tutor if authentication correct
      *
@@ -36,10 +40,6 @@ public class AuthenticationService {
         return null;
     }
 
-    private static byte[] getSalt() {
-        return new byte[16];
-    }
-
     private String getHashedPassword(String password, byte[] salt) {
         String hash = null;
         try {
@@ -51,7 +51,8 @@ public class AuthenticationService {
                 stringbuilder.append(Integer.toString((aByte & 0xff) + 0x100, 16).substring(1));
             }
             hash = stringbuilder.toString();
-        } catch (NoSuchAlgorithmException ignored) {}
+        } catch (NoSuchAlgorithmException ignored) {
+        }
         return hash;
     }
 }

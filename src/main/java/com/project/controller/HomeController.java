@@ -44,7 +44,7 @@ public class HomeController extends HttpServlet {
             try {
                 handleModification(request);
                 response.getWriter().write(MESSAGE_UPDATE_SUCCESS);
-            } catch (ServiceException | IOException e ) {
+            } catch (ServiceException | IOException e) {
                 logger.warning(e.getMessage());
                 response.setStatus(500);
                 response.getWriter().write(MESSAGE_SERVER_ERROR);

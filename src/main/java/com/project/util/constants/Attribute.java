@@ -6,7 +6,6 @@ public class Attribute {
     public static final String PARAM_YEAR = "year";
 
 
-
     // ATTRIBUTES INTERNSHIP
     public static final String ATTR_INTERNSHIP = "internship";
     public static final String ATTR_INTERNSHIPS = "internships";

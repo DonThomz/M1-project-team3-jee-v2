@@ -15,12 +15,11 @@ public class Validation {
 
     // Constraints
     private static final String REGEX_EMAIL = "^(.+)@(.+)$";
-
+    private static final int MIN_CHARACTERS_FIELD = 3;
 
     private Validation() {
         throw new IllegalStateException("Utility Class");
     }
-    private static final int MIN_CHARACTERS_FIELD = 3;
 
     public static void validationTextField(String field, String fieldName) {
         if (field == null || field.trim().isEmpty())
