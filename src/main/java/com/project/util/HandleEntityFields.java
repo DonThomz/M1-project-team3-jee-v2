@@ -3,6 +3,7 @@ package com.project.util;
 import com.project.dao.SkillDao;
 import com.project.dao.SkillRequiredDao;
 import com.project.database.DerbyDatabase;
+import com.project.exceptions.DaoException;
 import com.project.exceptions.ServiceException;
 import com.project.models.*;
 import com.project.services.SkillRequiredService;
@@ -321,22 +322,38 @@ public class HandleEntityFields {
 
 
         Mission finalMission = mission;
-        List<SkillRequired> skills = Arrays.asList(request.getParameter(FIELD_SKILLS_REQUIRED).split(",")).stream().map(sk -> {
-            List<Skill> l = new ArrayList<>();
-            try {
-                l = new SkillService(new SkillDao(DerbyDatabase.getInstance(request))).findAll();
-            } catch (ServiceException e) {
-                e.printStackTrace();
-            }
-            SkillRequired skillRequired = new SkillRequired();
-            for (Skill s : l) {
-                if (s.getName().equals(sk)) {
-                    skillRequired.setSkillId(s.getSkillId());
+        List<SkillRequired> skills = new ArrayList<>();
+        try {
+            skills = Arrays.asList(request.getParameter(FIELD_SKILLS_REQUIRED).split(",")).stream().map(sk -> {
+                List<Skill> l = new ArrayList<>();
+                try {
+                    l = new SkillService(new SkillDao(DerbyDatabase.getInstance(request))).findAll();
+                } catch (ServiceException e) {
+                    e.printStackTrace();
                 }
+                SkillRequired skillRequired = new SkillRequired();
+                for (Skill s : l) {
+                    if (s.getName().equals(sk)) {
+                        skillRequired.setSkillId(s.getSkillId());
+                    }
+                }
+            if (skillRequired.getSkillId() == 0){
+                Skill newSkill = new Skill();
+                newSkill.setName(sk);
+                l.add(newSkill);
+                try {
+                    new SkillService(new SkillDao(DerbyDatabase.getInstance((request)))).save(newSkill);
+                } catch (ServiceException e) {
+                    e.printStackTrace();
+                }
+                skillRequired.setSkillId(newSkill.getSkillId());
             }
-            skillRequired.setMissionId(finalMission.getMissionId());
-            return skillRequired;
-        }).collect(Collectors.toList());
+                skillRequired.setMissionId(finalMission.getMissionId());
+                return skillRequired;
+            }).collect(Collectors.toList());
+        } catch (NullPointerException e) {
+            System.out.println(e.getMessage());
+        }
 
 
         mission.setSkills(skills);

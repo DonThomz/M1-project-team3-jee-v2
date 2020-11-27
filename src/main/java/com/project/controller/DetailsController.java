@@ -4,11 +4,9 @@ import com.project.dao.InternshipDao;
 import com.project.dao.SkillDao;
 import com.project.dao.SkillRequiredDao;
 import com.project.database.DerbyDatabase;
+import com.project.exceptions.DaoException;
 import com.project.exceptions.ServiceException;
-import com.project.models.Internship;
-import com.project.models.Skill;
-import com.project.models.SkillRequired;
-import com.project.models.Tutor;
+import com.project.models.*;
 import com.project.services.DetailService;
 import com.project.services.InternshipService;
 import com.project.services.SkillRequiredService;
@@ -36,15 +34,19 @@ public class DetailsController extends HttpServlet {
 
         if (id != null) {
             Internship internship = this.findInternshipData(request, id);
-            List<Skill> skills = this.findSkills(request);
+            if (internship != null) {
+                List<SkillRequired> skills = this.findSkills(request, internship.getMission());
 
-            // check if the user is allowed to see this detail page
-            if (internship != null && internship.getIntern().getTutor().getTutorId() != ((Tutor) request.getSession().getAttribute(SESSION_USER)).getTutorId()) {
-                response.sendRedirect(this.getServletContext().getContextPath() + PATH_HOME);
-            } else {
-                request.setAttribute(ATTR_SKILLS, skills);
-                request.setAttribute(ATTR_INTERNSHIP, internship);
-                request.getRequestDispatcher(VIEW_DETAIL).forward(request, response);
+                // check if the user is allowed to see this detail page
+                if (internship.getIntern().getTutor().getTutorId() != ((Tutor) request.getSession().getAttribute(SESSION_USER)).getTutorId()) {
+                    response.sendRedirect(this.getServletContext().getContextPath() + PATH_HOME);
+                } else {
+                    if (skills != null) {
+                        request.setAttribute(ATTR_SKILLS, listSkillRequired(request, skills));
+                    }
+                    request.setAttribute(ATTR_INTERNSHIP, internship);
+                    request.getRequestDispatcher(VIEW_DETAIL).forward(request, response);
+                }
             }
         } else response.sendRedirect(this.getServletContext().getContextPath() + PATH_HOME);
     }
@@ -108,15 +110,27 @@ public class DetailsController extends HttpServlet {
         }
     }
 
-    private List<Skill> findSkills(HttpServletRequest request) {
+    private List<SkillRequired> findSkills(HttpServletRequest request, Mission mission) {
         DerbyDatabase database = DerbyDatabase.getInstance(request);
-        SkillDao dao = new SkillDao(database);
-        SkillService service = new SkillService(dao);
+        SkillRequiredDao dao = new SkillRequiredDao(database);
         try {
-            return service.findAll();
-        } catch (ServiceException e) {
+            return dao.findSkillRequiredByMissionId(mission);
+        } catch (DaoException e) {
             request.setAttribute(ERROR_SERVER, MESSAGE_ERROR_PARAM_YEAR);
             return null;
         }
+    }
+
+    private String listSkillRequired(HttpServletRequest request, List<SkillRequired> skillRequiredList) throws ServiceException {
+        StringBuilder result = new StringBuilder();
+        SkillService skillService = new SkillService(new SkillDao(DerbyDatabase.getInstance(request)));
+        for (SkillRequired skillRequired : skillRequiredList) {
+            Skill skill = skillService.find(skillRequired.getSkillId());
+            if (skillRequiredList.indexOf(skillRequired) > 0) {
+                result.append(",");
+            }
+            result.append(skill.getName());
+        }
+        return result.toString();
     }
 }

@@ -21,8 +21,8 @@
                 <h5 class="card-title">
                     <label for="skills">Mission skills</label>
                 </h5>
-                <textarea class="form-control rounded-0" id="skills" name="skills"
-                          rows="3"><c:out value="${requestScope.internship.mission.skills}"/></textarea>
+                <textarea class="form-control rounded-0" id="skills" name="skillsRequired"
+                          rows="3"><c:out value="${requestScope.skills}"/></textarea>
             </div>
         </div>
     </div>
