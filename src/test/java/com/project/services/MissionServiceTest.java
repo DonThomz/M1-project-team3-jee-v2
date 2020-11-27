@@ -16,14 +16,13 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
 class MissionServiceTest {
 
     private static Integer FakeMissionID = 0;
-    
+
     @Mock
     MissionDao missionDao;
 
@@ -94,8 +93,8 @@ class MissionServiceTest {
     @Test
     void updateAll() {
     }
-    
-    private Mission createFakeMission(String description, String keyWords){
+
+    private Mission createFakeMission(String description, String keyWords) {
         Mission mission = new Mission();
         mission.setMissionId(FakeMissionID++);
         mission.setDescription(description);

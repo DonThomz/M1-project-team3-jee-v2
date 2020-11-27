@@ -1,11 +1,11 @@
 (function ($) {
     $.tagator = function (source_element, options) {
         let defaults = {
-            prefix:                'tagator_',
-            height:                'auto',
+            prefix: 'tagator_',
+            height: 'auto',
             showAllOptionsOnFocus: false,
             allowAutocompleteOnly: false,
-            autocomplete:          []
+            autocomplete: []
         };
 
         let self = this;
@@ -19,13 +19,13 @@
         let $options_element = null;
         let key = {
             backspace: 8,
-            enter:     13,
-            escape:    27,
-            left:      37,
-            up:        38,
-            right:     39,
-            down:      40,
-            comma:     188
+            enter: 13,
+            escape: 27,
+            left: 37,
+            up: 38,
+            right: 39,
+            down: 40,
+            comma: 188
         };
         self.settings = {};
 
@@ -42,9 +42,9 @@
             }
             $tagator_element.addClass(self.settings.prefix + 'element options-hidden');
             $tagator_element.css({
-                padding:     $source_element.css('padding'),
+                padding: $source_element.css('padding'),
                 'flex-grow': $source_element.css('flex-grow'),
-                position:    'relative'
+                position: 'relative'
             });
             if (parseInt($source_element.css('width')) !== 0) {
                 $tagator_element.css({
@@ -62,7 +62,7 @@
             $textlength_element = $(document.createElement('span'));
             $textlength_element.addClass(self.settings.prefix + 'textlength');
             $textlength_element.css({
-                position:   'absolute',
+                position: 'absolute',
                 visibility: 'hidden'
             });
             $tagator_element.append($textlength_element);
@@ -465,7 +465,7 @@
     $.fn.tagator = function () {
         let parameters = arguments[0] !== undefined ? arguments : [{}];
         return this.each(function () {
-            if (typeof(parameters[0]) === 'object') {
+            if (typeof (parameters[0]) === 'object') {
                 if (undefined === $(this).data('tagator')) {
                     var plugin = new $.tagator(this, parameters[0]);
                     $(this).data('tagator', plugin);

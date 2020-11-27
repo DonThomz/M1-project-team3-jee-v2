@@ -6,20 +6,19 @@ import com.project.exceptions.ServiceException;
 import com.project.models.Intern;
 import com.project.models.Student;
 import com.project.models.Tutor;
-import java.sql.SQLException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
@@ -29,7 +28,7 @@ class InternServiceTest {
 
     @Mock
     InternDao internDao;
-    
+
     @BeforeEach
     void setUp() {
         internDao = Mockito.mock(InternDao.class);
@@ -43,8 +42,8 @@ class InternServiceTest {
     void findAll() throws SQLException, DaoException, ServiceException {
         Student fakeStudent = new Student();
         Tutor fakeTutor = new Tutor();
-        Intern fakeIntern1 = createFakeIntern(false,true,false,true,false,true,true,true,"fakeUrl",fakeTutor,fakeStudent);
-        
+        Intern fakeIntern1 = createFakeIntern(false, true, false, true, false, true, true, true, "fakeUrl", fakeTutor, fakeStudent);
+
         List<Intern> fakeInterns = Arrays.asList(fakeIntern1);
 
         // fake behavior
@@ -60,8 +59,8 @@ class InternServiceTest {
     void find() throws DaoException, ServiceException {
         Student fakeStudent = new Student();
         Tutor fakeTutor = new Tutor();
-        Intern fakeIntern = createFakeIntern(false,true,false,true,false,true,true,true,"fakeUrl",fakeTutor,fakeStudent);
-        
+        Intern fakeIntern = createFakeIntern(false, true, false, true, false, true, true, true, "fakeUrl", fakeTutor, fakeStudent);
+
         // fake behavior
         when(internDao.find(1)).thenReturn(fakeIntern);
 
@@ -75,8 +74,8 @@ class InternServiceTest {
     void save() throws DaoException, ServiceException {
         Student fakeStudent = new Student();
         Tutor fakeTutor = new Tutor();
-        Intern fakeIntern = createFakeIntern(false,true,false,true,false,true,true,true,"fakeUrl",fakeTutor,fakeStudent);
-        
+        Intern fakeIntern = createFakeIntern(false, true, false, true, false, true, true, true, "fakeUrl", fakeTutor, fakeStudent);
+
         // fake behavior
         doNothing().when(internDao).save(any(Intern.class));
 
@@ -88,8 +87,8 @@ class InternServiceTest {
     void update() throws DaoException, ServiceException {
         Student fakeStudent = new Student();
         Tutor fakeTutor = new Tutor();
-        Intern fakeIntern = createFakeIntern(false,true,false,true,false,true,true,true,"fakeUrl",fakeTutor,fakeStudent);
-        
+        Intern fakeIntern = createFakeIntern(false, true, false, true, false, true, true, true, "fakeUrl", fakeTutor, fakeStudent);
+
         // fake behavior
         doNothing().when(internDao).update(any(Intern.class));
 
@@ -104,8 +103,8 @@ class InternServiceTest {
     @Test
     void mappingJson() {
     }
-    
-    private Intern createFakeIntern(boolean requirement,boolean visitFile,boolean evalCompFile,boolean webPoll,boolean reportDelivered,boolean defense,boolean defensePlanned,boolean defenseDone,String linkedinUrl,Tutor tutor, Student student){
+
+    private Intern createFakeIntern(boolean requirement, boolean visitFile, boolean evalCompFile, boolean webPoll, boolean reportDelivered, boolean defense, boolean defensePlanned, boolean defenseDone, String linkedinUrl, Tutor tutor, Student student) {
         Intern intern = new Intern();
         intern.setInternId(FakeInternID++);
         intern.setDefense(defense);
@@ -120,7 +119,7 @@ class InternServiceTest {
         intern.setStudent(student);
         intern.setReportDelivered(reportDelivered);
         intern.setInternships(new ArrayList<>());
-        
+
         return intern;
     }
 }

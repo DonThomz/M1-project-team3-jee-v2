@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -38,8 +37,8 @@ class StudentServiceTest {
 
     @Test
     void findAll() throws DaoException, ServiceException {
-        Student fakeStudent1 = createFakeStudent("fake1", "fake1","fake1");
-        Student fakeStudent2 = createFakeStudent("fake2", "fake2","fake2");
+        Student fakeStudent1 = createFakeStudent("fake1", "fake1", "fake1");
+        Student fakeStudent2 = createFakeStudent("fake2", "fake2", "fake2");
         List<Student> fakeStudents = Arrays.asList(fakeStudent1, fakeStudent2);
 
         // fake behavior
@@ -53,7 +52,7 @@ class StudentServiceTest {
 
     @Test
     void find() throws ServiceException, DaoException {
-        Student fakeStudent = createFakeStudent("fake", "fake","fake");
+        Student fakeStudent = createFakeStudent("fake", "fake", "fake");
 
         // fake behavior
         when(studentDao.find(1)).thenReturn(fakeStudent);
@@ -66,9 +65,9 @@ class StudentServiceTest {
 
     @Test
     void save() throws DaoException, ServiceException {
-        Student fakeStudent = createFakeStudent("fake", "fake","fake");
+        Student fakeStudent = createFakeStudent("fake", "fake", "fake");
 
-        
+
         // fake behavior
         doNothing().when(studentDao).save(any(Student.class));
 
@@ -78,7 +77,7 @@ class StudentServiceTest {
 
     @Test
     void update() throws ServiceException, DaoException {
-        Student fakeStudent = createFakeStudent("fake", "fake","fake");
+        Student fakeStudent = createFakeStudent("fake", "fake", "fake");
 
         // fake behavior
         doNothing().when(studentDao).update(any(Student.class));
@@ -90,15 +89,15 @@ class StudentServiceTest {
     @Test
     void updateAll() {
     }
-    
-    private Student createFakeStudent(String firstname, String lastname, String studentGroup){
+
+    private Student createFakeStudent(String firstname, String lastname, String studentGroup) {
         Student student = new Student();
         student.setStudentId(FakeStudentID++);
         student.setFirstname(firstname);
         student.setLastname(lastname);
         student.setStudentGroup(studentGroup);
         student.setInternsByStudentId(new ArrayList<>());
-        
+
         return student;
     }
 }

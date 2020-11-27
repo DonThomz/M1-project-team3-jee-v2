@@ -1,12 +1,9 @@
 package com.project.util;
 
 import com.project.dao.SkillDao;
-import com.project.dao.SkillRequiredDao;
 import com.project.database.DerbyDatabase;
-import com.project.exceptions.DaoException;
 import com.project.exceptions.ServiceException;
 import com.project.models.*;
-import com.project.services.SkillRequiredService;
 import com.project.services.SkillService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -337,17 +334,17 @@ public class HandleEntityFields {
                         skillRequired.setSkillId(s.getSkillId());
                     }
                 }
-            if (skillRequired.getSkillId() == 0){
-                Skill newSkill = new Skill();
-                newSkill.setName(sk);
-                l.add(newSkill);
-                try {
-                    new SkillService(new SkillDao(DerbyDatabase.getInstance((request)))).save(newSkill);
-                } catch (ServiceException e) {
-                    e.printStackTrace();
+                if (skillRequired.getSkillId() == 0) {
+                    Skill newSkill = new Skill();
+                    newSkill.setName(sk);
+                    l.add(newSkill);
+                    try {
+                        new SkillService(new SkillDao(DerbyDatabase.getInstance((request)))).save(newSkill);
+                    } catch (ServiceException e) {
+                        e.printStackTrace();
+                    }
+                    skillRequired.setSkillId(newSkill.getSkillId());
                 }
-                skillRequired.setSkillId(newSkill.getSkillId());
-            }
                 skillRequired.setMissionId(finalMission.getMissionId());
                 return skillRequired;
             }).collect(Collectors.toList());
@@ -357,7 +354,6 @@ public class HandleEntityFields {
 
 
         mission.setSkills(skills);
-
 
 
         // Description validation

@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -25,7 +24,7 @@ class CompanyServiceTest {
 
     @Mock
     CompanyDao companyDao;
-    
+
     @BeforeEach
     void setUp() {
         companyDao = Mockito.mock(CompanyDao.class);
@@ -37,9 +36,9 @@ class CompanyServiceTest {
 
     @Test
     void findAll() throws DaoException, ServiceException {
-        Company fakeCompany1 = createFakeCompany("Capgemini","Paris","Kléber","75016",76);
-        Company fakeCompany2 = createFakeCompany("Google","Paris","Lucie","75015",13);
-        List<Company> fakeCompanies = Arrays.asList(fakeCompany1,fakeCompany2);
+        Company fakeCompany1 = createFakeCompany("Capgemini", "Paris", "Kléber", "75016", 76);
+        Company fakeCompany2 = createFakeCompany("Google", "Paris", "Lucie", "75015", 13);
+        List<Company> fakeCompanies = Arrays.asList(fakeCompany1, fakeCompany2);
 
         // fake behavior
         when(companyDao.findAll()).thenReturn(fakeCompanies);
@@ -52,8 +51,8 @@ class CompanyServiceTest {
 
     @Test
     void find() throws ServiceException, DaoException {
-        Company fakeCompany = createFakeCompany("Capgemini","Paris","Kléber","75016",76);
-        
+        Company fakeCompany = createFakeCompany("Capgemini", "Paris", "Kléber", "75016", 76);
+
 
         // fake behavior
         when(companyDao.find(1)).thenReturn(fakeCompany);
@@ -66,7 +65,7 @@ class CompanyServiceTest {
 
     @Test
     void save() throws DaoException, ServiceException {
-        Company fakeCompany = createFakeCompany("Capgemini","Paris","Kléber","75016",76);
+        Company fakeCompany = createFakeCompany("Capgemini", "Paris", "Kléber", "75016", 76);
 
         // fake behavior
         doNothing().when(companyDao).save(any(Company.class));
@@ -78,7 +77,7 @@ class CompanyServiceTest {
 
     @Test
     void update() throws DaoException, ServiceException {
-        Company fakeCompany = createFakeCompany("Capgemini","Paris","Kléber","75016",76);
+        Company fakeCompany = createFakeCompany("Capgemini", "Paris", "Kléber", "75016", 76);
 
         // fake behavior
         doNothing().when(companyDao).update(any(Company.class));
@@ -90,8 +89,8 @@ class CompanyServiceTest {
     @Test
     void updateAll() {
     }
-    
-    private Company createFakeCompany (String name, String city, String streetName, String zipcode, int streetNumber){
+
+    private Company createFakeCompany(String name, String city, String streetName, String zipcode, int streetNumber) {
         Company company = new Company();
         company.setCompanyId(FakeCompanyID++);
         company.setCity(city);

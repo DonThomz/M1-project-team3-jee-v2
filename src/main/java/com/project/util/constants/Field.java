@@ -42,6 +42,7 @@ public class Field {
     // LOGIN FIELDS
     public static final String FIELD_EMAIL = "email";
     public static final String FIELD_PASSWORD = "password";
+
     private Field() {
         throw new IllegalStateException("Utility class");
     }

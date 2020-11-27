@@ -12,7 +12,7 @@ public class DerbyDatabase implements Database {
 
     private static final String PERSISTENCE_UNIT = "ST2EEDB-JEE-JPA-Version";
 
-    private EntityManagerFactory managerFactory;
+    private final EntityManagerFactory managerFactory;
 
     public DerbyDatabase() {
         managerFactory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT);

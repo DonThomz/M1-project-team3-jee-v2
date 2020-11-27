@@ -2,10 +2,8 @@ package com.project.dao;
 
 import com.project.database.Database;
 import com.project.exceptions.DaoException;
-import com.project.models.Internship;
 import com.project.models.Mission;
 import com.project.models.SkillRequired;
-import com.project.models.Tutor;
 
 import java.util.List;
 

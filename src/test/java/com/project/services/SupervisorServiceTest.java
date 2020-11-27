@@ -17,7 +17,6 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
@@ -52,7 +51,7 @@ class SupervisorServiceTest {
         List<Supervisor> result = service.findAll();
         // assertions
         assertEquals(fakeSupervisors, result);
-        
+
     }
 
     @Test
@@ -67,7 +66,7 @@ class SupervisorServiceTest {
         Supervisor result = service.find(1);
         // assertions
         assertEquals(fakeSupervisor, result);
-        
+
     }
 
     @Test
@@ -97,15 +96,15 @@ class SupervisorServiceTest {
     @Test
     void updateAll() {
     }
-    
-    private Supervisor createFakeSupervisor(String firstname, String lastname, Company company){
+
+    private Supervisor createFakeSupervisor(String firstname, String lastname, Company company) {
         Supervisor supervisor = new Supervisor();
         supervisor.setInternSupervisorId(FakeSupervisorID++);
         supervisor.setFirstname(firstname);
         supervisor.setLastname(lastname);
         supervisor.setCompany(company);
         supervisor.setInternships(new ArrayList<>());
-        
+
         return supervisor;
     }
 }

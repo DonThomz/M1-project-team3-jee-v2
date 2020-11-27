@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -31,7 +30,7 @@ class SkillServiceTest {
     void setup() {
         skillDao = Mockito.mock(SkillDao.class);
     }
-    
+
     @AfterEach
     void tearDown() {
     }
@@ -54,7 +53,7 @@ class SkillServiceTest {
     @Test
     void find() throws ServiceException, DaoException {
         Skill fakeSkill = createFakeSkill("fake");
-        
+
         // fake behavior
         when(skillDao.find(1)).thenReturn(fakeSkill);
 
@@ -93,8 +92,8 @@ class SkillServiceTest {
     @Test
     void updateAll() {
     }
-    
-    private Skill createFakeSkill(String name){
+
+    private Skill createFakeSkill(String name) {
         Skill skill = new Skill();
         skill.setSkillId(FakeSkillID++);
         skill.setName(name);

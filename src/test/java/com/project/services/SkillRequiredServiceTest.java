@@ -23,7 +23,7 @@ import static org.mockito.Mockito.when;
 class SkillRequiredServiceTest {
     private static Integer FakeSkillID = 0;
     private static Integer FakeMissionID = 0;
-    
+
     @Mock
     SkillRequiredDao skillReqDao;
 
@@ -54,7 +54,7 @@ class SkillRequiredServiceTest {
         List<SkillRequired> result = service.findAll();
         // assertions
         assertEquals(fakeSkills, result);
-        
+
     }
 
     @Test
@@ -104,8 +104,8 @@ class SkillRequiredServiceTest {
     @Test
     void updateAll() {
     }
-    
-    private SkillRequired createFakeSkillReq(Skill skill, Mission mission){
+
+    private SkillRequired createFakeSkillReq(Skill skill, Mission mission) {
         SkillRequired skillRequired = new SkillRequired();
         skillRequired.setMissionId(FakeSkillID++);
         skillRequired.setMissionId(FakeMissionID++);
