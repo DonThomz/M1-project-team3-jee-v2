@@ -156,7 +156,7 @@ public class Intern {
         this.tutor = tutorByTutorId;
     }
 
-    @ManyToOne(cascade = {CascadeType.REMOVE, CascadeType.PERSIST})
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "STUDENT_ID", referencedColumnName = "STUDENT_ID", nullable = false)
     public com.project.models.Student getStudent() {
         return student;

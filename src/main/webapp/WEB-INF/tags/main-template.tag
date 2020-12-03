@@ -40,7 +40,6 @@
                 <div class="box">
                     <jsp:doBody/>
                 </div>
-
             </div>
         </div>
     </div>

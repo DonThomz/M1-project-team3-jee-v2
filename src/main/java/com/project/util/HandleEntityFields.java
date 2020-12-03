@@ -78,13 +78,15 @@ public class HandleEntityFields {
         String noteTech = request.getParameter(FIELD_NOTE_TECH) == null ? null : request.getParameter(FIELD_NOTE_TECH);
         String noteCom = request.getParameter(FIELD_NOTE_COM) == null ? null : request.getParameter(FIELD_NOTE_COM);
 
-        // Start end validation
+        // Start date validation
         try {
             validationDate(startDateString, FIELD_START_DATE);
             startDate = Date.valueOf(request.getParameter(FIELD_START_DATE));
         } catch (NullPointerException | IllegalArgumentException e) {
             errors.put(FIELD_START_DATE, e.getMessage());
         }
+
+        // End date validation
         try {
             validationDate(endDateString, FIELD_END_DATE);
             endDate = Date.valueOf(request.getParameter(FIELD_END_DATE));
@@ -92,7 +94,7 @@ public class HandleEntityFields {
             errors.put(FIELD_END_DATE, e.getMessage());
         }
 
-        // End date validation
+        // Dates validation
         try {
             validationDates(startDate, endDate);
         } catch (IllegalArgumentException e) {
@@ -156,7 +158,6 @@ public class HandleEntityFields {
         if (student == null) {
             student = new Student();
         }
-
         // request parameters
         String firstname = request.getParameter(FIELD_STUDENT_FIRSTNAME);
         String lastname = request.getParameter(FIELD_STUDENT_LASTNAME);

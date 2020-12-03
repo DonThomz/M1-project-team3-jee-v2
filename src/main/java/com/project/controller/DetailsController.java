@@ -4,11 +4,11 @@ import com.project.dao.InternshipDao;
 import com.project.dao.SkillDao;
 import com.project.dao.SkillRequiredDao;
 import com.project.database.DerbyDatabase;
-import com.project.exceptions.DaoException;
 import com.project.exceptions.ServiceException;
 import com.project.models.*;
 import com.project.services.DetailService;
 import com.project.services.InternshipService;
+import com.project.services.SkillRequiredService;
 import com.project.services.SkillService;
 
 import javax.servlet.ServletException;
@@ -112,9 +112,10 @@ public class DetailsController extends HttpServlet {
     private List<SkillRequired> findSkills(HttpServletRequest request, Mission mission) {
         DerbyDatabase database = DerbyDatabase.getInstance(request);
         SkillRequiredDao dao = new SkillRequiredDao(database);
+        SkillRequiredService skillRequiredService = new SkillRequiredService(dao);
         try {
-            return dao.findSkillRequiredByMissionId(mission);
-        } catch (DaoException e) {
+            return skillRequiredService.findSkillRequiredByMissionId(mission);
+        } catch (ServiceException e) {
             request.setAttribute(ERROR_SERVER, MESSAGE_ERROR_PARAM_YEAR);
             return null;
         }

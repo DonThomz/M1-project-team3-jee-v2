@@ -33,7 +33,7 @@ public class LoginForm extends Form<Tutor> {
         // validate inputs
         try {
             validationEmail(email);
-        } catch (Exception e) {
+        } catch (IllegalArgumentException e) {
             this.putErrors(FIELD_EMAIL, e.getMessage());
         }
         user.setEmail(email);

@@ -16,7 +16,6 @@ $(() => {
         order: [],
         columnDefs: [
             {"targets": [0, 4, 5, 6, 7, 8, 9, 10, 11, 14], "searchable": false, "orderable": false, "visible": true},
-            {"targets": [14], "searchable": false},
         ]
     });
     // init current data saved in database

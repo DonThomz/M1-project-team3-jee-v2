@@ -51,6 +51,7 @@ public class Attribute {
     public static final String MESSAGE_INVALID_MID_DATE = "<span class=\"font-weight-bold\">Mid Internship Date</span> should be between internship dates";
     public static final String MESSAGE_WRONG_CREDENTIALS = "Wrong credentials, please try again !";
     public static final String MESSAGE_FAILED_LOGIN = "Login failed, please try again";
+
     // ERRORS
     public static final String ERROR_SERVER = "server_error";
     public static final String ERROR_PARAM_YEAR = "error_param_year";

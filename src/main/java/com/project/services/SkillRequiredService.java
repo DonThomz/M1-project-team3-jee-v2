@@ -3,6 +3,7 @@ package com.project.services;
 import com.project.dao.SkillRequiredDao;
 import com.project.exceptions.DaoException;
 import com.project.exceptions.ServiceException;
+import com.project.models.Mission;
 import com.project.models.SkillRequired;
 
 import java.util.List;
@@ -57,6 +58,14 @@ public class SkillRequiredService implements EntityService<SkillRequired> {
             dao.updateAll(objects);
         } catch (DaoException daoException) {
             throw new ServiceException(daoException);
+        }
+    }
+
+    public List<SkillRequired> findSkillRequiredByMissionId(Mission mission) throws ServiceException {
+        try {
+            return dao.findSkillRequiredByMissionId(mission);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
         }
     }
 }

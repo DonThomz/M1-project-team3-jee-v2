@@ -77,4 +77,15 @@ public class Student {
     public void setInternsByStudentId(Collection<Intern> internsByStudentId) {
         this.internsByStudentId = internsByStudentId;
     }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "studentId=" + studentId +
+                ", firstname='" + firstname + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", studentGroup='" + studentGroup + '\'' +
+                ", internsByStudentId=" + internsByStudentId +
+                '}';
+    }
 }

@@ -10,7 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-public class DaoResource<T> {
+public abstract class DaoResource<T> {
 
     final Class<T> tClass;
 
