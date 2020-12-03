@@ -67,7 +67,7 @@ public class Mission {
         this.internshipsByMissionId = internshipsByMissionId;
     }
 
-    @OneToMany(mappedBy = "mission")
+    @OneToMany(mappedBy = "mission", cascade = CascadeType.REMOVE)
     public Collection<SkillRequired> getSkills() {
         return skills;
     }
